@@ -40,7 +40,6 @@ $(function() {
 	        }
 
 	        checkInitialKey(api,
-	        	config, 
 				"checkInitialKey(address)", 
 				address,
 				config.Ethereum[config.environment].contractAddress,

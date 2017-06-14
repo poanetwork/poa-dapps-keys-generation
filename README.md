@@ -1,16 +1,15 @@
-# Oracles network Keys Generation Dapp
+# Oracles network Initial Key Distribution Dapp
 
 ## Initial page
-
 ![](./index.png)
 
 ## Results page
-
 ![](./results.png)
 
 ## Configuration file
+It is configured with [Oracles network contract](https://github.com/oraclesorg/oracles-contract)
 
-`./assets/javascripts/config.json`
+Path: `./assets/javascripts/config.json`
 
 ```
 {

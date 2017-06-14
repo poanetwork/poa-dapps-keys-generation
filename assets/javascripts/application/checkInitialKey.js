@@ -1,4 +1,4 @@
-function checkInitialKey(api, config, func, initialKey, contractAddr, cb) {
+function checkInitialKey(api, func, initialKey, contractAddr, cb) {
   var funcHex = func.hexEncode();
   var funcParamsNumber = 1;
   var standardLength = 32;
