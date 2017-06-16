@@ -47,7 +47,7 @@ $(function() {
 					_isNew = !!+_isNew;
 
 					if (!_isNew) {
-						swal("Error", "Initial key is already activated", "error");
+						swal("Error", "Initial key is already activated or isn't valid", "error");
 						return;
 					}
 
@@ -171,9 +171,8 @@ $(function() {
         	var balance = balanceObj.toNumber();
         	var to = "0x" + keys.payoutKey.payoutKeyObject.address;
         	api._eth.gasPrice().then(function(gasPrice) {
-	    		console.log("gasPrice: " + gasPrice);
 	    		var estimatedGas = web3.eth.estimateGas({from: address, value: parseInt(balance/2), data: null, to: to});
-		    	var ammountToSend = balance - 10*estimatedGas*gasPrice;
+		    	var ammountToSend = balance - 10 * estimatedGas * gasPrice;
 		    	console.log("ammountToSend: " + ammountToSend);
 		    	web3.eth.sendTransaction({gas: estimatedGas, from: address, to: to, value: ammountToSend}, function(err, txHash) {
 	        	    if (err) {
