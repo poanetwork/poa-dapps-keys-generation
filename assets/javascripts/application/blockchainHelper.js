@@ -1,64 +1,42 @@
-function SHA3Encrypt(api, str, cb) {
-  api._web3.sha3(str).then(function(strEncode) {
-    cb(strEncode, null);
-  }).catch(function(err) {
-    console.log(err);
-    cb("", err);
-  });
+function SHA3Encrypt(web3, str, cb) {
+  var strEncode = web3.sha3(str);
+  cb(strEncode);
 }
 
-function estimateGas(api, from, to, data, val, cb) {
+function estimateGas(web3, from, to, data, val, cb) {
   var props;
   if (val)
     props = { from: from, value: val, data: null, to: to };
   else
     props = { from: from, data: data, to: to };
 
-  api.eth.estimateGas(props).then(function(res) {
-    if (!res) {
-      cb(null, {"code": 500, "title": "Error", "message": "Unexpected error"});
-      return;
-    }
-    var gasWillUsed = res.c[0];
-    cb(gasWillUsed);
-    
-  }, function(err) {
+  web3.eth.estimateGas(props, function(err, estimatedGas) {
     console.log(err);
-    cb(null, err);
-  }).catch(function(err) {
-    console.log(err);
-    cb(null, err);
+    console.log(estimatedGas);
+    cb(estimatedGas);
   });
 }
 
-function sendTx(api, from, to, data, val, estimatedGas, cb) {
+function sendTx(web3, from, to, data, val, estimatedGas, cb) {
   var props;
   if (val)
     props = { from: from, value: val, to: to, gas: estimatedGas };
   else
     props =  { from: from, data: data, to: to, gas: estimatedGas };
 
-  api.eth.sendTransaction(props)
-  .then(function(txHash) {
-    cb(txHash);
-  }).catch(function(err) {
-    console.log(err);
-    cb(null, err);
+  web3.eth.sendTransaction(props, function(err, txHash) {
+    cb(txHash, err);
   });
 }
 
-function call(api, from, to, data, cb) {
+function call(web3, from, to, data, cb) {
   var props;
   if (from)
     props = { from: from, data: data, to: to };
   else
     props = { data: data, to: to };
 
-  api.eth.call(props)
-  .then(function(data) {
+  web3.eth.call(props, function(err, data) {
     cb(data);
-  }).catch(function(err) {
-    console.log(err);
-    cb(null, err);
   });
 }

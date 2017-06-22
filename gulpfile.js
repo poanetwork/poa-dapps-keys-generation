@@ -10,6 +10,7 @@ const addsrc = require('gulp-add-src');
 const order = require('gulp-order');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
+const gutil = require('gulp-util')
 
 gulp.task('sass', function() {
   return gulp.src(['assets/stylesheets/*.scss'])
@@ -30,6 +31,7 @@ gulp.task('javascript', function() {
     .pipe(include())
     .pipe(concat('application.js'))
     .pipe(uglify())
+    .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
     .pipe(gulp.dest('assets/javascripts'));
 });
 

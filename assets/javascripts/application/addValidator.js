@@ -1,9 +1,8 @@
-function addValidator(api, func, validatorViewObj, address, contractAddr, cb) {
-  var funcHex = func.hexEncode();
+function addValidator(web3, func, validatorViewObj, address, contractAddr, cb) {
   var funcParamsNumber = 7;
   var standardLength = 32;
 
-  SHA3Encrypt(api, funcHex, function(funcEncode) {
+  SHA3Encrypt(web3, func, function(funcEncode) {
     var funcEncodePart = funcEncode.substring(0,10);
     if (validatorViewObj.miningKey.indexOf("0x") > -1) {
       validatorViewObj.miningKey = validatorViewObj.miningKey.substr(2);
@@ -30,13 +29,13 @@ function addValidator(api, func, validatorViewObj, address, contractAddr, cb) {
     + toUnifiedLengthLeft(bytesCount(validatorViewObj.streetName).toString(16)) + streetNameHex.substring(2)
     + toUnifiedLengthLeft(bytesCount(validatorViewObj.state).toString(16)) + stateHex.substring(2);
 
-    estimateGas(api, address, contractAddr, data, null, function(estimatedGas, err) {
+    estimateGas(web3, address, contractAddr, data, null, function(estimatedGas, err) {
       if (err) {
         cb(null, err);
         return;
       }
       estimatedGas += 100000;
-      sendTx(api, address, contractAddr, data, null, estimatedGas, function(txHash, err) {
+      sendTx(web3, address, contractAddr, data, null, estimatedGas, function(txHash, err) {
         if (err) {
           cb(txHash, err);
           return;

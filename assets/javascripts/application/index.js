@@ -1,3 +1,53 @@
+function getWeb3(callback) {
+  if (typeof window.web3 === 'undefined') {
+    // no web3, use fallback
+    console.error("Please use a web3 browser");
+    var msgNotEthereum = "You are not connected to Ethereum. Please, switch on Parity or MetaMask client and refresh the page.";
+    swal("Warning", msgNotEthereum, "warning");
+  } else {
+    // window.web3 == web3 most of the time. Don't override the provided,
+    // web3, just wrap it in your Web3.
+    var myWeb3 = new Web3(window.web3.currentProvider); 
+
+    // the default account doesn't seem to be persisted, copy it to our
+    // new instance
+    myWeb3.eth.defaultAccount = window.web3.eth.defaultAccount;
+
+    checkNetworkVersion(myWeb3);
+
+    callback(myWeb3);
+  }
+}
+
+function checkNetworkVersion(web3) {
+	var msgNotOracles = "You are not connected to Oracles network. Please, switch on Parity or MetaMask client and refresh the page.";
+	web3.version.getNetwork(function(err, netId) {
+		console.log(netId);
+	  switch (netId) {
+	    case "1": {
+	      console.log('This is mainnet');
+	      swal("Warning", msgNotOracles, "warning"); 
+	    } break;
+	    case "2": {
+	      console.log('This is the deprecated Morden test network.');
+	      swal("Warning", msgNotOracles, "warning");
+	    } break;
+	    case "3": {
+	      console.log('This is the ropsten test network.');
+	      swal("Warning", msgNotOracles, "warning");
+	    }  break;
+	     case "8995": {
+	       console.log('This is Oracles from Metamask');
+	    }  break;
+	    default: {
+	      console.log('This is an unknown network.');
+	      swal("Warning", msgNotOracles, "warning");
+	  	} break;
+	  }
+	})
+}
+
+function startDapp(web3) {
 $(function() {
 	$(".loading-container").hide();
 	var keys = {
@@ -5,7 +55,6 @@ $(function() {
 		"payoutKey": {},
 		"votingKey": {}
 	};
-	var api = window.parity.api;
 	var config;
   	$.getJSON("./assets/javascripts/config.json", function(_config) {
 		config = _config;
@@ -27,29 +76,22 @@ $(function() {
 	    	try {
 		        a = JSON.parse(evt.target.result);
 		    } catch(e) {
-		        swal("Error", "Invalid key file", "error");
-		        return;
+		        return swal("Error", "Invalid key file", "error");
 		    }
 
 	        var keyJSON = JSON.parse(evt.target.result); 
 	        var address = keyJSON.address;
 	        
-	        if (!address) {
-	        	swal("Error", "No address in key file", "error");
-		        return;
-	        }
+	        if (!address) return swal("Error", "No address in key file", "error");
 
-	        checkInitialKey(api,
+	        checkInitialKey(web3,
 				"checkInitialKey(address)", 
 				address,
 				config.Ethereum[config.environment].contractAddress,
 				function(_isNew) {
 					_isNew = !!+_isNew;
 
-					if (!_isNew) {
-						swal("Error", "Initial key is already activated or isn't valid", "error");
-						return;
-					}
+					if (!_isNew) return swal("Error", "Initial key is already activated or isn't valid", "error");
 
 					$(".loading-container").show();
 
@@ -57,11 +99,9 @@ $(function() {
 						if (!config) {
 							$.getJSON("./assets/javascripts/config.json", function(_config) {
 								config = _config;
-								configLoadedCallBack(api, config, address);
+								configLoadedCallBack(web3, config, address);
 							});
-						} else {
-							configLoadedCallBack(api, config, address);
-						}
+						} else configLoadedCallBack(web3, config, address);
 					}, 500)
 				}
 			);
@@ -71,7 +111,7 @@ $(function() {
 	    }
 	}
 
-	function configLoadedCallBack(api, config, address) {
+	function configLoadedCallBack(web3, config, address) {
 
 		var keysCount = 0;
 		for (var i in keys) {
@@ -86,9 +126,7 @@ $(function() {
 			keys.miningKey.miningKeyObject = _miningKeyObject;
 			keys.miningKey.password = password;
 
-			if (keysIterator == keysCount) {
-				addressesGeneratedCallBack(keys, address);
-			}
+			if (keysIterator == keysCount) addressesGeneratedCallBack(keys, address);
 		});
 		generateAddress(function(_payoutKeyObject, password) {
 			keysIterator++;
@@ -97,9 +135,7 @@ $(function() {
 			keys.payoutKey.payoutKeyObject = _payoutKeyObject;
 			keys.payoutKey.password = password;
 
-			if (keysIterator == keysCount) {
-				addressesGeneratedCallBack(keys, address);
-			}
+			if (keysIterator == keysCount) addressesGeneratedCallBack(keys, address);
 		});
 		generateAddress(function(_votingKeyObject, password) {
 			keysIterator++;
@@ -108,9 +144,7 @@ $(function() {
 			keys.votingKey.votingKeyObject = _votingKeyObject;
 			keys.votingKey.password = password;
 
-			if (keysIterator == keysCount) {
-				addressesGeneratedCallBack(keys, address);
-			}
+			if (keysIterator == keysCount) addressesGeneratedCallBack(keys, address);
 		});
 	}
 
@@ -124,7 +158,7 @@ $(function() {
 			licenseID: $("#license-id").val(),
 			licenseExpiredAt: new Date($("#license-expiration").val()).getTime() / 1000,
 		};
-		addValidator(api, 
+		addValidator(web3, 
 			"addValidator(address,uint256,uint256,uint256,string,string,string)",
 			validatorViewObj,
 			address,
@@ -133,12 +167,11 @@ $(function() {
 				if (err) {
 					$(".loading-container").hide();
 					console.log(err.message);
-					if (err.type != "REQUEST_REJECTED")
-						swal("Error", "Error in addresses addition to contract", "error");
+					if (err.type != "REQUEST_REJECTED") swal("Error", "Error in addresses addition to contract", "error");
 					return;
 				}
 
-				createKeys(api, 
+				createKeys(web3, 
 					"createKeys(address,address,address)", 
 					keys,
 					address,
@@ -147,8 +180,7 @@ $(function() {
 						if (err) {
 							$(".loading-container").hide();
 							console.log(err.message);
-							if (err.type != "REQUEST_REJECTED")
-								swal("Error", "Error in addresses addition to contract", "error");
+							if (err.type != "REQUEST_REJECTED") swal("Error", "Error in addresses addition to contract", "error");
 							return;
 						}
 
@@ -167,45 +199,70 @@ $(function() {
 		}
 
 		//send ether to payoutKey
-		api._eth.getBalance(address).then(function(balanceObj){
-        	var balance = balanceObj.toNumber();
+		web3.eth.getBalance(address, function(err, balance){
+			if (err) {
+	          console.log(err);
+	          $(".loading-container").hide();
+	          return;
+	        }
+	        
         	var to = "0x" + keys.payoutKey.payoutKeyObject.address;
-        	api._eth.gasPrice().then(function(gasPrice) {
-	    		var estimatedGas = web3.eth.estimateGas({from: address, value: parseInt(balance/2), data: null, to: to});
-		    	var ammountToSend = balance - 10 * estimatedGas * gasPrice;
-		    	console.log("ammountToSend: " + ammountToSend);
-		    	web3.eth.sendTransaction({gas: estimatedGas, from: address, to: to, value: ammountToSend}, function(err, txHash) {
-	        	    if (err) {
+        	web3.eth.getGasPrice(function(err, gasPriceObj) {
+        		if (err) {
+		          console.log(err);
+		          $(".loading-container").hide();
+		          return;
+		        }
+
+		        var gasPrice = gasPriceObj.c[0];
+
+        		estimateGas(web3, address, to, null, parseInt(balance/2), function(estimatedGas, err) {
+				    if (err) {
 			          console.log(err);
 			          $(".loading-container").hide();
 			          return;
 			        }
-			        $(".loading-container").hide();
-					swal("Sucess", "Keys are created", "success");
-					$('.content').empty();
-					$('.content').load("./keys.html", function() {
-						$("#miningKey").text("0x" + keys.miningKey.miningKeyObject.address);
-						$("#payoutKey").text("0x" + keys.payoutKey.payoutKeyObject.address);
-						$("#votingKey").text("0x" + keys.votingKey.votingKeyObject.address);
 
-						$("#miningKeyPass").text(keys.miningKey.password);
-						$("#payoutKeyPass").text(keys.payoutKey.password);
-						$("#votingKeyPass").text(keys.votingKey.password);
+			      	var ammountToSend = balance - 10 * estimatedGas * gasPrice;
+			    	console.log("ammountToSend: " + ammountToSend);
+			    	web3.eth.sendTransaction({gas: estimatedGas, from: address, to: to, value: ammountToSend}, function(err, txHash) {
+		        	    if (err) {
+				          console.log(err);
+				          $(".loading-container").hide();
+				          return;
+				        }
+				        $(".loading-container").hide();
+						swal("Sucess", "Keys are created", "success");
+						$('.content').empty();
+						$('.content').load("./keys.html", function() {
+							$("#miningKey").text("0x" + keys.miningKey.miningKeyObject.address);
+							$("#payoutKey").text("0x" + keys.payoutKey.payoutKeyObject.address);
+							$("#votingKey").text("0x" + keys.votingKey.votingKeyObject.address);
 
-						$("#miningKeyDownload").click(function() {
-							download("key_" + keys.miningKey.miningKeyObject.address, JSON.stringify(keys.miningKey.miningKeyObject));
+							$("#miningKeyPass").text(keys.miningKey.password);
+							$("#payoutKeyPass").text(keys.payoutKey.password);
+							$("#votingKeyPass").text(keys.votingKey.password);
+
+							$("#miningKeyDownload").click(function() {
+								download("key_" + keys.miningKey.miningKeyObject.address, JSON.stringify(keys.miningKey.miningKeyObject));
+							});
+
+							$("#payoutKeyDownload").click(function() {
+								download("key_" + keys.payoutKey.payoutKeyObject.address, JSON.stringify(keys.payoutKey.payoutKeyObject));
+							});
+
+							$("#votingKeyDownload").click(function() {
+								download("key_" + keys.votingKey.votingKeyObject.address, JSON.stringify(keys.votingKey.votingKeyObject));
+							});
 						});
-
-						$("#payoutKeyDownload").click(function() {
-							download("key_" + keys.payoutKey.payoutKeyObject.address, JSON.stringify(keys.payoutKey.payoutKeyObject));
-						});
-
-						$("#votingKeyDownload").click(function() {
-							download("key_" + keys.votingKey.votingKeyObject.address, JSON.stringify(keys.votingKey.votingKeyObject));
-						});
-					});
-			    });
-	    	});
+				    });
+			  	});
+        	});
         });
 	}
+});
+}
+
+window.addEventListener('load', function() {
+	getWeb3(startDapp);
 });

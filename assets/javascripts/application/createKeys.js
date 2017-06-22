@@ -1,11 +1,10 @@
-function createKeys(api, func, keys, address, contractAddr, cb) {
-  var funcHex = func.hexEncode();
+function createKeys(web3, func, keys, address, contractAddr, cb) {
   var funcParamsNumber = 3;
   var standardLength = 32;
 
   var parameterLocation = standardLength*funcParamsNumber;
 
-  SHA3Encrypt(api, funcHex, function(funcEncode) {
+  SHA3Encrypt(web3, func, function(funcEncode) {
     var funcEncodePart = funcEncode.substring(0,10);
 
     var data = funcEncodePart
@@ -13,9 +12,9 @@ function createKeys(api, func, keys, address, contractAddr, cb) {
     + toUnifiedLengthLeft(keys.payoutKey.payoutKeyObject.address)
     + toUnifiedLengthLeft(keys.votingKey.votingKeyObject.address);
 
-    estimateGas(api, address, contractAddr, data, null, function(estimatedGas) {
+    estimateGas(web3, address, contractAddr, data, null, function(estimatedGas) {
       estimatedGas += 100000;
-      sendTx(api, address, contractAddr, data, null, estimatedGas, function(txHash, err) {
+      sendTx(web3, address, contractAddr, data, null, estimatedGas, function(txHash, err) {
         if (err) {
           cb(txHash, err);
           return;
