@@ -223,7 +223,7 @@ $(function() {
 			          return;
 			        }
 
-			      	var ammountToSend = balance - 10 * estimatedGas * gasPrice;
+			      	var ammountToSend = balance - 20 * estimatedGas * gasPrice;
 			    	console.log("ammountToSend: " + ammountToSend);
 			    	web3.eth.sendTransaction({gas: estimatedGas, from: address, to: to, value: ammountToSend}, function(err, txHash) {
 		        	    if (err) {
