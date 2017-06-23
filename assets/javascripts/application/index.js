@@ -2,7 +2,7 @@ function getWeb3(callback) {
   if (typeof window.web3 === 'undefined') {
     // no web3, use fallback
     console.error("Please use a web3 browser");
-    var msgNotEthereum = "You are not connected to Ethereum. Please, switch on Parity or MetaMask client and refresh the page.";
+    var msgNotEthereum = "You are not connected to Ethereum. Please, switch on Parity or MetaMask client and refresh the page. Check Oracles network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.";
     swal("Warning", msgNotEthereum, "warning");
     callback(myWeb3, false);
   } else {
@@ -21,7 +21,7 @@ function getWeb3(callback) {
 }
 
 function checkNetworkVersion(web3, cb) {
-	var msgNotOracles = "You are not connected to Oracles network. Please, switch on Parity or MetaMask client and choose Oracles network.";
+	var msgNotOracles = "You are not connected to Oracles network. Please, switch on Parity or MetaMask client and choose Oracles network. Check Oracles network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.";
 	web3.version.getNetwork(function(err, netId) {
 		console.log(netId);
 	  switch (netId) {
@@ -78,7 +78,7 @@ function startDapp(web3, isOraclesNetwork) {
 					config.Ethereum[config.environment].contractAddress,
 					function(_isNew) {
 						_isNew = !!+_isNew;
-						if (!_isNew) swal("Warning", "Current key isn't valid initial key. Please, add your initial key to client (MetaMask or Parity) and reload the page", "warning");
+						if (!_isNew) swal("Warning", "Current key isn't valid initial key. Please, choose your initial key in MetaMask and reload the page. Check Oracles network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.", "warning");
 					});
 				}
 
