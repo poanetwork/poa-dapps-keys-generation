@@ -2,7 +2,11 @@
 	display:none;
 }
 
-input[type=file]{position:absolute; top:-100px;}
+input[type=file]{
+  position:absolute; 
+  top:-100px;
+  width: 100px !important;
+}
 button:focus {outline:0;}
 
 #createKeys {

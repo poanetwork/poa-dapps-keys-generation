@@ -56,7 +56,7 @@ function checkNetworkVersion(web3, cb) {
 function startDapp(web3, isOraclesNetwork) {
 	$(function() {
 		$(".loading-container").hide();
-		if (!isOraclesNetwork) return
+		if (!isOraclesNetwork) return;
 		var keys = {
 			"miningKey": {},
 			"payoutKey": {},
