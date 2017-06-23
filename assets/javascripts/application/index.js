@@ -40,7 +40,7 @@ function checkNetworkVersion(web3, cb) {
 	      swal("Warning", msgNotOracles, "warning");
 	      cb(false);
 	    }  break;
-	     case "8995": {
+	     case "12648430": {
 	       console.log('This is Oracles from Metamask');
 	       cb(true);
 	    }  break;
