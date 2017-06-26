@@ -82,6 +82,8 @@ function startDapp(web3, isOraclesNetwork) {
 						_isNew = !!+_isNew;
 						if (!_isNew) swal("Warning", "Current key isn't valid initial key. Please, choose your initial key in MetaMask and reload the page. Check Oracles network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.", "warning");
 					});
+				} else if (accounts.length == 0) {
+					swal("Warning", "You haven't chosen any account in MetaMask. Please, choose your initial key in MetaMask and reload the page. Check Oracles network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.", "warning");
 				}
 
 				$(".create-keys-button").click(function() {
