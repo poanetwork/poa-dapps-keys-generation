@@ -21,3 +21,13 @@ Path: `./assets/javascripts/config.json`
   }
 }
 ```
+
+## Building from source
+
+1) `npm install`
+
+2) `npm run sass`
+
+3) `npm run coffee`
+
+4) `npm start`

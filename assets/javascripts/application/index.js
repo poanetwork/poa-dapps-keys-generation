@@ -1,62 +1,3 @@
-//gets web3 object from MetaMask or Parity
-function getWeb3(callback) {
-  if (typeof window.web3 === 'undefined') {
-  	// no web3, use fallback
-    console.error("Please use a web3 browser");
-    var msgNotEthereum = "You aren't connected to Ethereum. Please, switch on Parity or MetaMask client and refresh the page. Check Oracles network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.";
-    swal("Warning", msgNotEthereum, "warning");
-    callback(myWeb3, false);
-  } else {
-  	// window.web3 == web3 most of the time. Don't override the provided,
-    // web3, just wrap it in your Web3.
-    var myWeb3 = new Web3(window.web3.currentProvider); 
-
-    // the default account doesn't seem to be persisted, copy it to our
-    // new instance
-    myWeb3.eth.defaultAccount = window.web3.eth.defaultAccount;
-
-    checkNetworkVersion(myWeb3, function(isOraclesNetwork) {
-    	callback(myWeb3, isOraclesNetwork);
-    });
-  }
-}
-
-//check current network page is connected to. Alerts, if not Oracles network
-function checkNetworkVersion(web3, cb) {
-	var msgNotOracles = "You aren't connected to Oracles network. Please, switch on Parity or MetaMask client and choose Oracles network. Check Oracles network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.";
-	web3.version.getNetwork(function(err, netId) {
-	  if (err)
-	  	console.log(err);
-	  console.log("netId: " + netId);
-	  switch (netId) {
-	    case "1": {
-	      console.log('This is mainnet');
-	      swal("Warning", msgNotOracles, "warning"); 
-	      cb(false);
-	    } break;
-	    case "2": {
-	      console.log('This is the deprecated Morden test network.');
-	      swal("Warning", msgNotOracles, "warning");
-	      cb(false);
-	    } break;
-	    case "3": {
-	      console.log('This is the ropsten test network.');
-	      swal("Warning", msgNotOracles, "warning");
-	      cb(false);
-	    }  break;
-	     case "12648430": {
-	       console.log('This is Oracles from Metamask');
-	       cb(true);
-	    }  break;
-	    default: {
-	      console.log('This is an unknown network.');
-	      swal("Warning", msgNotOracles, "warning");
-	      cb(false);
-	  	} break;
-	  }
-	})
-}
-
 //launches main application
 function startDapp(web3, isOraclesNetwork) {
 	$(function() {
@@ -68,35 +9,34 @@ function startDapp(web3, isOraclesNetwork) {
 			"votingKey": {}
 		};
 
-		//get current account chosen in MetaMask or opened at Parity
-		web3.eth.getAccounts(function(err, accounts) {
-			if (err) {
-				$(".loading-container").hide();
-				swal("Error", err.message, "error");
-				return;
-			}
-
-			getConfig(err, function(config) {
-				getConfigCallBack(web3, accounts, config);	
+		getAccounts(function(accounts) {
+			getConfig(function(contractAddress) {
+				getConfigCallBack(web3, accounts, contractAddress);	
 			});
 		});
 
-		//gets config file with address of Oracles contract
-		function getConfig(err, cb) {
-			$.getJSON("./assets/javascripts/config.json", function(_config) {
-				cb(_config);
+		//get current account chosen in MetaMask or opened at Parity
+		function getAccounts(cb) {
+			web3.eth.getAccounts(function(err, accounts) {
+				if (err) {
+					$(".loading-container").hide();
+					swal("Error", err.message, "error");
+					return;
+				}
+
+				cb(accounts);
 			});
 		}
 
 		//getting of config callback
-		function getConfigCallBack(web3, accounts, config) {
+		function getConfigCallBack(web3, accounts, contractAddress) {
 			//checks if chosen account is valid initial key
 			if (accounts.length == 1) {
 				var possibleInitialKey = accounts[0].substr(2);
 				checkInitialKey(web3,
 				"checkInitialKey(address)", 
 				possibleInitialKey,
-				config.Ethereum[config.environment].contractAddress,
+				contractAddress,
 				function(_isNew) {
 					_isNew = !!+_isNew;
 					if (!_isNew) swal("Warning", "Current key isn't valid initial key. Please, choose your initial key in MetaMask and reload the page. Check Oracles network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.", "warning");
@@ -110,9 +50,9 @@ function startDapp(web3, isOraclesNetwork) {
 			})
 
 			$("#initialKeySource").change(function() {
-				initialKeyChosen(this, config, function(address) {
+				initialKeyChosen(this, contractAddress, function(address) {
 					checkInitialKeyCallBack(keys, function(_keys) {
-						addressesGeneratedCallBack(config, _keys, address, function(err, address) {
+						addressesGeneratedCallBack(contractAddress, _keys, address, function(err, address) {
 							addressesAddedToContractCallBack(err, address, _keys);
 						})
 					});
@@ -121,7 +61,7 @@ function startDapp(web3, isOraclesNetwork) {
 		}
 
 		//triggers, if initial key is chosen
-		function initialKeyChosen(el, config, cb) {
+		function initialKeyChosen(el, contractAddress, cb) {
 			$(el).remove();
 	    	$("<input type='file' id='initialKeySource' />").change(initialKeyChosen).appendTo($(".create-keys"));
 			var file = $(el).prop('files')[0];
@@ -142,7 +82,7 @@ function startDapp(web3, isOraclesNetwork) {
 		        checkInitialKey(web3,
 					"checkInitialKey(address)", 
 					address,
-					config.Ethereum[config.environment].contractAddress,
+					contractAddress,
 					function(_isNew) {
 						_isNew = !!+_isNew;
 
@@ -199,7 +139,7 @@ function startDapp(web3, isOraclesNetwork) {
 		}
 
 		//Geeneration of all 3 addresses callback
-		function addressesGeneratedCallBack(config, keys, address, cb) {
+		function addressesGeneratedCallBack(contractAddress, keys, address, cb) {
 			var validatorViewObj = {
 				miningKey: "0x" + keys.miningKey.miningKeyObject.address,
 				fullName:  $("#full-name").val(),
@@ -214,7 +154,7 @@ function startDapp(web3, isOraclesNetwork) {
 				"addValidator(address,uint256,uint256,uint256,string,string,string)",
 				validatorViewObj,
 				address,
-				config.Ethereum[config.environment].contractAddress,
+				contractAddress,
 				function(txHash, err) {
 					if (err) {
 						$(".loading-container").hide();
@@ -228,7 +168,7 @@ function startDapp(web3, isOraclesNetwork) {
 						"createKeys(address,address,address)", 
 						keys,
 						address,
-						config.Ethereum[config.environment].contractAddress,
+						contractAddress,
 						function(res, err) {
 							if (err) {
 								$(".loading-container").hide();
