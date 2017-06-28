@@ -15,19 +15,6 @@ function startDapp(web3, isOraclesNetwork) {
 			});
 		});
 
-		//get current account chosen in MetaMask or opened at Parity
-		function getAccounts(cb) {
-			web3.eth.getAccounts(function(err, accounts) {
-				if (err) {
-					$(".loading-container").hide();
-					swal("Error", err.message, "error");
-					return;
-				}
-
-				cb(accounts);
-			});
-		}
-
 		//getting of config callback
 		function getConfigCallBack(web3, accounts, contractAddress) {
 			//checks if chosen account is valid initial key
