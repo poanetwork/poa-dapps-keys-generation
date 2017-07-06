@@ -10,6 +10,10 @@
 
 * Import your initial key to Oracles Plugin: browse keystore file, received from invitation, and enter password for the key (See [Importing of keys from wiki](https://github.com/oraclesorg/oracles-wiki#importing-of-keys)).
 
+## Ceremony Dapp lifecycle
+
+Check [Ceremony Dapp section from wiki](https://github.com/oraclesorg/oracles-wiki#ceremony)
+
 ## Initial page
 ![](./docs/index.png)
 
