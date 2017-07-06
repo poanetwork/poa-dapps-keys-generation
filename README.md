@@ -4,7 +4,11 @@
 
 * Google Chrome v 59.0.3071.115+
 
-Import your initial key to Oracles Chrome Plugin: browse keystore file, received from invitation, and enter password for the key (See [Importing of keys](https://github.com/oraclesorg/oracles-wiki#importing-of-keys)).
+## Oracles plugin setup
+
+* Choose Oracles network in Oracles plugin (See [Choosing of Oralces Network from wiki](https://github.com/oraclesorg/oracles-wiki#choosing-of-oralces-network))
+
+* Import your initial key to Oracles Chrome Plugin: browse keystore file, received from invitation, and enter password for the key (See [Importing of keys from wiki](https://github.com/oraclesorg/oracles-wiki#importing-of-keys)).
 
 ## Initial page
 ![](./docs/index.png)
