@@ -1,10 +1,10 @@
 # Oracles network Initial Key Distribution Dapp
 
 ## Initial page
-![](./index.png)
+![](./docs/index.png)
 
 ## Results page
-![](./results.png)
+![](./docs/results.png)
 
 ## Configuration file
 It is configured with [Oracles network contract](https://github.com/oraclesorg/oracles-contract)
