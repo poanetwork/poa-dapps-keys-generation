@@ -2,7 +2,7 @@
 
 ## Supported browsers
 
-Google Chrome v 59.0.3071.115+
+* Google Chrome v 59.0.3071.115+
 
 Import your initial key to Oracles Chrome Plugin: browse keystore file, received from invitation, and enter password for the key (See [Importing of keys](https://github.com/oraclesorg/oracles-wiki#importing-of-keys)).
 
