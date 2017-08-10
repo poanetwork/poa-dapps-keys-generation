@@ -263,15 +263,15 @@ function startDapp(web3, isOraclesNetwork) {
 					$("#votingKeyPass").text(keys.votingKey.password);
 
 					$("#miningKeyDownload").click(function() {
-						download("key_" + keys.miningKey.miningKeyObject.address, JSON.stringify(keys.miningKey.miningKeyObject));
+						download("mining_key_" + keys.miningKey.miningKeyObject.address, JSON.stringify(keys.miningKey.miningKeyObject));
 					});
 
 					$("#payoutKeyDownload").click(function() {
-						download("key_" + keys.payoutKey.payoutKeyObject.address, JSON.stringify(keys.payoutKey.payoutKeyObject));
+						download("payout_key_" + keys.payoutKey.payoutKeyObject.address, JSON.stringify(keys.payoutKey.payoutKeyObject));
 					});
 
 					$("#votingKeyDownload").click(function() {
-						download("key_" + keys.votingKey.votingKeyObject.address, JSON.stringify(keys.votingKey.votingKeyObject));
+						download("voting_key_" + keys.votingKey.votingKeyObject.address, JSON.stringify(keys.votingKey.votingKeyObject));
 					});
 				});
 		    });
