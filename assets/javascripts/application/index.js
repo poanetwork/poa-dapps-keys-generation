@@ -135,6 +135,7 @@ function startDapp(web3, isOraclesNetwork) {
 		//Geeneration of all 3 addresses callback
 		function addressesGeneratedCallBack(contractAddress, keys, address, cb) {
 			$(".content").hide();
+			$('.waiting-container').show();
 			$('.waiting-container').empty();
 			$('.waiting-container').append("<h2>Adding notary's data to Oracles contract...</h2>");
 			var validatorViewObj = {
@@ -162,6 +163,7 @@ function startDapp(web3, isOraclesNetwork) {
 					}
 
 					$(".content").hide();
+					$('.waiting-container').show();
 					$('.waiting-container').empty();
 					$('.waiting-container').append("<h2>Adding production keys to Oracles contract...</h2>");
 					//activate generated production keys
@@ -190,6 +192,7 @@ function startDapp(web3, isOraclesNetwork) {
 		//Production keys addition to contract callback
 		function addressesAddedToContractCallBack(err, address, keys) {
 			$(".content").hide();
+			$('.waiting-container').show();
 			$('.waiting-container').empty();
 			$('.waiting-container').append("<h2>Transfering ether from initial key to payout key...</h2>");
 			if (err) {
