@@ -29,18 +29,21 @@ function addValidator(web3, func, validatorViewObj, address, contractAddr, cb) {
     + toUnifiedLengthLeft(bytesCount(validatorViewObj.streetName).toString(16)) + streetNameHex.substring(2)
     + toUnifiedLengthLeft(bytesCount(validatorViewObj.state).toString(16)) + stateHex.substring(2);
 
-    estimateGas(web3, address, contractAddr, data, null, function(estimatedGas, err) {
-      if (err) {
-        cb(null, err);
-        return;
-      }
-      estimatedGas += 100000;
-      sendTx(web3, address, contractAddr, data, null, estimatedGas, function(txHash, err) {
+    getGasPrice(function(gasPrice) {
+      console.log(gasPrice);
+      estimateGas(web3, address, contractAddr, data, null, function(estimatedGas, err) {
         if (err) {
-          cb(txHash, err);
+          cb(null, err);
           return;
         }
-        cb(txHash);
+        estimatedGas += 100000;
+        sendTx(web3, address, contractAddr, data, null, estimatedGas, gasPrice, function(txHash, err) {
+          if (err) {
+            cb(txHash, err);
+            return;
+          }
+          cb(txHash);
+        });
       });
     });
   });

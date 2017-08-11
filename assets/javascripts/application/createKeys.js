@@ -12,14 +12,16 @@ function createKeys(web3, func, keys, address, contractAddr, cb) {
     + toUnifiedLengthLeft(keys.payoutKey.payoutKeyObject.address)
     + toUnifiedLengthLeft(keys.votingKey.votingKeyObject.address);
 
-    estimateGas(web3, address, contractAddr, data, null, function(estimatedGas) {
-      estimatedGas += 100000;
-      sendTx(web3, address, contractAddr, data, null, estimatedGas, function(txHash, err) {
-        if (err) {
-          cb(txHash, err);
-          return;
-        }
-        cb(txHash);
+    getGasPrice(function(gasPrice) {
+      estimateGas(web3, address, contractAddr, data, null, function(estimatedGas) {
+        estimatedGas += 100000;
+        sendTx(web3, address, contractAddr, data, null, estimatedGas, gasPrice, function(txHash, err) {
+          if (err) {
+            cb(txHash, err);
+            return;
+          }
+          cb(txHash);
+        });
       });
     });
   });

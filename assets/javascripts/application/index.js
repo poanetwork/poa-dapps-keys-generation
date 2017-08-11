@@ -196,31 +196,6 @@ function startDapp(web3, isOraclesNetwork) {
 	        });
 		}
 
-		function getBalance(address, cb) {
-			web3.eth.getBalance(address, function(err, balance) {
-				if (err) {
-		          console.log(err);
-		          $(".loading-container").hide();
-		          return;
-		        }
-
-		        cb(balance);
-	        });
-		}
-
-		function getGasPrice(cb) {    
-        	web3.eth.getGasPrice(function(err, gasPriceObj) {
-        		if (err) {
-		          console.log(err);
-		          $(".loading-container").hide();
-		          return;
-		        }
-		        var gasPrice = gasPriceObj.c[0];
-
-        		cb(gasPrice);
-        	});
-		}
-
 		function estimateGasForTx(address, to, balance, cb) {
     		estimateGas(web3, address, to, null, parseInt(balance/2), function(estimatedGas, err) {
     			if (err) {
@@ -240,41 +215,44 @@ function startDapp(web3, isOraclesNetwork) {
 		}
 
 		function transferCoinsToPayoutKey(estimatedGas, gasPrice, address, to, ammountToSend) {
-			web3.eth.sendTransaction({
-				"gas": estimatedGas, 
-				"from": address, 
-				"to": to, 
-				"value": ammountToSend}, function(err, txHash) {
-        	    if (err) {
-		          console.log(err);
-		          $(".loading-container").hide();
-		          return;
-		        }
-		        $(".loading-container").hide();
-				swal("Sucess", "Keys are created", "success");
-				$('.content').empty();
-				$('.content').load("./keys.html", function() {
-					$("#miningKey").text("0x" + keys.miningKey.miningKeyObject.address);
-					$("#payoutKey").text("0x" + keys.payoutKey.payoutKeyObject.address);
-					$("#votingKey").text("0x" + keys.votingKey.votingKeyObject.address);
+			getGasPrice(function(gasPrice) {
+				web3.eth.sendTransaction({
+					"gas": estimatedGas, 
+					"gasPrice": gasPrice,
+					"from": address, 
+					"to": to, 
+					"value": ammountToSend}, function(err, txHash) {
+	        	    if (err) {
+			          console.log(err);
+			          $(".loading-container").hide();
+			          return;
+			        }
+			        $(".loading-container").hide();
+					swal("Sucess", "Keys are created", "success");
+					$('.content').empty();
+					$('.content').load("./keys.html", function() {
+						$("#miningKey").text("0x" + keys.miningKey.miningKeyObject.address);
+						$("#payoutKey").text("0x" + keys.payoutKey.payoutKeyObject.address);
+						$("#votingKey").text("0x" + keys.votingKey.votingKeyObject.address);
 
-					$("#miningKeyPass").text(keys.miningKey.password);
-					$("#payoutKeyPass").text(keys.payoutKey.password);
-					$("#votingKeyPass").text(keys.votingKey.password);
+						$("#miningKeyPass").text(keys.miningKey.password);
+						$("#payoutKeyPass").text(keys.payoutKey.password);
+						$("#votingKeyPass").text(keys.votingKey.password);
 
-					$("#miningKeyDownload").click(function() {
-						download("mining_key_" + keys.miningKey.miningKeyObject.address, JSON.stringify(keys.miningKey.miningKeyObject));
+						$("#miningKeyDownload").click(function() {
+							download("mining_key_" + keys.miningKey.miningKeyObject.address, JSON.stringify(keys.miningKey.miningKeyObject));
+						});
+
+						$("#payoutKeyDownload").click(function() {
+							download("payout_key_" + keys.payoutKey.payoutKeyObject.address, JSON.stringify(keys.payoutKey.payoutKeyObject));
+						});
+
+						$("#votingKeyDownload").click(function() {
+							download("voting_key_" + keys.votingKey.votingKeyObject.address, JSON.stringify(keys.votingKey.votingKeyObject));
+						});
 					});
-
-					$("#payoutKeyDownload").click(function() {
-						download("payout_key_" + keys.payoutKey.payoutKeyObject.address, JSON.stringify(keys.payoutKey.payoutKeyObject));
-					});
-
-					$("#votingKeyDownload").click(function() {
-						download("voting_key_" + keys.votingKey.votingKeyObject.address, JSON.stringify(keys.votingKey.votingKeyObject));
-					});
-				});
-		    });
+			    });
+			});
 		}
 	});
 }
