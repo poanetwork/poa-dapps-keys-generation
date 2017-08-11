@@ -36,22 +36,25 @@ function startDapp(web3, isOraclesNetwork) {
 			    $("#initialKeySource").click();
 			})
 
-			$("#initialKeySource").change(function() {
-				initialKeyChosen(this, contractAddress, function(address) {
-					checkInitialKeyCallBack(keys, function(_keys) {
-						addressesGeneratedCallBack(contractAddress, _keys, address, function(err, address) {
-							addressesAddedToContractCallBack(err, address, _keys);
-						})
-					});
+			$("#initialKeySource").change({contractAddress: contractAddress}, initialKeySourceOnChange);
+		}
+
+		function initialKeySourceOnChange(ev) {
+			initialKeyChosen(this, ev.data.contractAddress, function(address) {
+				checkInitialKeyCallBack(keys, function(_keys) {
+					addressesGeneratedCallBack(contractAddress, _keys, address, function(err, address) {
+						addressesAddedToContractCallBack(err, address, _keys);
+					})
 				});
 			});
-		}
+		};
 
 		//triggers, if initial key is chosen
 		function initialKeyChosen(el, contractAddress, cb) {
-			$(el).remove();
-	    	$("<input type='file' id='initialKeySource' />").change(initialKeyChosen).appendTo($(".create-keys"));
 			var file = $(el).prop('files')[0];
+			$(el).remove();
+			var newEl = "<input type='file' id='initialKeySource' />";
+	    	$(newEl).change({contractAddress: contractAddress}, initialKeySourceOnChange).appendTo($(".create-keys"));
 			var reader = new FileReader();
 		    reader.readAsText(file, "UTF-8");
 		    reader.onload = function (evt) {
