@@ -134,7 +134,9 @@ function startDapp(web3, isOraclesNetwork) {
 
 		//Geeneration of all 3 addresses callback
 		function addressesGeneratedCallBack(contractAddress, keys, address, cb) {
-			$('.content').load("./add-validator-data.html");
+			$(".content").hide();
+			$('.waiting-container').empty();
+			$('.waiting-container').append("<h2>Adding notary's data to Oracles contract...</h2>");
 			var validatorViewObj = {
 				miningKey: "0x" + keys.miningKey.miningKeyObject.address,
 				fullName:  $("#full-name").val(),
@@ -153,12 +155,15 @@ function startDapp(web3, isOraclesNetwork) {
 				function(txHash, err) {
 					if (err) {
 						$(".loading-container").hide();
-						console.log(err.message);
+						$('.waiting-container').hide();
+						$(".content").show();
 						if (err.type != "REQUEST_REJECTED") swal("Error", "Error in addresses addition to contract", "error");
 						return;
 					}
 
-					$('.content').load("./create-keys.html");
+					$(".content").hide();
+					$('.waiting-container').empty();
+					$('.waiting-container').append("<h2>Adding production keys to Oracles contract...</h2>");
 					//activate generated production keys
 					createKeys(web3, 
 						"createKeys(address,address,address)", 
@@ -168,6 +173,8 @@ function startDapp(web3, isOraclesNetwork) {
 						function(res, err) {
 							if (err) {
 								$(".loading-container").hide();
+								$('.waiting-container').hide();
+								$(".content").show();
 								console.log(err.message);
 								if (err.type != "REQUEST_REJECTED") swal("Error", "Error in addresses addition to contract", "error");
 								return;
@@ -182,9 +189,13 @@ function startDapp(web3, isOraclesNetwork) {
 
 		//Production keys addition to contract callback
 		function addressesAddedToContractCallBack(err, address, keys) {
-			$('.content').load("./transfering-ether.html");
+			$(".content").hide();
+			$('.waiting-container').empty();
+			$('.waiting-container').append("<h2>Transfering ether from initial key to payout key...</h2>");
 			if (err) {
 				$(".loading-container").hide();
+				$('.waiting-container').hide();
+				$(".content").show();
 				swal("Error", err.message, "error");
 				return;
 			}
@@ -211,6 +222,8 @@ function startDapp(web3, isOraclesNetwork) {
     			if (err) {
 		          console.log(err);
 		          $(".loading-container").hide();
+		          $('.waiting-container').hide();
+				  $(".content").show();
 		          return;
 		        }
 
@@ -235,9 +248,13 @@ function startDapp(web3, isOraclesNetwork) {
 	        	    if (err) {
 			          console.log(err);
 			          $(".loading-container").hide();
+			          $('.waiting-container').hide();
+				  	  $(".content").show();
 			          return;
 			        }
 			        $(".loading-container").hide();
+			        $('.waiting-container').hide();
+				  	$(".content").show();
 					swal("Sucess", "Keys are created", "success");
 					$('.content').empty();
 					$('.content').load("./keys.html", function() {
