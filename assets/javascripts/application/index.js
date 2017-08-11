@@ -1,6 +1,10 @@
 //launches main application
+window.onbeforeunload = function(){
+  return 'Are you sure you want to leave?';
+};
 function startDapp(web3, isOraclesNetwork) {
 	$(function() {
+
 		$(".loading-container").hide();
 		if (!isOraclesNetwork) return;
 		var keys = {
@@ -42,7 +46,7 @@ function startDapp(web3, isOraclesNetwork) {
 		function initialKeySourceOnChange(ev) {
 			initialKeyChosen(this, ev.data.contractAddress, function(address) {
 				checkInitialKeyCallBack(keys, function(_keys) {
-					addressesGeneratedCallBack(contractAddress, _keys, address, function(err, address) {
+					addressesGeneratedCallBack(ev.data.contractAddress, _keys, address, function(err, address) {
 						addressesAddedToContractCallBack(err, address, _keys);
 					})
 				});
@@ -130,6 +134,7 @@ function startDapp(web3, isOraclesNetwork) {
 
 		//Geeneration of all 3 addresses callback
 		function addressesGeneratedCallBack(contractAddress, keys, address, cb) {
+			$('.content').load("./add-validator-data.html");
 			var validatorViewObj = {
 				miningKey: "0x" + keys.miningKey.miningKeyObject.address,
 				fullName:  $("#full-name").val(),
@@ -153,6 +158,7 @@ function startDapp(web3, isOraclesNetwork) {
 						return;
 					}
 
+					$('.content').load("./create-keys.html");
 					//activate generated production keys
 					createKeys(web3, 
 						"createKeys(address,address,address)", 
@@ -176,6 +182,7 @@ function startDapp(web3, isOraclesNetwork) {
 
 		//Production keys addition to contract callback
 		function addressesAddedToContractCallBack(err, address, keys) {
+			$('.content').load("./transfering-ether.html");
 			if (err) {
 				$(".loading-container").hide();
 				swal("Error", err.message, "error");

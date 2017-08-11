@@ -30,7 +30,7 @@ gulp.task('javascript', function() {
     ], {base: '.'}))
     .pipe(include())
     .pipe(concat('application.js'))
-    .pipe(uglify())
+    //.pipe(uglify())
     .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
     .pipe(gulp.dest('assets/javascripts'));
 });
