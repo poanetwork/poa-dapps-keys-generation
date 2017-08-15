@@ -4,15 +4,15 @@
 
 * Google Chrome v 59.0.3071.115+
 
-## Oracles plugin setup
+## MetaMask plugin setup
 
-* Choose Oracles network in Oracles plugin (See [Choosing of Oralces Network from wiki](https://github.com/oraclesorg/oracles-wiki#choosing-of-oralces-network))
+* Connect to Oracles network in MetaMask plugin (See [Connect to Oracles network via MetaMask](https://github.com/oraclesorg/oracles-wiki/blob/master/MetaMask-connect.md#connect-to-oracles-network-via-metamask))
 
-* Import your initial key to Oracles Plugin: browse keystore file, received from invitation, and enter password for the key (See [Importing of keys from wiki](https://github.com/oraclesorg/oracles-wiki#importing-of-keys)).
+* Import your initial key to MetaMask Plugin: browse keystore file, received from invitation, and enter password for the key (See [Importing of keys from wiki](https://github.com/oraclesorg/oracles-wiki/blob/master/MetaMask-connect.md#importing-of-keys)).
 
 ## Ceremony Dapp lifecycle
 
-Check [Ceremony Dapp section from wiki](https://github.com/oraclesorg/oracles-wiki#ceremony)
+Check [Ceremony Dapp section from wiki](https://github.com/oraclesorg/oracles-wiki/blob/master/ceremony.md)
 
 ## Initial page
 ![](./docs/index.png)
