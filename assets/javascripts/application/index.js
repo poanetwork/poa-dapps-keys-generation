@@ -155,9 +155,7 @@ function startDapp(web3, isOraclesNetwork) {
 				contractAddress,
 				function(txHash, err) {
 					if (err) {
-						$(".loading-container").hide();
-						$('.waiting-container').hide();
-						$(".content").show();
+						loadingFinished();
 						if (err.type != "REQUEST_REJECTED") swal("Error", "Error in addresses addition to contract", "error");
 						return;
 					}
@@ -174,9 +172,7 @@ function startDapp(web3, isOraclesNetwork) {
 						contractAddress,
 						function(res, err) {
 							if (err) {
-								$(".loading-container").hide();
-								$('.waiting-container').hide();
-								$(".content").show();
+								loadingFinished();
 								console.log(err.message);
 								if (err.type != "REQUEST_REJECTED") swal("Error", "Error in addresses addition to contract", "error");
 								return;
@@ -196,9 +192,7 @@ function startDapp(web3, isOraclesNetwork) {
 			$('.waiting-container').empty();
 			$('.waiting-container').append("<h2>Transfering ether from initial key to payout key...</h2>");
 			if (err) {
-				$(".loading-container").hide();
-				$('.waiting-container').hide();
-				$(".content").show();
+				loadingFinished();
 				swal("Error", err.message, "error");
 				return;
 			}
@@ -224,9 +218,7 @@ function startDapp(web3, isOraclesNetwork) {
     		estimateGas(web3, address, to, null, parseInt(balance/2), function(estimatedGas, err) {
     			if (err) {
 		          console.log(err);
-		          $(".loading-container").hide();
-		          $('.waiting-container').hide();
-				  $(".content").show();
+		          loadingFinished();
 		          return;
 		        }
 
@@ -250,14 +242,10 @@ function startDapp(web3, isOraclesNetwork) {
 					"value": ammountToSend}, function(err, txHash) {
 	        	    if (err) {
 			          console.log(err);
-			          $(".loading-container").hide();
-			          $('.waiting-container').hide();
-				  	  $(".content").show();
+			          loadingFinished();
 			          return;
 			        }
-			        $(".loading-container").hide();
-			        $('.waiting-container').hide();
-				  	$(".content").show();
+			        loadingFinished();
 					swal("Sucess", "Keys are created", "success");
 					$('.content').empty();
 					$('.content').load("./keys.html", function() {
@@ -268,6 +256,14 @@ function startDapp(web3, isOraclesNetwork) {
 						$("#miningKeyPass").text(keys.miningKey.password);
 						$("#payoutKeyPass").text(keys.payoutKey.password);
 						$("#votingKeyPass").text(keys.votingKey.password);
+
+						$("#copyMiningPass").attr("data-clipboard-text", keys.miningKey.password);
+						$("#copyPayoutPass").attr("data-clipboard-text", keys.payoutKey.password);
+						$("#copyVotingPass").attr("data-clipboard-text", keys.votingKey.password);
+
+						buildCopyPassControl("copyMiningPass");
+						buildCopyPassControl("copyPayoutPass");
+						buildCopyPassControl("copyVotingPass");
 
 						$("#miningKeyDownload").click(function() {
 							download("mining_key_" + keys.miningKey.miningKeyObject.address, JSON.stringify(keys.miningKey.miningKeyObject));
@@ -283,6 +279,21 @@ function startDapp(web3, isOraclesNetwork) {
 					});
 			    });
 			});
+		}
+
+		function loadingFinished() {
+			$(".loading-container").hide();
+          	$(".waiting-container").hide();
+	  		$(".content").show();
+		}
+
+		function buildCopyPassControl(id) {
+			var el = document.getElementById(id);
+			var clipboard = new Clipboard( el );
+		  	
+		  	clipboard.on( "success", function( event ) {
+		  		toastr.success('Password copied');
+		    });
 		}
 	});
 }
