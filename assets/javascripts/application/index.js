@@ -261,9 +261,17 @@ function startDapp(web3, isOraclesNetwork) {
 						$("#copyPayoutPass").attr("data-clipboard-text", keys.payoutKey.password);
 						$("#copyVotingPass").attr("data-clipboard-text", keys.votingKey.password);
 
-						buildCopyPassControl("copyMiningPass");
-						buildCopyPassControl("copyPayoutPass");
-						buildCopyPassControl("copyVotingPass");
+						buildCopyControl("copyMiningPass", "Mining key password copied");
+						buildCopyControl("copyPayoutPass", "Payout key password copied");
+						buildCopyControl("copyVotingPass", "Voting key password copied");
+
+						$("#copyMiningKey").attr("data-clipboard-text", keys.miningKey.miningKeyObject.address);
+						$("#copyPayoutKey").attr("data-clipboard-text", keys.payoutKey.payoutKeyObject.address);
+						$("#copyVotingKey").attr("data-clipboard-text", keys.votingKey.votingKeyObject.address);
+
+						buildCopyControl("copyMiningKey", "Mining key copied");
+						buildCopyControl("copyPayoutKey", "Payout key copied");
+						buildCopyControl("copyVotingKey", "Voting key copied");
 
 						$("#miningKeyDownload").click(function() {
 							download("mining_key_" + keys.miningKey.miningKeyObject.address, JSON.stringify(keys.miningKey.miningKeyObject));
@@ -287,12 +295,12 @@ function startDapp(web3, isOraclesNetwork) {
 	  		$(".content").show();
 		}
 
-		function buildCopyPassControl(id) {
+		function buildCopyControl(id, msg) {
 			var el = document.getElementById(id);
 			var clipboard = new Clipboard( el );
 		  	
 		  	clipboard.on( "success", function( event ) {
-		  		toastr.success('Password copied');
+		  		toastr.success(msg);
 		    });
 		}
 	});
