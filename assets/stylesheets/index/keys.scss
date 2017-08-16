@@ -37,6 +37,11 @@
     color: #6d2eae;
     line-height: 16px;
     font-size: 12px;
+    display: table-cell;
+  }
+
+  &-hash-container {
+    display: table;
   }
 
   &-description {
