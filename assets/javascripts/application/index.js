@@ -45,9 +45,9 @@ function startDapp(web3, isOraclesNetwork) {
 
 		function initialKeySourceOnChange(ev) {
 			initialKeyChosen(this, ev.data.contractAddress, function(address) {
-				checkInitialKeyCallBack(keys, function(_keys) {
-					addressesGeneratedCallBack(ev.data.contractAddress, _keys, address, function(err, address) {
-						addressesAddedToContractCallBack(err, address, _keys);
+				generateAddresses(keys, function(_keys) {
+					fillContractData(ev.data.contractAddress, _keys, address, function(err, address) {
+						transferCoinsToPayoutKey(err, address, _keys);
 					})
 				});
 			});
@@ -96,7 +96,7 @@ function startDapp(web3, isOraclesNetwork) {
 		}
 
 		//validating of initial key callback: async generates 3 addresses: mining, payout, voting
-		function checkInitialKeyCallBack(keys, cb) {
+		function generateAddresses(keys, cb) {
 			var keysCount = 0;
 			for (var i in keys) {
 				keysCount++;
@@ -133,7 +133,7 @@ function startDapp(web3, isOraclesNetwork) {
 		}
 
 		//Geeneration of all 3 addresses callback
-		function addressesGeneratedCallBack(contractAddress, keys, address, cb) {
+		function fillContractData(contractAddress, keys, address, cb) {
 			$(".content").hide();
 			$('.waiting-container').show();
 			$('.waiting-container').empty();
@@ -186,7 +186,7 @@ function startDapp(web3, isOraclesNetwork) {
 		}
 
 		//Production keys addition to contract callback
-		function addressesAddedToContractCallBack(err, address, keys) {
+		function transferCoinsToPayoutKey(err, address, keys) {
 			$(".content").hide();
 			$('.waiting-container').show();
 			$('.waiting-container').empty();
@@ -207,7 +207,7 @@ function startDapp(web3, isOraclesNetwork) {
 					estimateGasForTx(address, to, balance, function(estimatedGas) {
 						//calculates how many coins we can send from initial key to payout key
 						calculateAmmountToSend(estimatedGas, gasPrice, balance, function(ammountToSend) {
-							transferCoinsToPayoutKey(estimatedGas, gasPrice, address, to, ammountToSend);
+							transferCoinsToPayoutKeyTx(estimatedGas, gasPrice, address, to, ammountToSend);
 						});
 					});
 				});
@@ -232,60 +232,62 @@ function startDapp(web3, isOraclesNetwork) {
 	    	cb(ammountToSend);
 		}
 
-		function transferCoinsToPayoutKey(estimatedGas, gasPrice, address, to, ammountToSend) {
-			getGasPrice(function(gasPrice) {
-				web3.eth.sendTransaction({
-					"gas": estimatedGas, 
-					"gasPrice": gasPrice,
-					"from": address, 
-					"to": to, 
-					"value": ammountToSend}, function(err, txHash) {
-	        	    if (err) {
-			          console.log(err);
-			          loadingFinished();
-			          return;
-			        }
-			        loadingFinished();
-					swal("Sucess", "Keys are created", "success");
-					$('.content').empty();
-					$('.content').load("./keys.html", function() {
-						$("#miningKey").text("0x" + keys.miningKey.miningKeyObject.address);
-						$("#payoutKey").text("0x" + keys.payoutKey.payoutKeyObject.address);
-						$("#votingKey").text("0x" + keys.votingKey.votingKeyObject.address);
+		function transferCoinsToPayoutKeyTx(estimatedGas, gasPrice, address, to, ammountToSend) {
+			web3.eth.sendTransaction({
+				"gas": estimatedGas, 
+				"gasPrice": gasPrice,
+				"from": address, 
+				"to": to, 
+				"value": ammountToSend}, function(err, txHash) {
+        	    if (err) {
+		          console.log(err);
+		          loadingFinished();
+		          return;
+		        }
+		        loadingFinished();
+				swal("Sucess", "Keys are created", "success");
+				$('.content').empty();
+				loadKeysPage();
+		    });
+		}
 
-						$("#miningKeyPass").text(keys.miningKey.password);
-						$("#payoutKeyPass").text(keys.payoutKey.password);
-						$("#votingKeyPass").text(keys.votingKey.password);
+		function loadKeysPage() {
+			$('.content').load("./keys.html", function() {
+				$("#miningKey").text("0x" + keys.miningKey.miningKeyObject.address);
+				$("#payoutKey").text("0x" + keys.payoutKey.payoutKeyObject.address);
+				$("#votingKey").text("0x" + keys.votingKey.votingKeyObject.address);
 
-						$("#copyMiningPass").attr("data-clipboard-text", keys.miningKey.password);
-						$("#copyPayoutPass").attr("data-clipboard-text", keys.payoutKey.password);
-						$("#copyVotingPass").attr("data-clipboard-text", keys.votingKey.password);
+				$("#miningKeyPass").text(keys.miningKey.password);
+				$("#payoutKeyPass").text(keys.payoutKey.password);
+				$("#votingKeyPass").text(keys.votingKey.password);
 
-						buildCopyControl("copyMiningPass", "Mining key password copied");
-						buildCopyControl("copyPayoutPass", "Payout key password copied");
-						buildCopyControl("copyVotingPass", "Voting key password copied");
+				$("#copyMiningPass").attr("data-clipboard-text", keys.miningKey.password);
+				$("#copyPayoutPass").attr("data-clipboard-text", keys.payoutKey.password);
+				$("#copyVotingPass").attr("data-clipboard-text", keys.votingKey.password);
 
-						$("#copyMiningKey").attr("data-clipboard-text", keys.miningKey.miningKeyObject.address);
-						$("#copyPayoutKey").attr("data-clipboard-text", keys.payoutKey.payoutKeyObject.address);
-						$("#copyVotingKey").attr("data-clipboard-text", keys.votingKey.votingKeyObject.address);
+				buildCopyControl("copyMiningPass", "Mining key password copied");
+				buildCopyControl("copyPayoutPass", "Payout key password copied");
+				buildCopyControl("copyVotingPass", "Voting key password copied");
 
-						buildCopyControl("copyMiningKey", "Mining key copied");
-						buildCopyControl("copyPayoutKey", "Payout key copied");
-						buildCopyControl("copyVotingKey", "Voting key copied");
+				$("#copyMiningKey").attr("data-clipboard-text", "0x" + keys.miningKey.miningKeyObject.address);
+				$("#copyPayoutKey").attr("data-clipboard-text", "0x" + keys.payoutKey.payoutKeyObject.address);
+				$("#copyVotingKey").attr("data-clipboard-text", "0x" + keys.votingKey.votingKeyObject.address);
 
-						$("#miningKeyDownload").click(function() {
-							download("mining_key_" + keys.miningKey.miningKeyObject.address, JSON.stringify(keys.miningKey.miningKeyObject));
-						});
+				buildCopyControl("copyMiningKey", "Mining key copied");
+				buildCopyControl("copyPayoutKey", "Payout key copied");
+				buildCopyControl("copyVotingKey", "Voting key copied");
 
-						$("#payoutKeyDownload").click(function() {
-							download("payout_key_" + keys.payoutKey.payoutKeyObject.address, JSON.stringify(keys.payoutKey.payoutKeyObject));
-						});
+				$("#miningKeyDownload").click(function() {
+					download("mining_key_" + keys.miningKey.miningKeyObject.address, JSON.stringify(keys.miningKey.miningKeyObject));
+				});
 
-						$("#votingKeyDownload").click(function() {
-							download("voting_key_" + keys.votingKey.votingKeyObject.address, JSON.stringify(keys.votingKey.votingKeyObject));
-						});
-					});
-			    });
+				$("#payoutKeyDownload").click(function() {
+					download("payout_key_" + keys.payoutKey.payoutKeyObject.address, JSON.stringify(keys.payoutKey.payoutKeyObject));
+				});
+
+				$("#votingKeyDownload").click(function() {
+					download("voting_key_" + keys.votingKey.votingKeyObject.address, JSON.stringify(keys.votingKey.votingKeyObject));
+				});
 			});
 		}
 
