@@ -245,7 +245,7 @@ function startDapp(web3, isOraclesNetwork) {
 		          return;
 		        }
 		        loadingFinished();
-				swal("Sucess", "Keys are created", "success");
+				swal("Success", "Keys are created", "success");
 				$('.content').empty();
 				loadKeysPage();
 		    });
