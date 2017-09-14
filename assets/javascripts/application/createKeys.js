@@ -1,5 +1,28 @@
-function createKeys(web3, func, keys, address, contractAddr, cb) {
-  var funcParamsNumber = 3;
+function createKeys(web3, func, keys, address, contractAddr, abi, cb) {
+
+  attachToContract(web3, abi, contractAddr, function(err, oraclesContract) {
+    console.log("attach to oracles contract");
+    if (err) {
+      console.log(err)
+      return cb();
+    }
+
+    console.log(keys);
+    
+    oraclesContract.createKeys.sendTransaction(
+      "0x" + keys.miningKey.miningKeyObject.address, 
+      "0x" + keys.payoutKey.payoutKeyObject.address, 
+      "0x" + keys.votingKey.votingKeyObject.address,
+      function(err, txHash) {
+        if (err) {
+          cb(txHash, err);
+          return;
+        }
+        cb(txHash);
+    });
+  });
+
+  /*var funcParamsNumber = 3;
   var standardLength = 32;
 
   var parameterLocation = standardLength*funcParamsNumber;
@@ -24,5 +47,5 @@ function createKeys(web3, func, keys, address, contractAddr, cb) {
         });
       });
     });
-  });
+  });*/
 }

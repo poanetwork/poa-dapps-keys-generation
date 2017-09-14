@@ -171,6 +171,7 @@ function startDapp(web3, isOraclesNetwork) {
 						keys,
 						address,
 						contractAddress,
+						abi,
 						function(res, err) {
 							if (err) {
 								loadingFinished();

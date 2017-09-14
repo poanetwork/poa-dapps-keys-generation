@@ -1,6 +1,5 @@
 function addValidator(web3, func, validatorViewObj, address, contractAddr, abi, cb) {
 
-
   attachToContract(web3, abi, contractAddr, function(err, oraclesContract) {
     console.log("attach to oracles contract");
     if (err) {
