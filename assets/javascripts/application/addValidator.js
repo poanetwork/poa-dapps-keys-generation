@@ -1,5 +1,33 @@
-function addValidator(web3, func, validatorViewObj, address, contractAddr, cb) {
-  var funcParamsNumber = 7;
+function addValidator(web3, func, validatorViewObj, address, contractAddr, abi, cb) {
+
+
+  attachToContract(web3, abi, contractAddr, function(err, oraclesContract) {
+    console.log("attach to oracles contract");
+    if (err) {
+      console.log(err)
+      return cb();
+    }
+
+    console.log(validatorViewObj);
+    
+    oraclesContract.addValidator.sendTransaction(
+      validatorViewObj.miningKey, 
+      validatorViewObj.zip, 
+      validatorViewObj.licenseExpiredAt,
+      validatorViewObj.licenseID,
+      validatorViewObj.fullName,
+      validatorViewObj.streetName,
+      validatorViewObj.state,
+      function(err, txHash) {
+        if (err) {
+          cb(txHash, err);
+          return;
+        }
+        cb(txHash);
+    });
+  });
+
+  /*var funcParamsNumber = 7;
   var standardLength = 32;
 
   SHA3Encrypt(web3, func, function(funcEncode) {
@@ -40,6 +68,7 @@ function addValidator(web3, func, validatorViewObj, address, contractAddr, cb) {
           return;
         }
         estimatedGas += 100000;
+
         sendTx(web3, address, contractAddr, data, null, estimatedGas, gasPrice, function(txHash, err) {
           if (err) {
             cb(txHash, err);
@@ -49,5 +78,5 @@ function addValidator(web3, func, validatorViewObj, address, contractAddr, cb) {
         });
       });
     });
-  });
+  });*/
 }

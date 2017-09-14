@@ -66,3 +66,18 @@ function getGasPrice(cb) {
     cb(gasPrice);
   });
 }
+
+function attachToContract(web3, abi, addr, cb) {
+  if(!web3.isConnected()) {
+    if (cb) cb({code: 200, title: "Error", message: "check RPC availability"});
+  } else {
+    web3.eth.defaultAccount = web3.eth.accounts[0];
+    console.log("web3.eth.defaultAccount:" + web3.eth.defaultAccount);
+    
+    var MyContract = web3.eth.contract(abi);
+
+    var contractInstance = MyContract.at(addr);
+    
+    if (cb) cb(null, contractInstance);
+  }
+}

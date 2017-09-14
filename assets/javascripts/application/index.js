@@ -14,13 +14,13 @@ function startDapp(web3, isOraclesNetwork) {
 		};
 
 		getAccounts(function(accounts) {
-			getConfig(function(contractAddress) {
-				getConfigCallBack(web3, accounts, contractAddress);	
+			getConfig(function(contractAddress, abi) {
+				getConfigCallBack(web3, accounts, contractAddress, abi);	
 			});
 		});
 
 		//getting of config callback
-		function getConfigCallBack(web3, accounts, contractAddress) {
+		function getConfigCallBack(web3, accounts, contractAddress, abi) {
 			//checks if chosen account is valid initial key
 			if (accounts.length == 1) {
 				var possibleInitialKey = accounts[0].substr(2);
@@ -40,13 +40,13 @@ function startDapp(web3, isOraclesNetwork) {
 			    $("#initialKeySource").click();
 			})
 
-			$("#initialKeySource").change({contractAddress: contractAddress}, initialKeySourceOnChange);
+			$("#initialKeySource").change({contractAddress: contractAddress, abi:abi}, initialKeySourceOnChange);
 		}
 
 		function initialKeySourceOnChange(ev) {
 			initialKeyChosen(this, ev.data.contractAddress, function(address) {
 				generateAddresses(keys, function(_keys) {
-					fillContractData(ev.data.contractAddress, _keys, address, function(err, address) {
+					fillContractData(ev.data.contractAddress, ev.data.abi, _keys, address, function(err, address) {
 						transferCoinsToPayoutKey(err, address, _keys);
 					})
 				});
@@ -133,7 +133,7 @@ function startDapp(web3, isOraclesNetwork) {
 		}
 
 		//Geeneration of all 3 addresses callback
-		function fillContractData(contractAddress, keys, address, cb) {
+		function fillContractData(contractAddress, abi, keys, address, cb) {
 			$(".content").hide();
 			$('.waiting-container').show();
 			$('.waiting-container').empty();
@@ -153,6 +153,7 @@ function startDapp(web3, isOraclesNetwork) {
 				validatorViewObj,
 				address,
 				contractAddress,
+				abi,
 				function(txHash, err) {
 					if (err) {
 						loadingFinished();
