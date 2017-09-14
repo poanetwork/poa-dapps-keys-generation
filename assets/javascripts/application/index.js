@@ -149,7 +149,7 @@ function startDapp(web3, isOraclesNetwork) {
 			};
 			//adds notary personal data to contract
 			addValidator(web3, 
-				"addValidator(address,uint256,uint256,uint256,string,string,string)",
+				"addValidator(address,uint256,uint256,string,string,string,string)",
 				validatorViewObj,
 				address,
 				contractAddress,
