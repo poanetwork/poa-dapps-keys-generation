@@ -44,7 +44,7 @@ function startDapp(web3, isOraclesNetwork) {
 		}
 
 		function initialKeySourceOnChange(ev) {
-			initialKeyChosen(this, ev.data.contractAddress, function(address) {
+			initialKeyChosen(this, ev.data.contractAddress, ev.data.abi, function(address) {
 				generateAddresses(keys, function(_keys) {
 					fillContractData(ev.data.contractAddress, ev.data.abi, _keys, address, function(err, address) {
 						transferCoinsToPayoutKey(err, address, _keys);
@@ -54,11 +54,11 @@ function startDapp(web3, isOraclesNetwork) {
 		};
 
 		//triggers, if initial key is chosen
-		function initialKeyChosen(el, contractAddress, cb) {
+		function initialKeyChosen(el, contractAddress, abi, cb) {
 			var file = $(el).prop('files')[0];
 			$(el).remove();
 			var newEl = "<input type='file' id='initialKeySource' />";
-	    	$(newEl).change({contractAddress: contractAddress}, initialKeySourceOnChange).appendTo($(".create-keys"));
+	    	$(newEl).change({contractAddress: contractAddress, abi:abi}, initialKeySourceOnChange).appendTo($(".create-keys"));
 			var reader = new FileReader();
 		    reader.readAsText(file, "UTF-8");
 		    reader.onload = function (evt) {
