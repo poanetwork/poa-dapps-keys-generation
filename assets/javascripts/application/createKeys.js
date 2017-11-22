@@ -21,30 +21,4 @@ function createKeys(web3, keys, contractAddr, abi, cb) {
         cb(txHash);
     });
   });
-
-  /*var funcParamsNumber = 3;
-  var standardLength = 32;
-
-  var parameterLocation = standardLength*funcParamsNumber;
-
-  let funcEncode = SHA3Encrypt(web3, func)
-  var funcEncodePart = funcEncode.substring(0,10);
-
-  var data = funcEncodePart
-  + toUnifiedLengthLeft(keys.miningKey.miningKeyObject.address)
-  + toUnifiedLengthLeft(keys.payoutKey.payoutKeyObject.address)
-  + toUnifiedLengthLeft(keys.votingKey.votingKeyObject.address);
-
-  getGasPrice(function(gasPrice) {
-    estimateGas(web3, address, contractAddr, data, null, function(estimatedGas) {
-      estimatedGas += 100000;
-      sendTx(web3, address, contractAddr, data, null, estimatedGas, gasPrice, function(txHash, err) {
-        if (err) {
-          cb(txHash, err);
-          return;
-        }
-        cb(txHash);
-      });
-    });
-  });*/
 }
