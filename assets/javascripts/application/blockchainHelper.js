@@ -1,6 +1,6 @@
-function SHA3Encrypt(web3, str, cb) {
+function SHA3Encrypt(web3, str) {
   var strEncode = web3.sha3(str);
-  cb(strEncode);
+  return strEncode;
 }
 
 function estimateGas(web3, from, to, data, val, cb) {

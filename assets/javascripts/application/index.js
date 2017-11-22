@@ -13,10 +13,9 @@ function startDapp(web3, isOraclesNetwork) {
 			"votingKey": {}
 		};
 
-		getAccounts(function(accounts) {
-			getConfig(function(contractAddress, abi) {
-				getConfigCallBack(web3, accounts, contractAddress, abi);
-			});
+		getAccounts(async function(accounts) {
+			let config = await getConfig()
+			getConfigCallBack(web3, accounts, config.contractAddress, config.abi)
 		});
 
 		//getting of config callback
