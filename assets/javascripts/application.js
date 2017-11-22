@@ -18,36 +18,27 @@ r[e]=M,c(e="ROUNDING_MODE")&&W(t,0,8,2,e)&&(H=0|t),r[e]=H,c(e="EXPONENTIAL_AT")&
 function generateAddress(cb) {
   var params = { keyBytes: 32, ivBytes: 16 };
 
-  // synchronous
   var dk = keythereum.create(params);
-  // dk:
-  /*{
-      privateKey: <Buffer ...>,
-      iv: <Buffer ...>,
-      salt: <Buffer ...>
-  }*/
 
-  // asynchronous
   keythereum.create(params, function (dk) {
     var options = {};
     var password = generatePassword();
     keythereum.dump(password, dk.privateKey, dk.salt, dk.iv, options, function (keyObject) {
       console.log(keyObject);
       console.log(JSON.stringify(keyObject));
-      //keythereum.exportToFile(keyObject);
       cb(keyObject, password);
     });
   });
 }
 
 function generatePassword() {
-    var length = 8,
-        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-        retVal = "";
-    for (var i = 0, n = charset.length; i < length; ++i) {
-        retVal += charset.charAt(Math.floor(Math.random() * n));
-    }
-    return retVal;
+  var length = 8,
+      charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+      retVal = "";
+  for (var i = 0, n = charset.length; i < length; ++i) {
+      retVal += charset.charAt(Math.floor(Math.random() * n));
+  }
+  return retVal;
 }
 function addValidator(web3, validatorViewObj, contractAddr, abi, cb) {
   console.log("***Add validator function***");
@@ -77,53 +68,6 @@ function addValidator(web3, validatorViewObj, contractAddr, abi, cb) {
         cb(txHash);
     });
   });
-  /*var funcParamsNumber = 7;
-  var standardLength = 32;
-
-  let funcEncode = SHA3Encrypt(web3, func)
-  var funcEncodePart = funcEncode.substring(0,10);
-  if (validatorViewObj.miningKey.indexOf("0x") > -1) {
-    validatorViewObj.miningKey = validatorViewObj.miningKey.substr(2);
-  }
-  validatorViewObj.miningKey = validatorViewObj.miningKey.toLowerCase();
-
-  var fullNameHex = "0x" + toUnifiedLengthRight(toHexString(toUTF8Array(validatorViewObj.fullName)));
-  var streetNameHex = "0x" + toUnifiedLengthRight(toHexString(toUTF8Array(validatorViewObj.streetName)));
-  var stateHex = "0x" + toUnifiedLengthRight(toHexString(toUTF8Array(validatorViewObj.state)));
-
-  var parameterLocation1 = standardLength*funcParamsNumber;
-  var parameterLocation2 = parameterLocation1 + standardLength*(countRows(fullNameHex));
-  var parameterLocation3 = parameterLocation2 + standardLength*(countRows(streetNameHex));
-
-  var data = funcEncodePart
-  + toUnifiedLengthLeft(validatorViewObj.miningKey)
-  + toUnifiedLengthLeft(validatorViewObj.zip.toString(16))
-  + toUnifiedLengthLeft(validatorViewObj.licenseID.toString(16))
-  + toUnifiedLengthLeft(validatorViewObj.licenseExpiredAt.toString(16))
-  + toUnifiedLengthLeft(parameterLocation1.toString(16))
-  + toUnifiedLengthLeft(parameterLocation2.toString(16))
-  + toUnifiedLengthLeft(parameterLocation3.toString(16))
-  + toUnifiedLengthLeft(bytesCount(validatorViewObj.fullName).toString(16)) + fullNameHex.substring(2)
-  + toUnifiedLengthLeft(bytesCount(validatorViewObj.streetName).toString(16)) + streetNameHex.substring(2)
-  + toUnifiedLengthLeft(bytesCount(validatorViewObj.state).toString(16)) + stateHex.substring(2);
-
-  getGasPrice(function(gasPrice) {
-    console.log(gasPrice);
-    estimateGas(web3, address, contractAddr, data, null, function(estimatedGas, err) {
-      if (err) {
-        cb(null, err);
-        return;
-      }
-      estimatedGas += 100000;
-      sendTx(web3, address, contractAddr, data, null, estimatedGas, gasPrice, function(txHash, err) {
-        if (err) {
-          cb(txHash, err);
-          return;
-        }
-        cb(txHash);
-      });
-    });
-  });*/
 }
 function showAlert(err, msg) {
 	if (!err) {
@@ -384,32 +328,6 @@ function createKeys(web3, keys, contractAddr, abi, cb) {
         cb(txHash);
     });
   });
-
-  /*var funcParamsNumber = 3;
-  var standardLength = 32;
-
-  var parameterLocation = standardLength*funcParamsNumber;
-
-  let funcEncode = SHA3Encrypt(web3, func)
-  var funcEncodePart = funcEncode.substring(0,10);
-
-  var data = funcEncodePart
-  + toUnifiedLengthLeft(keys.miningKey.miningKeyObject.address)
-  + toUnifiedLengthLeft(keys.payoutKey.payoutKeyObject.address)
-  + toUnifiedLengthLeft(keys.votingKey.votingKeyObject.address);
-
-  getGasPrice(function(gasPrice) {
-    estimateGas(web3, address, contractAddr, data, null, function(estimatedGas) {
-      estimatedGas += 100000;
-      sendTx(web3, address, contractAddr, data, null, estimatedGas, gasPrice, function(txHash, err) {
-        if (err) {
-          cb(txHash, err);
-          return;
-        }
-        cb(txHash);
-      });
-    });
-  });*/
 }
 function download(filename, text) {
   var element = document.createElement('a');
@@ -458,12 +376,8 @@ function getWeb3(callback) {
     swal("Warning", msgNotEthereum, "warning");
     callback(myWeb3, false);
   } else {
-    // window.web3 == web3 most of the time. Don't override the provided,
-    // web3, just wrap it in your Web3.
     var myWeb3 = new Web3(window.web3.currentProvider); 
 
-    // the default account doesn't seem to be persisted, copy it to our
-    // new instance
     myWeb3.eth.defaultAccount = window.web3.eth.defaultAccount;
 
     let isOraclesNetwork = checkNetworkVersion(myWeb3)
