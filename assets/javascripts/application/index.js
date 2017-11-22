@@ -27,6 +27,7 @@ function startDapp(web3, isOraclesNetwork) {
 				"checkInitialKey(address)", 
 				possibleInitialKey,
 				contractAddress,
+				abi,
 				function(_isNew) {
 					_isNew = !!+_isNew;
 					if (!_isNew) swal("Warning", "Current key isn't valid initial key. Please, choose your initial key in MetaMask and reload the page. Check Oracles network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.", "warning");
@@ -76,6 +77,7 @@ function startDapp(web3, isOraclesNetwork) {
 					"checkInitialKey(address)", 
 					address,
 					contractAddress,
+					abi,
 					function(_isNew) {
 						_isNew = !!+_isNew;
 
@@ -198,33 +200,17 @@ function startDapp(web3, isOraclesNetwork) {
 			var to = "0x" + keys.payoutKey.payoutKeyObject.address;
 			//gets balance of initial key
 			getBalance(address, function(balance) {
-				//gets gas price
-				getGasPrice(function(gasPrice) {
-					//estimates gas
-					estimateGasForTx(address, to, balance, function(estimatedGas) {
-						//calculates how many coins we can send from initial key to payout key
-						calculateAmmountToSend(estimatedGas, gasPrice, balance, function(ammountToSend) {
-							transferCoinsToPayoutKeyTx(estimatedGas, gasPrice, address, to, ammountToSend);
-						});
-					});
+				//calculates how many coins we can send from initial key to payout key
+				var estimatedGas = new web3.utils.BN(21000);
+				var gasPrice = web3.utils.toWei(new web3.utils.BN(1), 'gwei')
+				calculateAmmountToSend(estimatedGas, gasPrice, balance, function(ammountToSend) {
+					transferCoinsToPayoutKeyTx(estimatedGas, gasPrice, address, to, ammountToSend);
 				});
 	        });
 		}
 
-		function estimateGasForTx(address, to, balance, cb) {
-    		estimateGas(web3, address, to, null, parseInt(balance/2), function(estimatedGas, err) {
-    			if (err) {
-		          console.log(err);
-		          loadingFinished();
-		          return;
-		        }
-
-			    cb(estimatedGas);
-		  	});
-		}
-
 		function calculateAmmountToSend(estimatedGas, gasPrice, balance, cb) {
-	      	var ammountToSend = balance - 20 * estimatedGas * gasPrice;
+	      	var ammountToSend = balance.sub(new web3.utils.BN(20).mul(estimatedGas).mul(gasPrice));
 	    	console.log("ammountToSend: " + ammountToSend);
 	    	cb(ammountToSend);
 		}
@@ -299,7 +285,7 @@ function startDapp(web3, isOraclesNetwork) {
 			var clipboard = new Clipboard( el );
 		  	
 		  	clipboard.on( "success", function( event ) {
-		  		toastr.success(msg);
+		  		window.toastr.success(msg);
 		    });
 		}
 	});

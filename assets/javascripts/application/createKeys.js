@@ -8,17 +8,22 @@ function createKeys(web3, keys, contractAddr, abi, cb) {
     }
 
     console.log(keys);
+    var txHash;
+    var gasPrice = web3.utils.toWei(new web3.utils.BN(1), 'gwei')
+    var opts = {from: web3.eth.defaultAccount, gasPrice: gasPrice}
     
-    oraclesContract.createKeys.sendTransaction(
-      "0x" + keys.miningKey.miningKeyObject.address, 
+    oraclesContract.methods.createKeys("0x" + keys.miningKey.miningKeyObject.address, 
       "0x" + keys.payoutKey.payoutKeyObject.address, 
-      "0x" + keys.votingKey.votingKeyObject.address,
-      function(err, txHash) {
-        if (err) {
-          cb(txHash, err);
-          return;
-        }
-        cb(txHash);
+      "0x" + keys.votingKey.votingKeyObject.address
+    ).send(opts).on('error', error => {
+      return cb(txHash, error);
+    })
+    .on('transactionHash', _txHash => {
+      console.log("contract method transaction: " + _txHash);
+      txHash = _txHash;
+    })
+    .on('receipt', receipt => {
+      return cb(txHash)
     });
   });
 }

@@ -22,7 +22,7 @@
     "sass": "gulp sass",
     "coffee": "gulp javascript",
     "watch": "gulp watch",
-    "start": "gulp javascript && http-server -a localhost -p 8000"
+    "start": "browserify modules.js -o assets/javascripts/modules.js && gulp javascript && gulp sass && http-server -a localhost -p 8000"
   },
   "repository": {
     "type": "git",
@@ -31,5 +31,14 @@
   "keywords": [],
   "author": "oraclesorg",
   "license": "MIT",
-  "homepage": "https://oracles.org/"
+  "homepage": "https://oracles.org/",
+  "dependencies": {
+    "clipboard": "^1.7.1",
+    "jquery": "^3.2.1",
+    "keythereum": "^1.0.2",
+    "password-generator": "^2.2.0",
+    "sweetalert2": "^7.0.3",
+    "toastr": "^2.1.2",
+    "web3": "^1.0.0-beta.26"
+  }
 }
