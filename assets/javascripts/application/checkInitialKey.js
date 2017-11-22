@@ -1,19 +1,16 @@
-function checkInitialKey(web3, func, initialKey, contractAddr, cb) {
-  var funcParamsNumber = 1;
-  var standardLength = 32;
+function checkInitialKey(web3, func, initialKey, contractAddr, abi, cb) {
+  attachToContract(web3, abi, contractAddr, function(err, oraclesContract) {
+    console.log("attach to oracles contract");
+    if (err) {
+      console.log(err)
+      return cb();
+    }
 
-  let funcEncode = SHA3Encrypt(web3, func)
-  var funcEncodePart = funcEncode.substring(0,10);
-
-  var data = funcEncodePart
-  + toUnifiedLengthLeft(initialKey);
-
-  console.log(data);
-  console.log("0x" + initialKey);
-  console.log(contractAddr);
-
-  call(web3, "0x" + initialKey, contractAddr, data, function(respHex) {
-    console.log(respHex);
-    cb(parseInt(respHex, 16));
-  });
+    oraclesContract.methods.checkInitialKey("0x" + initialKey).call(function(err, isNew) {
+      if (err) {
+        console.log(err)
+      }
+      cb(isNew);
+    })
+  })
 }

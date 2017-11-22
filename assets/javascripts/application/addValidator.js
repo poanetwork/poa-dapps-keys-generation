@@ -9,21 +9,29 @@ function addValidator(web3, validatorViewObj, contractAddr, abi, cb) {
 
     console.log(validatorViewObj);
     console.log(oraclesContract);
+
+    var txHash;
+    var gasPrice = web3.utils.toWei(new web3.utils.BN(1), 'gwei')
+    var opts = {from: web3.eth.defaultAccount, gasPrice: gasPrice}
     
-    oraclesContract.addValidator.sendTransaction(
-      validatorViewObj.miningKey, 
+    oraclesContract.methods.addValidator(validatorViewObj.miningKey, 
       validatorViewObj.zip, 
       validatorViewObj.licenseID,
       validatorViewObj.licenseExpiredAt,
       validatorViewObj.fullName,
       validatorViewObj.streetName,
-      validatorViewObj.state,
-      function(err, txHash) {
-        if (err) {
-          cb(txHash, err);
-          return;
-        }
-        cb(txHash);
+      validatorViewObj.state
+      )
+    .send(opts)
+    .on('error', error => {
+      return cb(txHash, error);
+    })
+    .on('transactionHash', _txHash => {
+      console.log("contract method transaction: " + _txHash);
+      txHash = _txHash;
+    })
+    .on('receipt', receipt => {
+      return cb(txHash)
     });
   });
 }
