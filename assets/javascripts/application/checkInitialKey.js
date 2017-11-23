@@ -1,11 +1,11 @@
 function checkInitialKey(web3, initialKey, contractAddr, abi, cb) {
-  let oraclesContract = attachToContract(web3, abi, contractAddr)
+  let KeysStorage = attachToContract(web3, abi, contractAddr)
   console.log("attach to oracles contract");
-  if (!oraclesContract) {
+  if (!KeysStorage) {
     return cb();
   }
 
-  oraclesContract.methods.checkInitialKey(initialKey).call(function(isNew) {
+  KeysStorage.methods.checkInitialKey(initialKey).call(function(isNew) {
     cb(isNew);
   })
 }

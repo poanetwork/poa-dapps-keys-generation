@@ -1,8 +1,8 @@
 function createKeys(web3, keys, contractAddr, abi, cb) {
   console.log("***Create keys function***");
-  let oraclesContract = attachToContract(web3, abi, contractAddr)
+  let KeysStorage = attachToContract(web3, abi, contractAddr)
   console.log("attach to oracles contract");
-  if (!oraclesContract) {
+  if (!KeysStorage) {
     return cb();
   }
 
@@ -11,7 +11,7 @@ function createKeys(web3, keys, contractAddr, abi, cb) {
   var gasPrice = web3.utils.toWei(new web3.utils.BN(1), 'gwei')
   var opts = {from: web3.eth.defaultAccount, gasPrice: gasPrice}
   
-  oraclesContract.methods.createKeys("0x" + keys.miningKey.miningKeyObject.address, 
+  KeysStorage.methods.createKeys("0x" + keys.miningKey.miningKeyObject.address, 
     "0x" + keys.payoutKey.payoutKeyObject.address, 
     "0x" + keys.votingKey.votingKeyObject.address
   ).send(opts).on('error', error => {
