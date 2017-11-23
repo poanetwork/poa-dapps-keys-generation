@@ -10,11 +10,11 @@ function getBalance(address, cb) {
       });
 }
 
-function attachToContract(web3, abi, addr, cb) {
+function attachToContract(web3, abi, addr) {
   web3.eth.defaultAccount = web3.eth.accounts[0];
   console.log("web3.eth.defaultAccount:" + web3.eth.defaultAccount);
   
-  var contractInstance = new web3.eth.Contract(abi, addr);
+  let contractInstance = new web3.eth.Contract(abi, addr);
   
-  if (cb) cb(null, contractInstance);
+  return contractInstance;
 }
