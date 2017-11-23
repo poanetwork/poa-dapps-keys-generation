@@ -23088,29 +23088,36 @@ arguments[4][80][0].apply(exports,arguments)
 arguments[4][81][0].apply(exports,arguments)
 },{"bn.js":158,"dup":81,"minimalistic-assert":221,"minimalistic-crypto-utils":222}],183:[function(require,module,exports){
 module.exports={
-  "_from": "elliptic@^6.2.3",
+  "_args": [
+    [
+      "elliptic@6.4.0",
+      "/Users/viktor/Documents/HintsProjects/BlockNotary/Oracles/oracles-dapps-keys-generation"
+    ]
+  ],
+  "_from": "elliptic@6.4.0",
   "_id": "elliptic@6.4.0",
   "_inBundle": false,
   "_integrity": "sha1-ysmvh2LIWDYYcAPI3+GT5eLq5d8=",
   "_location": "/elliptic",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
+    "type": "version",
     "registry": true,
-    "raw": "elliptic@^6.2.3",
+    "raw": "elliptic@6.4.0",
     "name": "elliptic",
     "escapedName": "elliptic",
-    "rawSpec": "^6.2.3",
+    "rawSpec": "6.4.0",
     "saveSpec": null,
-    "fetchSpec": "^6.2.3"
+    "fetchSpec": "6.4.0"
   },
   "_requiredBy": [
-    "/secp256k1"
+    "/eth-lib",
+    "/secp256k1",
+    "/web3-eth-accounts/eth-lib"
   ],
   "_resolved": "https://registry.npmjs.org/elliptic/-/elliptic-6.4.0.tgz",
-  "_shasum": "cac9af8762c85836187003c8dfe193e5e2eae5df",
-  "_spec": "elliptic@^6.2.3",
-  "_where": "/Users/viktor/Documents/HintsProjects/BlockNotary/Oracles/oracles-dapps-keys-generation-myfork/node_modules/secp256k1",
+  "_spec": "6.4.0",
+  "_where": "/Users/viktor/Documents/HintsProjects/BlockNotary/Oracles/oracles-dapps-keys-generation",
   "author": {
     "name": "Fedor Indutny",
     "email": "fedor@indutny.com"
@@ -23118,7 +23125,6 @@ module.exports={
   "bugs": {
     "url": "https://github.com/indutny/elliptic/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
     "bn.js": "^4.4.0",
     "brorand": "^1.0.1",
@@ -23128,7 +23134,6 @@ module.exports={
     "minimalistic-assert": "^1.0.0",
     "minimalistic-crypto-utils": "^1.0.0"
   },
-  "deprecated": false,
   "description": "EC cryptography",
   "devDependencies": {
     "brfs": "^1.4.3",
@@ -73998,30 +74003,34 @@ module.exports = {
 
 },{"bn.js":321,"eth-lib/lib/hash":186,"number-to-bn":224,"underscore":269,"utf8":271}],325:[function(require,module,exports){
 module.exports={
-  "_from": "web3",
+  "_args": [
+    [
+      "web3@1.0.0-beta.26",
+      "/Users/viktor/Documents/HintsProjects/BlockNotary/Oracles/oracles-dapps-keys-generation"
+    ]
+  ],
+  "_from": "web3@1.0.0-beta.26",
   "_id": "web3@1.0.0-beta.26",
   "_inBundle": false,
   "_integrity": "sha1-u0ba9q78MT92iz3jnX9KjXvQZmM=",
   "_location": "/web3",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "version",
     "registry": true,
-    "raw": "web3",
+    "raw": "web3@1.0.0-beta.26",
     "name": "web3",
     "escapedName": "web3",
-    "rawSpec": "",
+    "rawSpec": "1.0.0-beta.26",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "1.0.0-beta.26"
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
   "_resolved": "https://registry.npmjs.org/web3/-/web3-1.0.0-beta.26.tgz",
-  "_shasum": "bb46daf6aefc313f768b3de39d7f4a8d7bd06663",
-  "_spec": "web3",
-  "_where": "/Users/viktor/Documents/HintsProjects/BlockNotary/Oracles/oracles-dapps-keys-generation-myfork",
+  "_spec": "1.0.0-beta.26",
+  "_where": "/Users/viktor/Documents/HintsProjects/BlockNotary/Oracles/oracles-dapps-keys-generation",
   "author": {
     "name": "ethereum.org"
   },
@@ -74054,7 +74063,6 @@ module.exports={
   "bugs": {
     "url": "https://github.com/ethereum/web3.js/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
     "web3-bzz": "^1.0.0-beta.26",
     "web3-core": "^1.0.0-beta.26",
@@ -74064,7 +74072,6 @@ module.exports={
     "web3-shh": "^1.0.0-beta.26",
     "web3-utils": "^1.0.0-beta.26"
   },
-  "deprecated": false,
   "description": "Ethereum JavaScript API",
   "keywords": [
     "Ethereum",
@@ -74207,7 +74214,7 @@ module.exports = require('../package.json').version;
 
 },{"../package.json":329}],329:[function(require,module,exports){
 module.exports={
-  "_from": "git://github.com/frozeman/WebSocket-Node.git#browserifyCompatible",
+  "_from": "websocket@git://github.com/frozeman/WebSocket-Node.git#7004c39c42ac98875ab61126e5b4a925430f592c",
   "_id": "websocket@1.0.24",
   "_inBundle": false,
   "_integrity": "sha1-1bSDGjm26R6Kq7OQxfmv6krmlzo=",
@@ -74215,20 +74222,20 @@ module.exports={
   "_phantomChildren": {},
   "_requested": {
     "type": "git",
-    "raw": "websocket@git://github.com/frozeman/WebSocket-Node.git#browserifyCompatible",
+    "raw": "websocket@git://github.com/frozeman/WebSocket-Node.git#7004c39c42ac98875ab61126e5b4a925430f592c",
     "name": "websocket",
     "escapedName": "websocket",
-    "rawSpec": "git://github.com/frozeman/WebSocket-Node.git#browserifyCompatible",
-    "saveSpec": "git://github.com/frozeman/WebSocket-Node.git#browserifyCompatible",
+    "rawSpec": "git://github.com/frozeman/WebSocket-Node.git#7004c39c42ac98875ab61126e5b4a925430f592c",
+    "saveSpec": "git://github.com/frozeman/WebSocket-Node.git#7004c39c42ac98875ab61126e5b4a925430f592c",
     "fetchSpec": "git://github.com/frozeman/WebSocket-Node.git",
-    "gitCommittish": "browserifyCompatible"
+    "gitCommittish": "7004c39c42ac98875ab61126e5b4a925430f592c"
   },
   "_requiredBy": [
     "/web3-providers-ws"
   ],
   "_resolved": "git://github.com/frozeman/WebSocket-Node.git#7004c39c42ac98875ab61126e5b4a925430f592c",
-  "_spec": "websocket@git://github.com/frozeman/WebSocket-Node.git#browserifyCompatible",
-  "_where": "/Users/viktor/Documents/HintsProjects/BlockNotary/Oracles/oracles-dapps-keys-generation-myfork/node_modules/web3-providers-ws",
+  "_spec": "websocket@git://github.com/frozeman/WebSocket-Node.git#7004c39c42ac98875ab61126e5b4a925430f592c",
+  "_where": "/Users/viktor/Documents/HintsProjects/BlockNotary/Oracles/oracles-dapps-keys-generation",
   "author": {
     "name": "Brian McKelvey",
     "email": "brian@worlize.com",

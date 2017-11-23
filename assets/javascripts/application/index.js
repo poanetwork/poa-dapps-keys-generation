@@ -15,19 +15,19 @@ function startDapp(web3, isOraclesNetwork) {
 
 		getAccounts(async function(accounts) {
 			let config = await getConfig()
-			getConfigCallBack(web3, accounts, config.contractAddress, config.abi)
+			getConfigCallBack(web3, accounts, config)
 		});
 
 		//getting of config callback
-		function getConfigCallBack(web3, accounts, contractAddress, abi) {
+		function getConfigCallBack(web3, accounts, config) {
 			//checks if chosen account is valid initial key
 			if (accounts.length == 1) {
 				var possibleInitialKey = accounts[0].substr(2);
 				checkInitialKey(web3,
 				"checkInitialKey(address)", 
 				possibleInitialKey,
-				contractAddress,
-				abi,
+				config.Ethereum[config.environment].KeysStorage.addr,
+				config.Ethereum[config.environment].KeysStorage.abi,
 				function(_isNew) {
 					_isNew = !!+_isNew;
 					if (!_isNew) swal("Warning", "Current key isn't valid initial key. Please, choose your initial key in MetaMask and reload the page. Check Oracles network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.", "warning");
@@ -40,13 +40,13 @@ function startDapp(web3, isOraclesNetwork) {
 			    $("#initialKeySource").click();
 			})
 
-			$("#initialKeySource").change({contractAddress: contractAddress, abi:abi}, initialKeySourceOnChange);
+			$("#initialKeySource").change({config: config}, initialKeySourceOnChange);
 		}
 
 		function initialKeySourceOnChange(ev) {
-			initialKeyChosen(this, ev.data.contractAddress, ev.data.abi, function(address) {
+			initialKeyChosen(this, ev.data.config, function(address) {
 				generateAddresses(keys, function(_keys) {
-					fillContractData(ev.data.contractAddress, ev.data.abi, _keys, address, function(err, address) {
+					fillContractData(ev.data.config, _keys, address, function(err, address) {
 						transferCoinsToPayoutKey(err, address, _keys);
 					})
 				});
@@ -54,11 +54,11 @@ function startDapp(web3, isOraclesNetwork) {
 		};
 
 		//triggers, if initial key is chosen
-		function initialKeyChosen(el, contractAddress, abi, cb) {
+		function initialKeyChosen(el, config, cb) {
 			var file = $(el).prop('files')[0];
 			$(el).remove();
 			var newEl = "<input type='file' id='initialKeySource' />";
-	    	$(newEl).change({contractAddress: contractAddress, abi:abi}, initialKeySourceOnChange).appendTo($(".create-keys"));
+	    	$(newEl).change({config: config}, initialKeySourceOnChange).appendTo($(".create-keys"));
 			var reader = new FileReader();
 		    reader.readAsText(file, "UTF-8");
 		    reader.onload = function (evt) {
@@ -76,8 +76,8 @@ function startDapp(web3, isOraclesNetwork) {
 		        checkInitialKey(web3,
 					"checkInitialKey(address)", 
 					address,
-					contractAddress,
-					abi,
+					config.Ethereum[config.environment].KeysStorage.addr,
+					config.Ethereum[config.environment].KeysStorage.abi,
 					function(_isNew) {
 						_isNew = !!+_isNew;
 
@@ -134,7 +134,7 @@ function startDapp(web3, isOraclesNetwork) {
 		}
 
 		//Geeneration of all 3 addresses callback
-		function fillContractData(contractAddress, abi, keys, address, cb) {
+		function fillContractData(config, keys, address, cb) {
 			$(".content").hide();
 			$('.waiting-container').show();
 			$('.waiting-container').empty();
@@ -151,8 +151,8 @@ function startDapp(web3, isOraclesNetwork) {
 			//adds notary personal data to contract
 			addValidator(web3, 
 				validatorViewObj,
-				contractAddress,
-				abi,
+				config.Ethereum[config.environment].ValidatorsStorage.addr,
+				config.Ethereum[config.environment].ValidatorsStorage.abi,
 				function(txHash, err) {
 					if (err) {
 						loadingFinished();
@@ -167,8 +167,8 @@ function startDapp(web3, isOraclesNetwork) {
 					//activate generated production keys
 					createKeys(web3, 
 						keys,
-						contractAddress,
-						abi,
+						config.Ethereum[config.environment].KeysManager.addr,
+						config.Ethereum[config.environment].KeysManager.abi,
 						function(res, err) {
 							if (err) {
 								loadingFinished();
