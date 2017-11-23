@@ -22,10 +22,8 @@ function startDapp(web3, isOraclesNetwork) {
 		function getConfigCallBack(web3, accounts, config) {
 			//checks if chosen account is valid initial key
 			if (accounts.length == 1) {
-				var possibleInitialKey = accounts[0].substr(2);
 				checkInitialKey(web3,
-				"checkInitialKey(address)", 
-				possibleInitialKey,
+				accounts[0],
 				config.Ethereum[config.environment].KeysStorage.addr,
 				config.Ethereum[config.environment].KeysStorage.abi,
 				function(_isNew) {
@@ -74,7 +72,6 @@ function startDapp(web3, isOraclesNetwork) {
 		        if (!address) return swal("Error", "No address in key file", "error");
 
 		        checkInitialKey(web3,
-					"checkInitialKey(address)", 
 					address,
 					config.Ethereum[config.environment].KeysStorage.addr,
 					config.Ethereum[config.environment].KeysStorage.abi,

@@ -6,7 +6,7 @@ function checkInitialKey(web3, func, initialKey, contractAddr, abi, cb) {
       return cb();
     }
 
-    oraclesContract.methods.checkInitialKey("0x" + initialKey).call(function(err, isNew) {
+    oraclesContract.methods.checkInitialKey(initialKey).call(function(err, isNew) {
       if (err) {
         console.log(err)
       }
