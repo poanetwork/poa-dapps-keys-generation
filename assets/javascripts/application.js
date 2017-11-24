@@ -321,7 +321,6 @@ function startDapp(web3, isOraclesNetwork) {
 				function(err, _isNew) {
 					if (err) swal(err.title, err.message, "error")
 
-					_isNew = !!+_isNew;
 					if (!_isNew) swal("Warning", "Current key isn't valid initial key. Please, choose your initial key in MetaMask and reload the page. Check Oracles network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.", "warning");
 				});
 			} else if (accounts.length == 0) {
@@ -370,8 +369,6 @@ function startDapp(web3, isOraclesNetwork) {
 					config.Ethereum[config.environment].KeysStorage.addr,
 					config.Ethereum[config.environment].KeysStorage.abi,
 					function(_isNew) {
-						_isNew = !!+_isNew;
-
 						if (!_isNew) return swal("Error", "Initial key is already activated or isn't valid", "error");
 
 						$(".loading-container").show();
