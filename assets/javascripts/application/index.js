@@ -71,12 +71,14 @@ function startDapp(web3, isOraclesNetwork) {
 		        var address = keyJSON.address;
 		        
 		        if (!address) return swal("Error", "No address in key file", "error");
-
+		        
 		        checkInitialKey(web3,
 					address,
 					config.Ethereum[config.environment].KeysStorage.addr,
 					config.Ethereum[config.environment].KeysStorage.abi,
-					function(_isNew) {
+					function(err, _isNew) {
+						if (err) swal(err.title, err.message, "error")
+
 						if (!_isNew) return swal("Error", "Initial key is already activated or isn't valid", "error");
 
 						$(".loading-container").show();
