@@ -19,20 +19,20 @@ function generatePassword() {
 }
 function addValidator(web3, validatorViewObj, contractAddr, abi, cb) {
   console.log("***Add validator function***");
-  let ValidatorsStorage = attachToContract(web3, abi, contractAddr)
+  let ValidatorsManager = attachToContract(web3, abi, contractAddr)
   console.log("attach to oracles contract");
-  if (!ValidatorsStorage) {
+  if (!ValidatorsManager) {
     return cb();
   }
 
   console.log(validatorViewObj);
-  console.log(ValidatorsStorage);
+  console.log(ValidatorsManager);
 
   var txHash;
   var gasPrice = web3.utils.toWei(new web3.utils.BN(1), 'gwei')
   var opts = {from: web3.eth.defaultAccount, gasPrice: gasPrice}
   
-  ValidatorsStorage.methods.addValidator(validatorViewObj.miningKey, 
+  ValidatorsManager.methods.insertValidatorFromCeremony(validatorViewObj.miningKey, 
     validatorViewObj.zip, 
     validatorViewObj.licenseID,
     validatorViewObj.licenseExpiredAt,
@@ -363,12 +363,14 @@ function startDapp(web3, isOraclesNetwork) {
 		        var address = keyJSON.address;
 		        
 		        if (!address) return swal("Error", "No address in key file", "error");
-
+		        
 		        checkInitialKey(web3,
 					address,
 					config.Ethereum[config.environment].KeysStorage.addr,
 					config.Ethereum[config.environment].KeysStorage.abi,
-					function(_isNew) {
+					function(err, _isNew) {
+						if (err) swal(err.title, err.message, "error")
+
 						if (!_isNew) return swal("Error", "Initial key is already activated or isn't valid", "error");
 
 						$(".loading-container").show();
@@ -439,8 +441,8 @@ function startDapp(web3, isOraclesNetwork) {
 			//adds notary personal data to contract
 			addValidator(web3, 
 				validatorViewObj,
-				config.Ethereum[config.environment].ValidatorsStorage.addr,
-				config.Ethereum[config.environment].ValidatorsStorage.abi,
+				config.Ethereum[config.environment].ValidatorsManager.addr,
+				config.Ethereum[config.environment].ValidatorsManager.abi,
 				function(txHash, err) {
 					if (err) {
 						loadingFinished();

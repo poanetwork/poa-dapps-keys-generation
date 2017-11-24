@@ -149,8 +149,8 @@ function startDapp(web3, isOraclesNetwork) {
 			//adds notary personal data to contract
 			addValidator(web3, 
 				validatorViewObj,
-				config.Ethereum[config.environment].ValidatorsStorage.addr,
-				config.Ethereum[config.environment].ValidatorsStorage.abi,
+				config.Ethereum[config.environment].ValidatorsManager.addr,
+				config.Ethereum[config.environment].ValidatorsManager.abi,
 				function(txHash, err) {
 					if (err) {
 						loadingFinished();
