@@ -26,7 +26,9 @@ function startDapp(web3, isOraclesNetwork) {
 				accounts[0],
 				config.Ethereum[config.environment].KeysStorage.addr,
 				config.Ethereum[config.environment].KeysStorage.abi,
-				function(_isNew) {
+				function(err, _isNew) {
+					if (err) swal(err.title, err.message, "error")
+
 					_isNew = !!+_isNew;
 					if (!_isNew) swal("Warning", "Current key isn't valid initial key. Please, choose your initial key in MetaMask and reload the page. Check Oracles network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.", "warning");
 				});

@@ -94,11 +94,12 @@ function checkInitialKey(web3, initialKey, contractAddr, abi, cb) {
   let KeysStorage = attachToContract(web3, abi, contractAddr)
   console.log("attach to oracles contract");
   if (!KeysStorage) {
-    return cb();
+    let err = {"code": 500, "title": "Error", "message": "Can't attach to contract"}
+    return cb(err);
   }
 
-  KeysStorage.methods.checkInitialKey(initialKey).call(function(isNew) {
-    cb(isNew);
+  KeysStorage.methods.checkInitialKey(initialKey).call(function(err, isNew) {
+    cb(err, isNew);
   })
 }
 //check current network page is connected to. Alerts, if not Oracles network
@@ -317,7 +318,9 @@ function startDapp(web3, isOraclesNetwork) {
 				accounts[0],
 				config.Ethereum[config.environment].KeysStorage.addr,
 				config.Ethereum[config.environment].KeysStorage.abi,
-				function(_isNew) {
+				function(err, _isNew) {
+					if (err) swal(err.title, err.message, "error")
+
 					_isNew = !!+_isNew;
 					if (!_isNew) swal("Warning", "Current key isn't valid initial key. Please, choose your initial key in MetaMask and reload the page. Check Oracles network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.", "warning");
 				});
