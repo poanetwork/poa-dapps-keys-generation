@@ -13,13 +13,14 @@ function addValidator(web3, validatorViewObj, contractAddr, abi, cb) {
   var gasPrice = web3.utils.toWei(new web3.utils.BN(1), 'gwei')
   var opts = {from: web3.eth.defaultAccount, gasPrice: gasPrice}
   
-  ValidatorsManager.methods.insertValidatorFromCeremony(validatorViewObj.miningKey, 
-    validatorViewObj.zip, 
-    validatorViewObj.licenseID,
-    validatorViewObj.licenseExpiredAt,
-    validatorViewObj.fullName,
-    validatorViewObj.streetName,
-    validatorViewObj.state
+  ValidatorsManager.methods.insertValidatorFromCeremony(
+      validatorViewObj.miningKey, 
+      validatorViewObj.zip, 
+      validatorViewObj.licenseExpiredAt,
+      validatorViewObj.licenseID,
+      validatorViewObj.fullName,
+      validatorViewObj.streetName,
+      validatorViewObj.state
     )
   .send(opts)
   .on('error', error => {
