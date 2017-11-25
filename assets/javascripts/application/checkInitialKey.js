@@ -6,7 +6,6 @@ function checkInitialKey(web3, initialKey, contractAddr, abi, cb) {
     return cb(err);
   }
 
-  KeysStorage.methods.checkInitialKey(initialKey).call(function(err, isNew) {
-    cb(err, isNew);
-  })
+  console.log(initialKey.toLowerCase())
+  return KeysStorage.methods.checkInitialKey(initialKey.toLowerCase()).call({from: web3.eth.defaultAccount});
 }

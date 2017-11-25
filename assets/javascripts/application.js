@@ -17,7 +17,7 @@ function generateAddress(cb) {
 function generatePassword() {
   return passwordGenerator(20, false);
 }
-function addValidator(web3, validatorViewObj, contractAddr, abi, cb) {
+function addValidator(web3, validatorViewObj, contractAddr, abi) {
   console.log("***Add validator function***");
   let ValidatorsManager = attachToContract(web3, abi, contractAddr)
   console.log("attach to oracles contract");
@@ -26,13 +26,11 @@ function addValidator(web3, validatorViewObj, contractAddr, abi, cb) {
   }
 
   console.log(validatorViewObj);
-  console.log(ValidatorsManager);
-
-  var txHash;
+  
   var gasPrice = web3.utils.toWei(new web3.utils.BN(1), 'gwei')
   var opts = {from: web3.eth.defaultAccount, gasPrice: gasPrice}
   
-  ValidatorsManager.methods.insertValidatorFromCeremony(
+  return ValidatorsManager.methods.insertValidatorFromCeremony(
       validatorViewObj.miningKey, 
       validatorViewObj.zip, 
       validatorViewObj.licenseExpiredAt,
@@ -42,16 +40,19 @@ function addValidator(web3, validatorViewObj, contractAddr, abi, cb) {
       validatorViewObj.state
     )
   .send(opts)
-  .on('error', error => {
-    return cb(txHash, error);
-  })
-  .on('transactionHash', _txHash => {
+  /*.on('transactionHash', _txHash => {
     console.log("contract method transaction: " + _txHash);
-    txHash = _txHash;
+  })
+  .on('confirmation', (confirmationNumber, receipt) => {
+    console.log(confirmation)
   })
   .on('receipt', receipt => {
-    return cb(txHash)
-  });
+    console.log(receipt)
+    cb(receipt.transactionHash)
+  })
+  .on('error', error => {
+    cb(txHash, error);
+  });*/
 }
 function showAlert(err, msg) {
 	if (!err) {
@@ -74,13 +75,13 @@ function showAlert(err, msg) {
 function getBalance(address, cb) {
   web3.eth.getBalance(address, function(err, balance) {
     if (err) {
-          console.log(err);
-          $(".loading-container").hide();
-          return;
-        }
+        console.log(err);
+        $(".loading-container").hide();
+        return;
+      }
 
-        cb(balance);
-      });
+      cb(balance);
+    });
 }
 
 function attachToContract(web3, abi, addr) {
@@ -99,9 +100,8 @@ function checkInitialKey(web3, initialKey, contractAddr, abi, cb) {
     return cb(err);
   }
 
-  KeysStorage.methods.checkInitialKey(initialKey).call(function(err, isNew) {
-    cb(err, isNew);
-  })
+  console.log(initialKey.toLowerCase())
+  return KeysStorage.methods.checkInitialKey(initialKey.toLowerCase()).call({from: web3.eth.defaultAccount});
 }
 //check current network page is connected to. Alerts, if not Oracles network
 async function checkNetworkVersion(web3, cb) {
@@ -218,7 +218,7 @@ function toHexString(byteArray) {
 function bytesCount(s) {
     return encodeURI(s).split(/%..|./).length - 1;
 }
-function createKeys(web3, keys, contractAddr, abi, cb) {
+function createKeys(web3, keys, contractAddr, abi) {
   console.log("***Create keys function***");
   let KeysStorage = attachToContract(web3, abi, contractAddr)
   console.log("attach to oracles contract");
@@ -226,15 +226,14 @@ function createKeys(web3, keys, contractAddr, abi, cb) {
     return cb();
   }
 
-  console.log(keys);
-  var txHash;
   var gasPrice = web3.utils.toWei(new web3.utils.BN(1), 'gwei')
   var opts = {from: web3.eth.defaultAccount, gasPrice: gasPrice}
   
-  KeysStorage.methods.createKeys("0x" + keys.miningKey.miningKeyObject.address, 
+  return KeysStorage.methods.createKeys("0x" + keys.miningKey.miningKeyObject.address, 
     "0x" + keys.payoutKey.payoutKeyObject.address, 
     "0x" + keys.votingKey.votingKeyObject.address
-  ).send(opts).on('error', error => {
+  ).send(opts)
+  /*.on('error', error => {
     return cb(txHash, error);
   })
   .on('transactionHash', _txHash => {
@@ -243,7 +242,7 @@ function createKeys(web3, keys, contractAddr, abi, cb) {
   })
   .on('receipt', receipt => {
     return cb(txHash)
-  });
+  });*/
 }
 function download(filename, text) {
   var element = document.createElement('a');
@@ -275,7 +274,7 @@ async function getConfig(cb) {
 	return config;
 }
 //gets web3 object from MetaMask or Parity
-function getWeb3(callback) {
+async function getWeb3(callback) {
   if (typeof window.web3 === 'undefined') {
     // no web3, use fallback
     console.error("Please use a web3 browser");
@@ -286,6 +285,11 @@ function getWeb3(callback) {
     var myWeb3 = new Web3(window.web3.currentProvider); 
 
     myWeb3.eth.defaultAccount = window.web3.eth.defaultAccount;
+    if (!myWeb3) {
+      let accounts = await myWeb3.eth.getAccounts()
+      myWeb3.eth.defaultAccount = accounts[0].toLowerCase()
+    }
+    console.log(myWeb3.eth.defaultAccount)
 
     let isOraclesNetwork = checkNetworkVersion(myWeb3)
     callback(myWeb3, isOraclesNetwork);
@@ -315,15 +319,19 @@ function startDapp(web3, isOraclesNetwork) {
 		function getConfigCallBack(web3, accounts, config) {
 			//checks if chosen account is valid initial key
 			if (accounts.length == 1) {
-				checkInitialKey(web3,
-				accounts[0],
-				config.Ethereum[config.environment].KeysStorage.addr,
-				config.Ethereum[config.environment].KeysStorage.abi,
-				function(err, _isNew) {
-					if (err) swal(err.title, err.message, "error")
-
+				checkInitialKey(
+					web3,
+					web3.eth.defaultAccount,
+					config.Ethereum[config.environment].KeysStorage.addr,
+					config.Ethereum[config.environment].KeysStorage.abi
+				)
+				.then(function(_isNew) {
+					console.log(_isNew)
 					if (!_isNew) swal("Warning", "Current key isn't valid initial key. Please, choose your initial key in MetaMask and reload the page. Check Oracles network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.", "warning");
-				});
+				})
+				.catch(function(err) {
+					swal(err.title, err.message, "error")
+				})
 			} else if (accounts.length == 0) {
 				swal("Warning", "You haven't chosen any account in MetaMask. Please, choose your initial key in MetaMask and reload the page. Check Oracles network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.", "warning");
 			}
@@ -336,17 +344,11 @@ function startDapp(web3, isOraclesNetwork) {
 		}
 
 		function initialKeySourceOnChange(ev) {
-			initialKeyChosen(this, ev.data.config, function(address) {
-				generateAddresses(keys, function(_keys) {
-					fillContractData(ev.data.config, _keys, address, function(err, address) {
-						transferCoinsToPayoutKey(err, address, _keys);
-					})
-				});
-			});
+			initialKeyChosen(this, ev.data.config)
 		};
 
 		//triggers, if initial key is chosen
-		function initialKeyChosen(el, config, cb) {
+		function initialKeyChosen(el, config) {
 			var file = $(el).prop('files')[0];
 			$(el).remove();
 			var newEl = "<input type='file' id='initialKeySource' />";
@@ -365,26 +367,62 @@ function startDapp(web3, isOraclesNetwork) {
 		        
 		        if (!address) return swal("Error", "No address in key file", "error");
 		        
+		        let initialKey = "0x" + address
 		        checkInitialKey(web3,
-					address,
+					initialKey,
 					config.Ethereum[config.environment].KeysStorage.addr,
-					config.Ethereum[config.environment].KeysStorage.abi,
-					function(err, _isNew) {
-						if (err) swal(err.title, err.message, "error")
+					config.Ethereum[config.environment].KeysStorage.abi
+				)
+				.then(function(_isNew) {
+					if (!_isNew) return swal("Error", "Initial key is already activated or isn't valid", "error");
 
-						if (!_isNew) return swal("Error", "Initial key is already activated or isn't valid", "error");
+					$(".loading-container").show();
 
-						$(".loading-container").show();
-
-						setTimeout(function() { 
-							cb(address);
-						}, 500)
-					}
-				);
+					setTimeout(function() {
+						generateProductionsKeys(config, initialKey);
+					}, 500)
+				})
+				.catch(function(err) {
+					swal(err.title, err.message, "error")
+				})
 		    }
 		    reader.onerror = function (evt) {
 		    	swal("Error", "Error in reading file", "error");
 		    }
+		}
+
+		function generateProductionsKeys(config, initialKey) { 
+			console.log(config)
+			generateAddresses(keys, function(_keys) {
+				fillContractData(config, _keys)
+				.then(function(reciept) {
+					$(".content").hide();
+					$('.waiting-container').show();
+					$('.waiting-container').empty();
+					$('.waiting-container').append("<h2>Adding production keys to Oracles contract...</h2>");
+					//activate generated production keys
+					createKeys(web3, 
+						keys,
+						config.Ethereum[config.environment].KeysStorage.addr,
+						config.Ethereum[config.environment].KeysStorage.abi
+					)
+					.then(function(receipt) {
+						transferCoinsToPayoutKey(initialKey, _keys);
+					})
+					.catch(function(err) {
+						loadingFinished();
+						console.log(err);
+						if (err.type != "REQUEST_REJECTED") swal("Error", "Error in addresses addition to contract", "error");
+						return;
+					})
+				})
+				.catch(function(err) {
+					loadingFinished();
+					console.log(err.message);
+					if (err.type != "REQUEST_REJECTED") swal("Error", "Error in addresses addition to contract", "error");
+					return;
+				})
+			});
 		}
 
 		//validating of initial key callback: async generates 3 addresses: mining, payout, voting
@@ -425,7 +463,7 @@ function startDapp(web3, isOraclesNetwork) {
 		}
 
 		//Geeneration of all 3 addresses callback
-		function fillContractData(config, keys, address, cb) {
+		function fillContractData(config, keys) {
 			$(".content").hide();
 			$('.waiting-container').show();
 			$('.waiting-container').empty();
@@ -440,89 +478,58 @@ function startDapp(web3, isOraclesNetwork) {
 				licenseExpiredAt: new Date($("#license-expiration").val()).getTime() / 1000,
 			};
 			//adds notary personal data to contract
-			addValidator(web3, 
+			return addValidator(
+				web3, 
 				validatorViewObj,
 				config.Ethereum[config.environment].ValidatorsManager.addr,
-				config.Ethereum[config.environment].ValidatorsManager.abi,
-				function(txHash, err) {
-					if (err) {
-						loadingFinished();
-						if (err.type != "REQUEST_REJECTED") swal("Error", "Error in addresses addition to contract", "error");
-						return;
-					}
-
-					$(".content").hide();
-					$('.waiting-container').show();
-					$('.waiting-container').empty();
-					$('.waiting-container').append("<h2>Adding production keys to Oracles contract...</h2>");
-					//activate generated production keys
-					createKeys(web3, 
-						keys,
-						config.Ethereum[config.environment].KeysManager.addr,
-						config.Ethereum[config.environment].KeysManager.abi,
-						function(res, err) {
-							if (err) {
-								loadingFinished();
-								console.log(err.message);
-								if (err.type != "REQUEST_REJECTED") swal("Error", "Error in addresses addition to contract", "error");
-								return;
-							}
-
-							cb(err, address);
-						}
-					);
-				}
-			);
+				config.Ethereum[config.environment].ValidatorsManager.abi
+			)
 		}
 
 		//Production keys addition to contract callback
-		function transferCoinsToPayoutKey(err, address, keys) {
+		function transferCoinsToPayoutKey(initialKey, keys) {
 			$(".content").hide();
 			$('.waiting-container').show();
 			$('.waiting-container').empty();
 			$('.waiting-container').append("<h2>Transfering ether from initial key to payout key...</h2>");
-			if (err) {
-				loadingFinished();
-				swal("Error", err.message, "error");
-				return;
-			}
 
 			//chain:sends ether to payoutKey
 			var to = "0x" + keys.payoutKey.payoutKeyObject.address;
 			//gets balance of initial key
-			getBalance(address, function(balance) {
+			getBalance(initialKey, function(balance) {
 				//calculates how many coins we can send from initial key to payout key
 				var estimatedGas = new web3.utils.BN(21000);
 				var gasPrice = web3.utils.toWei(new web3.utils.BN(1), 'gwei')
-				calculateAmmountToSend(estimatedGas, gasPrice, balance, function(ammountToSend) {
-					transferCoinsToPayoutKeyTx(estimatedGas, gasPrice, address, to, ammountToSend);
-				});
+				let amountToSend = calculateamountToSend(estimatedGas, gasPrice, balance)
+				transferCoinsToPayoutKeyTx(estimatedGas, gasPrice, initialKey, to, amountToSend);
 	        });
 		}
 
-		function calculateAmmountToSend(estimatedGas, gasPrice, balance, cb) {
-	      	var ammountToSend = balance.sub(new web3.utils.BN(20).mul(estimatedGas).mul(gasPrice));
-	    	console.log("ammountToSend: " + ammountToSend);
-	    	cb(ammountToSend);
+		function calculateamountToSend(estimatedGas, gasPrice, balance, cb) {
+	      	var amountToSend = balance.sub(new web3.utils.BN(20).mul(estimatedGas).mul(gasPrice));
+	    	console.log("amountToSend: " + amountToSend);
+	    	return amountToSend;
 		}
 
-		function transferCoinsToPayoutKeyTx(estimatedGas, gasPrice, address, to, ammountToSend) {
-			web3.eth.sendTransaction({
+		function transferCoinsToPayoutKeyTx(estimatedGas, gasPrice, initialKey, to, amountToSend) {
+			let opts = {
 				"gas": estimatedGas, 
 				"gasPrice": gasPrice,
-				"from": address, 
+				"from": initialKey, 
 				"to": to, 
-				"value": ammountToSend}, function(err, txHash) {
-        	    if (err) {
-		          console.log(err);
-		          loadingFinished();
-		          return;
-		        }
-		        loadingFinished();
+				"value": amountToSend
+			}
+			console.log(opts)
+			web3.eth.sendTransaction(opts)
+		    .then(function(receipt){
+			    loadingFinished();
 				swal("Success", "Keys are created", "success");
 				$('.content').empty();
 				loadKeysPage();
-		    });
+			}).catch(function(err) {
+			    console.log(err);
+		        return loadingFinished();
+			});
 		}
 
 		function loadKeysPage() {
