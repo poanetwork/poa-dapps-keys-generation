@@ -22,7 +22,7 @@ function addValidator(web3, validatorViewObj, contractAddr, abi) {
   let ValidatorsManager = attachToContract(web3, abi, contractAddr)
   console.log("attach to oracles contract");
   if (!ValidatorsManager) {
-    return cb();
+    return console.log("ValidatorsStorage contract is undefined");
   }
 
   console.log(validatorViewObj);
@@ -223,7 +223,7 @@ function createKeys(web3, keys, contractAddr, abi) {
   let KeysStorage = attachToContract(web3, abi, contractAddr)
   console.log("attach to oracles contract");
   if (!KeysStorage) {
-    return cb();
+    return console.log("KeysStorage contract is undefined");
   }
 
   var gasPrice = web3.utils.toWei(new web3.utils.BN(1), 'gwei')

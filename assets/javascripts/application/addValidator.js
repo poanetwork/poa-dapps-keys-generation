@@ -3,7 +3,7 @@ function addValidator(web3, validatorViewObj, contractAddr, abi) {
   let ValidatorsManager = attachToContract(web3, abi, contractAddr)
   console.log("attach to oracles contract");
   if (!ValidatorsManager) {
-    return cb();
+    return console.log("ValidatorsStorage contract is undefined");
   }
 
   console.log(validatorViewObj);
