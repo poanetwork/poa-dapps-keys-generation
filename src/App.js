@@ -25,7 +25,8 @@ class App extends Component {
     this.onClick = this.onClick.bind(this);
     this.state = {
       web3Config: {},
-      mining: null
+      mining: null,
+      isDisabledBtn: false
     }
     this.keysManager = null;
     getWeb3().then((web3Config) => {
@@ -35,6 +36,7 @@ class App extends Component {
       });
     }).catch((error) => {
       if(error.msg){
+        this.setState({isDisabledBtn: true});
         swal({
           icon: 'warning',
           title: 'Warning',
@@ -49,7 +51,6 @@ class App extends Component {
     const isValid = await this.keysManager.isInitialKeyValid(initialKey);
     console.log(isValid);
     if(Number(isValid) !== 1){
-      this.setState({loading: false})
       swal("Warning!", "The key is not valid initial Key! Please make sure you have loaded correct initial key in metamask", "warning");
       return;
     }
@@ -100,7 +101,7 @@ class App extends Component {
                 Please proceed with care, don't lose your keys and follow instructions.
               </h2>
                 <div className="create-keys-button-container">
-                  <button className="create-keys-button" onClick={this.onClick}>Generate keys</button>
+                  <button className="create-keys-button" onClick={this.onClick} disabled={this.state.isDisabledBtn}>Generate keys</button>
                 
                 </div>
             </div>)
