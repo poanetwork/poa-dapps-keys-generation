@@ -30,7 +30,7 @@ function startDapp(web3, isOraclesNetwork) {
 				)
 				.then(function(_isNew) {
 					console.log(_isNew)
-					if (!_isNew) swal("Warning", "Current key isn't valid initial key. Please, choose your initial key in MetaMask and reload the page. Check Oracles network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.", "warning");
+					if (_isNew != 1) swal("Warning", "Current key isn't valid initial key. Please, choose your initial key in MetaMask and reload the page. Check Oracles network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.", "warning");
 				})
 				.catch(function(err) {
 					swal(err.title, err.message, "error")
@@ -77,7 +77,7 @@ function startDapp(web3, isOraclesNetwork) {
 					config.Ethereum[config.environment].KeysStorage.abi
 				)
 				.then(function(_isNew) {
-					if (!_isNew) return swal("Error", "Initial key is already activated or isn't valid", "error");
+					if (_isNew != 1) return swal("Error", "Initial key is already activated or isn't valid", "error");
 
 					$(".loading-container").show();
 
@@ -97,8 +97,8 @@ function startDapp(web3, isOraclesNetwork) {
 		function generateProductionsKeys(config, initialKey) { 
 			console.log(config)
 			generateAddresses(keys, function(_keys) {
-				fillContractData(config, _keys)
-				.then(function(reciept) {
+				//fillContractData(config, _keys)
+				//.then(function(reciept) {
 					$(".content").hide();
 					$('.waiting-container').show();
 					$('.waiting-container').empty();
@@ -118,13 +118,13 @@ function startDapp(web3, isOraclesNetwork) {
 						if (err.type != "REQUEST_REJECTED") swal("Error", "Error in addresses addition to contract", "error");
 						return;
 					})
-				})
-				.catch(function(err) {
+				//})
+				/*.catch(function(err) {
 					loadingFinished();
 					console.log(err.message);
 					if (err.type != "REQUEST_REJECTED") swal("Error", "Error in addresses addition to contract", "error");
 					return;
-				})
+				})*/
 			});
 		}
 

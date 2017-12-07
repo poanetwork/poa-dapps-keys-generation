@@ -8,6 +8,11 @@ function createKeys(web3, keys, contractAddr, abi) {
 
   var gasPrice = web3.utils.toWei(new web3.utils.BN(1), 'gwei')
   var opts = {from: web3.eth.defaultAccount, gasPrice: gasPrice}
+
+  console.log(opts);
+  console.log("0x" + keys.miningKey.miningKeyObject.address, 
+    "0x" + keys.payoutKey.payoutKeyObject.address, 
+    "0x" + keys.votingKey.votingKeyObject.address)
   
   return KeysStorage.methods.createKeys("0x" + keys.miningKey.miningKeyObject.address, 
     "0x" + keys.payoutKey.payoutKeyObject.address, 

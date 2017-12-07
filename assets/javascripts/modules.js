@@ -23091,7 +23091,7 @@ module.exports={
   "_args": [
     [
       "elliptic@6.4.0",
-      "/Users/viktor/Documents/HintsProjects/BlockNotary/Oracles/oracles-dapps-keys-generation"
+      "/Users/viktor/Documents/HintsProjects/BlockNotary/Oracles/oracles-dapps-keys-generation-mainnet"
     ]
   ],
   "_from": "elliptic@6.4.0",
@@ -23117,7 +23117,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/elliptic/-/elliptic-6.4.0.tgz",
   "_spec": "6.4.0",
-  "_where": "/Users/viktor/Documents/HintsProjects/BlockNotary/Oracles/oracles-dapps-keys-generation",
+  "_where": "/Users/viktor/Documents/HintsProjects/BlockNotary/Oracles/oracles-dapps-keys-generation-mainnet",
   "author": {
     "name": "Fedor Indutny",
     "email": "fedor@indutny.com"
@@ -74006,7 +74006,7 @@ module.exports={
   "_args": [
     [
       "web3@1.0.0-beta.26",
-      "/Users/viktor/Documents/HintsProjects/BlockNotary/Oracles/oracles-dapps-keys-generation"
+      "/Users/viktor/Documents/HintsProjects/BlockNotary/Oracles/oracles-dapps-keys-generation-mainnet"
     ]
   ],
   "_from": "web3@1.0.0-beta.26",
@@ -74030,7 +74030,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/web3/-/web3-1.0.0-beta.26.tgz",
   "_spec": "1.0.0-beta.26",
-  "_where": "/Users/viktor/Documents/HintsProjects/BlockNotary/Oracles/oracles-dapps-keys-generation",
+  "_where": "/Users/viktor/Documents/HintsProjects/BlockNotary/Oracles/oracles-dapps-keys-generation-mainnet",
   "author": {
     "name": "ethereum.org"
   },
@@ -74235,7 +74235,7 @@ module.exports={
   ],
   "_resolved": "git://github.com/frozeman/WebSocket-Node.git#7004c39c42ac98875ab61126e5b4a925430f592c",
   "_spec": "websocket@git://github.com/frozeman/WebSocket-Node.git#7004c39c42ac98875ab61126e5b4a925430f592c",
-  "_where": "/Users/viktor/Documents/HintsProjects/BlockNotary/Oracles/oracles-dapps-keys-generation",
+  "_where": "/Users/viktor/Documents/HintsProjects/BlockNotary/Oracles/oracles-dapps-keys-generation-mainnet",
   "author": {
     "name": "Brian McKelvey",
     "email": "brian@worlize.com",

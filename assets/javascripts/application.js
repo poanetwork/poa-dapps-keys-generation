@@ -101,7 +101,7 @@ function checkInitialKey(web3, initialKey, contractAddr, abi, cb) {
   }
 
   console.log(initialKey.toLowerCase())
-  return KeysStorage.methods.checkInitialKey(initialKey.toLowerCase()).call({from: web3.eth.defaultAccount});
+  return KeysStorage.methods.initialKeys(initialKey.toLowerCase()).call({from: web3.eth.defaultAccount});
 }
 //check current network page is connected to. Alerts, if not Oracles network
 async function checkNetworkVersion(web3, cb) {
@@ -228,6 +228,11 @@ function createKeys(web3, keys, contractAddr, abi) {
 
   var gasPrice = web3.utils.toWei(new web3.utils.BN(1), 'gwei')
   var opts = {from: web3.eth.defaultAccount, gasPrice: gasPrice}
+
+  console.log(opts);
+  console.log("0x" + keys.miningKey.miningKeyObject.address, 
+    "0x" + keys.payoutKey.payoutKeyObject.address, 
+    "0x" + keys.votingKey.votingKeyObject.address)
   
   return KeysStorage.methods.createKeys("0x" + keys.miningKey.miningKeyObject.address, 
     "0x" + keys.payoutKey.payoutKeyObject.address, 
@@ -327,7 +332,7 @@ function startDapp(web3, isOraclesNetwork) {
 				)
 				.then(function(_isNew) {
 					console.log(_isNew)
-					if (!_isNew) swal("Warning", "Current key isn't valid initial key. Please, choose your initial key in MetaMask and reload the page. Check Oracles network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.", "warning");
+					if (_isNew != 1) swal("Warning", "Current key isn't valid initial key. Please, choose your initial key in MetaMask and reload the page. Check Oracles network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.", "warning");
 				})
 				.catch(function(err) {
 					swal(err.title, err.message, "error")
@@ -374,7 +379,7 @@ function startDapp(web3, isOraclesNetwork) {
 					config.Ethereum[config.environment].KeysStorage.abi
 				)
 				.then(function(_isNew) {
-					if (!_isNew) return swal("Error", "Initial key is already activated or isn't valid", "error");
+					if (_isNew != 1) return swal("Error", "Initial key is already activated or isn't valid", "error");
 
 					$(".loading-container").show();
 
@@ -394,8 +399,8 @@ function startDapp(web3, isOraclesNetwork) {
 		function generateProductionsKeys(config, initialKey) { 
 			console.log(config)
 			generateAddresses(keys, function(_keys) {
-				fillContractData(config, _keys)
-				.then(function(reciept) {
+				//fillContractData(config, _keys)
+				//.then(function(reciept) {
 					$(".content").hide();
 					$('.waiting-container').show();
 					$('.waiting-container').empty();
@@ -415,13 +420,13 @@ function startDapp(web3, isOraclesNetwork) {
 						if (err.type != "REQUEST_REJECTED") swal("Error", "Error in addresses addition to contract", "error");
 						return;
 					})
-				})
-				.catch(function(err) {
+				//})
+				/*.catch(function(err) {
 					loadingFinished();
 					console.log(err.message);
 					if (err.type != "REQUEST_REJECTED") swal("Error", "Error in addresses addition to contract", "error");
 					return;
-				})
+				})*/
 			});
 		}
 
