@@ -6,6 +6,7 @@
   "dependencies": {
     "clipboard": "^1.7.1",
     "gh-pages": "^1.1.0",
+    "keythereum": "^1.0.2",
     "node-sass-chokidar": "0.0.3",
     "npm-run-all": "^4.1.2",
     "react": "^16.2.0",
