@@ -51,6 +51,7 @@ class App extends Component {
     const isValid = await this.keysManager.isInitialKeyValid(initialKey);
     console.log(isValid);
     if(Number(isValid) !== 1){
+      this.setState({loading:false});
       swal("Warning!", "The key is not valid initial Key! Please make sure you have loaded correct initial key in metamask", "warning");
       return;
     }
