@@ -37,7 +37,7 @@ export default class Keys extends Component{
           deposited to your payout account.
         </p>
         <div className="keys-footer">
-          <a className="keys-download" id="miningKeyDownload" href={encodeJson(this.props.mining.jsonStore)} download="Mining_Key.json">Download Mining Key</a>
+          <a className="keys-download" id="miningKeyDownload" href={encodeJson(this.props.mining.jsonStore)} download={`mining_${this.props.mining.jsonStore.address}.json`}>Download Mining Key</a>
         </div>
       </div>
       <div className="keys-i">
@@ -56,7 +56,7 @@ export default class Keys extends Component{
           node/wallet to spend earned coins.
         </p>
         <div className="keys-footer">
-          <a className="keys-download" id="payoutKeyDownload" href={encodeJson(this.props.payout.jsonStore)} download="Payout_Key.json">Download Payout Key</a>
+          <a className="keys-download" id="payoutKeyDownload" href={encodeJson(this.props.payout.jsonStore)} download={`payout_${this.props.payout.jsonStore.address}.json`}>Download Payout Key</a>
         </div>
       </div>
       <div className="keys-i">
@@ -76,7 +76,7 @@ export default class Keys extends Component{
           removing miners from the network.
         </p>
         <div className="keys-footer">  
-          <a className="keys-download" id="votingKeyDownload" href={encodeJson(this.props.voting.jsonStore)} download="Voting_Key.json">Download Voting Key</a>
+          <a className="keys-download" id="votingKeyDownload" href={encodeJson(this.props.voting.jsonStore)} download={`voting_${this.props.voting.jsonStore.address}.json`}>Download Voting Key</a>
         </div>
       </div>
     </div>
