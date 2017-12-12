@@ -89,7 +89,6 @@ class App extends Component {
           content: content
         });
       })
-      console.log(this.state);
     }
   }
   render() {    
