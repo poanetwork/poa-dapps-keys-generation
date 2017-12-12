@@ -2,11 +2,12 @@ import KeysManagerAbi from './keysManagerAbi.json'
 import Web3 from 'web3';
 import addressGenerator from './addressGenerator';
 
+const KEYS_MANAGER_ADDRESS = '0x3111c94b9243a8a99d5a867e00609900e437e2c0'
 export default class KeysManager {
   constructor(){
     if(window.web3.currentProvider){
       let web3_10 = new Web3(window.web3.currentProvider);
-      this.keysInstance = new web3_10.eth.Contract(KeysManagerAbi, '0x758492834ed6454f41d6d3d6b73d6e46d4555429');
+      this.keysInstance = new web3_10.eth.Contract(KeysManagerAbi, KEYS_MANAGER_ADDRESS);
     }
   }
   async isInitialKeyValid(initialKey) {

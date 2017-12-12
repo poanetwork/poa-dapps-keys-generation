@@ -1,10 +1,46 @@
 import React, { Component } from 'react';
+import Tooltip from 'rc-tooltip';
+import 'rc-tooltip/assets/bootstrap.css';
+
 const encodeJson = (json) => {
   const encoded =  window.encodeURIComponent(JSON.stringify(json));
   return `data:application/json;charset=utf-8,${encoded}`;
 }
 
 export default class Keys extends Component{
+  constructor(props) {
+    super(props);
+    this.onVisibleChange = this.onVisibleChange.bind(this)
+    this.onCopyBtnClick = this.onCopyBtnClick.bind(this)
+    this.state = {
+      copyBtns: {
+        copyMiningPass: {
+          visible: false,
+          text: 'Copy'
+        },
+        copyVotingPass: {
+          visible: false,
+          text: 'Copy'
+        },
+        copyPayoutPass: {
+          visible: false,
+          text: 'Copy'
+        },
+        copyMiningKey: {
+          visible: false,
+          text: 'Copy'
+        },
+        copyVotingKey: {
+          visible: false,
+          text: 'Copy'
+        },
+        copyPayoutKey: {
+          visible: false,
+          text: 'Copy'
+        },
+      }
+    }
+  }
   componentWillUpdate(nextProps, nextState) {
     if (this.refs.miningKeyAddress) {
       const Clipboard = require('clipboard');
@@ -17,6 +53,25 @@ export default class Keys extends Component{
       new Clipboard(this.refs.votingKeyPass);
     }
   }
+  onVisibleChange(id) {
+    console.log(id);
+    let copyBtns = this.state.copyBtns;
+    copyBtns[id].visible = !copyBtns[id].visible
+    copyBtns[id].text = 'Copy'
+    this.setState({
+      copyBtns
+    })
+    
+    // const id = e.target.id;
+  }
+  onCopyBtnClick(e){
+    const id = e.target.id;
+    let copyBtns = this.state.copyBtns;
+    copyBtns[id].text = 'Copied!'
+    this.setState({
+      copyBtns
+    })
+  }
   render(){
     return ( <div className="container">
     <div className="keys">
@@ -24,12 +79,30 @@ export default class Keys extends Component{
         <p className="keys-title">Mining key</p>
         <div className="keys-hash-container">
           <p className="keys-hash" id="miningKey">0x{this.props.mining.jsonStore.address}</p>
-          <span id="copyMiningKey" className="copy"  ref="miningKeyAddress" data-clipboard-text={"0x"+this.props.mining.jsonStore.address}></span>
+          <Tooltip
+          visible={this.state.copyBtns.copyMiningKey.visible}
+          animation="zoom"
+          trigger="hover"
+          onVisibleChange={() => { this.onVisibleChange('copyMiningKey')}}
+          placement="right"
+          overlay={this.state.copyBtns.copyMiningKey.text}
+        >
+          <span id="copyMiningKey" onClick={this.onCopyBtnClick} className="copy" ref="miningKeyAddress" data-clipboard-text={"0x"+this.props.mining.jsonStore.address} ></span>
+        </Tooltip>
         </div>
         <p className="keys-hash">
-          <span className="password-label">Password:</span>
-          <span id="miningKeyPass" className="pass">{this.props.mining.password}</span>
-          <span id="copyMiningPass" className="copy" ref="miningKeyPass" data-clipboard-text={this.props.mining.password} ></span>
+          <label className="password-label">Password:</label>
+          <input disabled={true} defaultValue={this.props.mining.password} type="password" id="miningKeyPass" className="pass"/>
+          <Tooltip
+          visible={this.state.copyBtns.copyMiningPass.visible}
+          animation="zoom"
+          trigger="hover"
+          onVisibleChange={() => { this.onVisibleChange('copyMiningPass')}}
+          placement="right"
+          overlay={this.state.copyBtns.copyMiningPass.text}
+        >
+          <span id="copyMiningPass" onClick={this.onCopyBtnClick} className="copy" ref="miningKeyPass" data-clipboard-text={this.props.mining.password} ></span>
+        </Tooltip>
         </p>
         <p className="keys-description">
           Download this key and use it in your mining node to
@@ -44,12 +117,30 @@ export default class Keys extends Component{
         <p className="keys-title">Payout key</p>
         <div className="keys-hash-container">
           <p className="keys-hash" id="payoutKey">0x{this.props.payout.jsonStore.address}</p>
-          <span id="copyPayoutKey" className="copy" ref="payoutKeyAddress" data-clipboard-text={"0x"+this.props.payout.jsonStore.address}></span>
+          <Tooltip
+          visible={this.state.copyBtns.copyPayoutKey.visible}
+          animation="zoom"
+          trigger="hover"
+          onVisibleChange={() => { this.onVisibleChange('copyPayoutKey')}}
+          placement="right"
+          overlay={this.state.copyBtns.copyPayoutKey.text}
+        >
+          <span id="copyPayoutKey" onClick={this.onCopyBtnClick} className="copy" ref="payoutKeyAddress" data-clipboard-text={"0x"+this.props.payout.jsonStore.address} ></span>
+        </Tooltip>
         </div>
         <p className="keys-hash"> 
-          <span className="password-label">Password:</span>
-          <span id="payoutKeyPass" className="pass">{this.props.payout.password}</span>
-          <span id="copyPayoutPass" className="copy" ref="payoutKeyPass" data-clipboard-text={this.props.payout.password}></span>
+          <label className="password-label">Password:</label>
+          <input type="password" disabled={true} id="payoutKeyPass" className="pass" defaultValue={this.props.payout.password}/>
+          <Tooltip
+          visible={this.state.copyBtns.copyPayoutPass.visible}
+          animation="zoom"
+          trigger="hover"
+          onVisibleChange={() => { this.onVisibleChange('copyPayoutPass')}}
+          placement="right"
+          overlay={this.state.copyBtns.copyPayoutPass.text}
+        >
+          <span id="copyPayoutPass" onClick={this.onCopyBtnClick} className="copy" ref="payoutKeyPass" data-clipboard-text={this.props.payout.password} ></span>
+        </Tooltip>
         </p>
         <p className="keys-description">
           Download this key and use it on your client
@@ -63,12 +154,30 @@ export default class Keys extends Component{
         <p className="keys-title">Voting key</p>
         <div className="keys-hash-container">
           <p className="keys-hash" id="votingKey">0x{this.props.voting.jsonStore.address}</p>
-          <span id="copyVotingKey" className="copy" ref="votingKeyAddress" data-clipboard-text={"0x"+this.props.voting.jsonStore.address}></span>
+          <Tooltip
+          visible={this.state.copyBtns.copyVotingKey.visible}
+          animation="zoom"
+          trigger="hover"
+          onVisibleChange={() => { this.onVisibleChange('copyVotingKey')}}
+          placement="right"
+          overlay={this.state.copyBtns.copyVotingKey.text}
+        >
+          <span id="copyVotingKey" onClick={this.onCopyBtnClick} className="copy" ref="votingKeyAddress" data-clipboard-text={"0x"+this.props.voting.jsonStore.address} ></span>
+        </Tooltip>
         </div>
         <p className="keys-hash">
-          <span className="password-label">Password:</span>
-          <span id="votingKeyPass" className="pass">{this.props.voting.password}</span>
-          <span id="copyVotingPass" className="copy" ref="votingKeyPass" data-clipboard-text={this.props.voting.password} ></span>
+          <label className="password-label">Password:</label>
+          <input type="password" disabled={true} id="votingKeyPass" className="pass" defaultValue={this.props.voting.password}/>
+          <Tooltip
+          visible={this.state.copyBtns.copyVotingPass.visible}
+          animation="zoom"
+          trigger="hover"
+          onVisibleChange={() => { this.onVisibleChange('copyVotingPass')}}
+          placement="right"
+          overlay={this.state.copyBtns.copyVotingPass.text}
+        >
+          <span id="copyVotingPass" onClick={this.onCopyBtnClick} className="copy" ref="votingKeyPass" data-clipboard-text={this.props.voting.password} ></span>
+        </Tooltip>
         </p>
         <p className="keys-description">
           Download this key and use it on your client node to
