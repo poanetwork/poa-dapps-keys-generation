@@ -25,16 +25,20 @@ let getWeb3 = () => {
         web3.version.getNetwork((err, netId) => {
           let netIdName;
           switch (netId) {
-            case "12648430":
-              netIdName = 'Oracles'
-              console.log('This is oracles')
+            case "77":
+              netIdName = 'Sokol'
+              console.log('This is sokol')
+              break
+            case "99":
+              netIdName = 'Core'
+              console.log('This is Core')
               break
             default:
               netIdName = 'ERROR'
               errorMsg = `You aren't connected to POA Network. 
                   Please, switch on Oracles plugin and refresh the page. 
                   Check POA Network <a href='https://github.com/oraclesorg/oracles-wiki' target='blank'>wiki</a> for more info.`
-              console.log('This is an unknown network.')
+              console.log('This is an unknown network.', netId)
           }
           results = {
             web3Instance: web3,
