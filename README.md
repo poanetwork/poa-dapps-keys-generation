@@ -21,7 +21,7 @@ Check [Ceremony Dapp section from wiki](https://github.com/oraclesorg/oracles-wi
 ![](./docs/results.png)
 
 ## Configuration file
-It is configured with [Oracles network contract](https://github.com/oraclesorg/oracles-contract)
+It is configured with [POA Network contract](https://github.com/oraclesorg/poa-network-consensus-contracts)
 
 Path: `./assets/javascripts/config.json`
 
