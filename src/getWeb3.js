@@ -46,6 +46,7 @@ let getWeb3 = () => {
             netId,
             injectedWeb3: true
           }
+          document.title = `${netIdName} - Dapp Keys Generation`
           var defaultAccount = web3.eth.defaultAccount || null;
           if(defaultAccount === null){
             reject({msg: errorMsgNoMetamaskAccount, node: generateElement(errorMsgNoMetamaskAccount)})
