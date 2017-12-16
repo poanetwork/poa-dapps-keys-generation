@@ -3,6 +3,7 @@ import Web3 from 'web3';
 import addressGenerator from './addressGenerator';
 
 const KEYS_MANAGER_ADDRESS = '0xfc90125492e58dbfe80c0bfb6a2a759c4f703ca8'
+console.log('Keys Manager ', KEYS_MANAGER_ADDRESS)
 export default class KeysManager {
   constructor(){
     if(window.web3.currentProvider){
