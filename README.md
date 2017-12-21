@@ -23,16 +23,11 @@ Check [Ceremony Dapp section from wiki](https://github.com/oraclesorg/oracles-wi
 ## Configuration file
 It is configured with [POA Network contract](https://github.com/oraclesorg/poa-network-consensus-contracts)
 
-Path: `./assets/javascripts/config.json`
+Path: [`./src/addresses.js`](./src/addresses.js)
 
 ```
-{
-  "environment": "live",
-  "Ethereum": {
-    "live": {
-      "contractAddress": "POA_Network_Consensus_contract_address"
-    }
-  }
+module.exports = {
+  KEYS_MANAGER_ADDRESS: '0xfc90125492e58dbfe80c0bfb6a2a759c4f703ca8'
 }
 ```
 
