@@ -1,0 +1,3 @@
+module.exports = {
+  KEYS_MANAGER_ADDRESS: '0x88a34124bfffa27ef3e052c8dd2908e212643771'
+}
