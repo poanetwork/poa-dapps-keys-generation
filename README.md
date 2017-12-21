@@ -23,7 +23,7 @@ Check [Ceremony Dapp section from wiki](https://github.com/oraclesorg/oracles-wi
 ## Configuration file
 It is configured with [POA Network contract](https://github.com/oraclesorg/poa-network-consensus-contracts)
 
-Path: (`./src/addresses.js`)[./src/addresses.js]
+Path: [`./src/addresses.js`](./src/addresses.js)
 
 ```
 module.exports = {
