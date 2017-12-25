@@ -36,7 +36,7 @@ let getWeb3 = () => {
             default:
               netIdName = 'ERROR'
               errorMsg = `You aren't connected to POA Network. 
-                  Please, switch on Oracles plugin and refresh the page. 
+                  Please, switch on POA plugin and refresh the page. 
                   Check POA Network <a href='https://github.com/poanetwork/wiki' target='blank'>wiki</a> for more info.`
               console.log('This is an unknown network.', netId)
           }
