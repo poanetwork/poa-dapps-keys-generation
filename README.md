@@ -6,7 +6,7 @@
 
 ## MetaMask plugin setup
 
-* Connect to POA Network in MetaMask plugin (See [Connect to POA Network via MetaMask](https://github.com/poanetwork/wiki/blob/master/MetaMask-connect.md#connect-to-oracles-network-via-metamask))
+* Connect to POA Network in MetaMask plugin (See [Connect to POA Network via MetaMask](https://github.com/poanetwork/wiki/blob/master/MetaMask-connect.md#connect-to-poa-network-via-metamask))
 
 * Import your initial key to MetaMask Plugin: browse keystore file, received from invitation, and enter password for the key (See [Importing of keys from wiki](https://github.com/poanetwork/wiki/blob/master/MetaMask-connect.md#importing-of-keys)).
 
