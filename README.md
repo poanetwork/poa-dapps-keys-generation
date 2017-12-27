@@ -1,5 +1,10 @@
 # POA Network Ceremony Dapp
 
+Deployed versions:
+
+For Core (production) network use: https://poanetwork.github.io/poa-dapps-keys-generation/
+For Sokol (test) network use: https://sokol-ceremony.poa.network
+
 ## Supported browsers
 
 * Google Chrome v 59.0.3071.115+
