@@ -2,8 +2,8 @@
 
 Deployed versions:
 
-For Core (production) network use: https://core-ceremony.poa.network/
-For Sokol (test) network use: https://sokol-ceremony.poa.network
+- For Core (production) network use: https://core-ceremony.poa.network/
+- For Sokol (test) network use: https://sokol-ceremony.poa.network
 
 ## Supported browsers
 
