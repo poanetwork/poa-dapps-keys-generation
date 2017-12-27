@@ -2,7 +2,7 @@
   "name": "poa-dapps-keys-generation",
   "version": "0.2.0",
   "private": true,
-  "homepage": "https://oraclesorg.github.io/poa-dapps-keys-generation",
+  "homepage": "https://poanetwork.github.io/",
   "dependencies": {
     "clipboard": "^1.7.1",
     "gh-pages": "^1.1.0",
