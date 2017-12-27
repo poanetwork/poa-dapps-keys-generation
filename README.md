@@ -2,7 +2,7 @@
 
 Deployed versions:
 
-For Core (production) network use: https://poanetwork.github.io/poa-dapps-keys-generation/
+For Core (production) network use: https://core-ceremony.poa.network/
 For Sokol (test) network use: https://sokol-ceremony.poa.network
 
 ## Supported browsers
