@@ -2,6 +2,13 @@ let errorMsgNoMetamaskAccount = `You haven't chosen any account in MetaMask.
 Please, choose your initial key in MetaMask and reload the page.
 Check POA Network <a href='https://github.com/poanetwork/wiki' target='blank'>wiki</a> for more info.`;
 
+let netIdUrlMismatch = (netId) => {
+  return `
+  Your current URL is ${window.location.host},
+  however your metamask netId is ${netId}
+  Please select correct network in metamask
+  `
+}
 
 function generateElement(msg){
   let errorNode = document.createElement("div");
@@ -37,9 +44,13 @@ let getWeb3 = () => {
               netIdName = 'ERROR'
               errorMsg = `You aren't connected to POA Network. 
                   Please, switch on POA plugin and refresh the page. 
-                  Check POA Network <a href='https://github.com/poanetwork/wiki' target='blank'>wiki</a> for more info.`
+                  Check POA Network <a href='https://github.com/poanetwork/wiki' target='blank'>wiki</a> for more info.
+                  Current Network Id: ${netId}`
+
               console.log('This is an unknown network.', netId)
           }
+          const networkUrl = window.location.host.indexOf('sokol') !== -1 ? "77" : "99";
+          console.log('network', networkUrl)
           results = {
             web3Instance: web3,
             netIdName,
@@ -53,6 +64,9 @@ let getWeb3 = () => {
           }
           if(errorMsg !== null){
             reject({msg: errorMsg, node: generateElement(errorMsg)})
+          }
+          if(networkUrl !== netId) {
+            reject({msg: netIdUrlMismatch(netId), node: generateElement(netIdUrlMismatch(netId))})
           }
           resolve(results)
         })
