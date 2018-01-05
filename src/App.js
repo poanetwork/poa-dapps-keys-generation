@@ -5,6 +5,15 @@ import Keys from './Keys';
 import swal from 'sweetalert';
 import './index/index.css';
 import ReactDOM from 'react-dom';
+import { error } from 'util';
+
+function generateElement(msg){
+  let errorNode = document.createElement("div");
+  errorNode.innerHTML = `<div>
+    ${msg}
+  </div>`;
+  return errorNode;
+}
 
 const Loading = () => (
   <div className="loading-container">
@@ -53,7 +62,15 @@ class App extends Component {
     console.log(isValid);
     if(Number(isValid) !== 1){
       this.setState({loading:false});
-      swal("Warning!", "The key is not valid initial Key! Please make sure you have loaded correct initial key in metamask", "warning");
+      const invalidKeyMsg = `The key is not valid initial Key!<br/>
+      Please make sure you have loaded correct initial key in metamask.<br/>
+      Your current selected key is ${initialKey}`
+      swal({
+        icon: 'error',
+        title: 'Error',
+        content: generateElement(invalidKeyMsg)
+
+      })
       return;
     }
     if(Number(isValid) === 1){
@@ -82,7 +99,7 @@ class App extends Component {
         var content = document.createElement("div");
         content.innerHTML = `<div>
           Something went wrong!<br/><br/>
-          Please contract Master Of Ceremony<br/><br/>
+          Please contact Master Of Ceremony<br/><br/>
           ${error.message}
         </div>`;
         swal({
