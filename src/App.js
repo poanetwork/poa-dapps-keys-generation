@@ -32,7 +32,8 @@ class App extends Component {
     getWeb3().then((web3Config) => {
       this.setState({web3Config})
       this.keysManager = new KeysManager({
-        web3: web3Config.web3Instance
+        web3: web3Config.web3Instance,
+        netId: web3Config.netId
       });
     }).catch((error) => {
       if(error.msg){
@@ -77,7 +78,7 @@ class App extends Component {
         swal("Congratulations!", "Your keys are generated!", "success");
       }).catch((error) => {
         console.error(error.message);
-        this.setState({loading: false})
+        this.setState({loading: false, keysGenerated: false})
         var content = document.createElement("div");
         content.innerHTML = `<div>
           Something went wrong!<br/><br/> 
