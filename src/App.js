@@ -81,7 +81,8 @@ class App extends Component {
         this.setState({loading: false, keysGenerated: false})
         var content = document.createElement("div");
         content.innerHTML = `<div>
-          Something went wrong!<br/><br/> 
+          Something went wrong!<br/><br/>
+          Please contract Master Of Ceremony<br/><br/>
           ${error.message}
         </div>`;
         swal({
