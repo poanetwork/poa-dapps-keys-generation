@@ -1,5 +1,24 @@
 [
   {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "successfulValidatorClone",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "constant": false,
     "inputs": [
       {
@@ -50,7 +69,7 @@
     "constant": true,
     "inputs": [
       {
-        "name": "_miningKey",
+        "name": "_votingKey",
         "type": "address"
       }
     ],
@@ -169,6 +188,20 @@
       {
         "name": "isPayoutActive",
         "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "previousKeysManager",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
       }
     ],
     "payable": false,
@@ -300,6 +333,20 @@
     "constant": false,
     "inputs": [
       {
+        "name": "_miningKey",
+        "type": "address"
+      }
+    ],
+    "name": "migrateMiningKey",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
         "name": "_initialKey",
         "type": "address"
       }
@@ -329,6 +376,20 @@
     "type": "function"
   },
   {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_initialKey",
+        "type": "address"
+      }
+    ],
+    "name": "migrateInitialKey",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "constant": true,
     "inputs": [
       {
@@ -341,6 +402,20 @@
       {
         "name": "",
         "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "contractVersion",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint8"
       }
     ],
     "payable": false,
@@ -550,6 +625,10 @@
       {
         "name": "_masterOfCeremony",
         "type": "address"
+      },
+      {
+        "name": "_previousKeysManager",
+        "type": "address"
       }
     ],
     "payable": false,
@@ -659,6 +738,23 @@
       }
     ],
     "name": "InitialKeyCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "name": "key",
+        "type": "address"
+      }
+    ],
+    "name": "Migrated",
     "type": "event"
   }
 ]
