@@ -6,6 +6,7 @@ import swal from 'sweetalert';
 import './index/index.css';
 import ReactDOM from 'react-dom';
 import { error } from 'util';
+import addressGenerator from './addressGenerator'
 
 function generateElement(msg){
   let errorNode = document.createElement("div");
@@ -55,6 +56,25 @@ class App extends Component {
       }
     })
   }
+  componentDidMount(){
+    if(window.location.pathname.indexOf('just-generate-keys') !== -1) {
+      this.generateKeys();
+    }
+  }
+  async generateKeys() {
+    const mining = await addressGenerator();
+    const voting = await addressGenerator();
+    const payout = await addressGenerator();
+    this.setState({
+      mining,
+      voting,
+      payout,
+      keysGenerated: true
+    })
+    return {
+      mining, voting, payout
+    }
+  }
   async onClick() {
     this.setState({loading:true});
     const initialKey = window.web3.eth.defaultAccount;
@@ -74,15 +94,7 @@ class App extends Component {
       return;
     }
     if(Number(isValid) === 1){
-      const mining = await this.keysManager.generateKeys();
-      const voting = await this.keysManager.generateKeys();
-      const payout = await this.keysManager.generateKeys();
-      this.setState({
-        mining,
-        voting,
-        payout,
-        keysGenerated: true
-      })
+      const {mining, voting, payout} = await this.generateKeys()
       // add loading screen
       await this.keysManager.createKeys({
         mining: mining.jsonStore.address,
