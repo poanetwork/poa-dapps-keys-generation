@@ -7,6 +7,8 @@ import './index/index.css';
 import ReactDOM from 'react-dom';
 import { error } from 'util';
 import addressGenerator from './addressGenerator'
+import JSzip from 'jszip';
+import FileSaver from 'file-saver';
 
 function generateElement(msg){
   let errorNode = document.createElement("div");
@@ -58,13 +60,30 @@ class App extends Component {
   }
   componentDidMount(){
     if(window.location.hash.indexOf('just-generate-keys') !== -1) {
-      this.generateKeys();
+      this.setState({loading:true});
+      setTimeout(() => {
+        this.generateKeys();
+        this.setState({loading:false});
+      }, 1500)
     }
   }
   async generateKeys() {
     const mining = await addressGenerator();
     const voting = await addressGenerator();
     const payout = await addressGenerator();
+    const zip = new JSzip();
+    const netIdName = this.state.web3Config.netIdName;
+    zip.file(`${netIdName}_keys/mining_key_${mining.jsonStore.address}.json`, JSON.stringify(mining.jsonStore));
+    zip.file(`${netIdName}_keys/mining_password_${mining.jsonStore.address}.txt`, mining.password);
+
+    zip.file(`${netIdName}_keys/voting_key_${voting.jsonStore.address}.json`, JSON.stringify(voting.jsonStore));
+    zip.file(`${netIdName}_keys/voting_password_${voting.jsonStore.address}.txt`, voting.password);
+
+    zip.file(`${netIdName}_keys/payout_key_${payout.jsonStore.address}.json`, JSON.stringify(payout.jsonStore));
+    zip.file(`${netIdName}_keys/payout_password_${payout.jsonStore.address}.txt`, payout.password);
+    zip.generateAsync({type:"blob"}).then((blob) => { // 1) generate the zip file
+      FileSaver.saveAs(blob, `poa_network_validator_keys.zip`);                          // 2) trigger the download
+    });
     this.setState({
       mining,
       voting,
