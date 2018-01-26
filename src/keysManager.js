@@ -1,7 +1,7 @@
-import KeysManagerAbi from './keysManagerAbi.json'
+import KeysManagerAbi from './keysManagerAbi.json';
 import Web3 from 'web3';
 import addressGenerator from './addressGenerator';
-import networkAddresses from './addresses'
+import networkAddresses from './addresses';
 
 export default class KeysManager {
   constructor({web3, netId}){
