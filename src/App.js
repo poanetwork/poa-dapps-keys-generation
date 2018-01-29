@@ -45,10 +45,10 @@ class App extends Component {
       isDisabledBtn: false
     }
     this.keysManager = null;
-    getWeb3().then((web3Config) => {
+    getWeb3().then(async (web3Config) => {
       this.setState({web3Config})
       this.keysManager = new KeysManager()
-      this.keysManager.init({
+      await this.keysManager.init({
         web3: web3Config.web3Instance,
         netId: web3Config.netId
       });
