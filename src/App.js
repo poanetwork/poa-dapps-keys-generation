@@ -9,6 +9,7 @@ import { error } from 'util';
 import addressGenerator from './addressGenerator'
 import JSzip from 'jszip';
 import FileSaver from 'file-saver';
+import { constants } from './constants';
 
 function generateElement(msg){
   let errorNode = document.createElement("div");
@@ -46,7 +47,8 @@ class App extends Component {
     this.keysManager = null;
     getWeb3().then((web3Config) => {
       this.setState({web3Config})
-      this.keysManager = new KeysManager({
+      this.keysManager = new KeysManager()
+      this.keysManager.init({
         web3: web3Config.web3Instance,
         netId: web3Config.netId
       });
@@ -75,7 +77,6 @@ class App extends Component {
     const mining = await addressGenerator();
     const voting = await addressGenerator();
     const payout = await addressGenerator();
-    const netIdName = this.state.web3Config.netIdName;
     this.setState({
       mining,
       voting,
@@ -114,7 +115,6 @@ class App extends Component {
         icon: 'error',
         title: 'Error',
         content: generateElement(invalidKeyMsg)
-
       })
       return;
     }
@@ -130,15 +130,20 @@ class App extends Component {
         console.log(receipt);
         this.setState({loading: false})
         swal("Congratulations!", "Your keys are generated!", "success");
-        await this.generateZip({mining, voting, payout});
+        await this.generateZip({mining, voting, payout, netIdName: this.state.web3Config.netIdName});
       }).catch((error) => {
         console.error(error.message);
         this.setState({loading: false, keysGenerated: false})
         var content = document.createElement("div");
+        let msg;
+        if (error.message.includes(constants.userDeniedTransactionPattern))
+          msg = `Error: User ${constants.userDeniedTransactionPattern}`
+        else
+          msg = error.message
         content.innerHTML = `<div>
           Something went wrong!<br/><br/>
           Please contact Master Of Ceremony<br/><br/>
-          ${error.message}
+          ${msg}
         </div>`;
         swal({
           icon: 'error',
