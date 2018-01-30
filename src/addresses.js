@@ -1,18 +1,44 @@
-const CORE_ADDRESSES = {
-  KEYS_MANAGER_ADDRESS: "0xfc90125492e58dbfe80c0bfb6a2a759c4f703ca8",
+import { messages } from "./messages";
+import swal from 'sweetalert';
+import helpers from "./helpers";
+// const local = {
+//    "KEYS_MANAGER_ADDRESS": "0x3ef32bb244016ad9af8c8f45398511e7e551b581"   
+//}
+
+let SOKOL_ADDRESSES = {};
+let CORE_ADDRESSES = {};
+
+function getContractsAddresses(branch) {
+    let addr = helpers.addressesURL(branch);
+    fetch(helpers.addressesURL(branch)).then(function(response) { 
+        return response.json();
+    }).then(function(contracts) {
+        switch (branch) {
+            case 'core':
+                CORE_ADDRESSES = contracts;
+                break;
+            case 'sokol':
+                SOKOL_ADDRESSES = contracts;
+                break;
+            default:
+                CORE_ADDRESSES = contracts;
+                break;
+        }
+    }).catch(function(err) {
+        helpers.wrongRepoAlert(addr);
+    });
 }
 
-const SOKOL_ADDRESSES = {
-  KEYS_MANAGER_ADDRESS: "0x1aa02bd52fe418ac70263351282f66f1dacf898c",
-}
+getContractsAddresses('core');
+getContractsAddresses('sokol');
 
-module.exports = (netId) => {
-  switch (netId){
-    case '77':
-      return SOKOL_ADDRESSES
-    case '99':
-      return CORE_ADDRESSES
-    default:
-      return CORE_ADDRESSES
-  }
+export default (netId) => {
+    switch (netId) {
+        case '77':
+            return SOKOL_ADDRESSES
+        case '99':
+            return CORE_ADDRESSES
+        default:
+            return CORE_ADDRESSES
+    }
 }
