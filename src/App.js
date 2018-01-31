@@ -10,6 +10,7 @@ import addressGenerator from './addressGenerator'
 import JSzip from 'jszip';
 import FileSaver from 'file-saver';
 import { constants } from './constants';
+import networkAddresses from './addresses';
 
 function generateElement(msg){
   let errorNode = document.createElement("div");
@@ -46,12 +47,16 @@ class App extends Component {
     }
     this.keysManager = null;
     getWeb3().then(async (web3Config) => {
-      this.setState({web3Config})
-      this.keysManager = new KeysManager()
+      return networkAddresses(web3Config)
+    }).then(async (config) => {
+      const {web3Config, addresses} = config;
+      this.keysManager = new KeysManager();
       await this.keysManager.init({
         web3: web3Config.web3Instance,
-        netId: web3Config.netId
+        netId: web3Config.netId,
+        addresses,
       });
+      this.setState({web3Config})
     }).catch((error) => {
       if(error.msg){
         this.setState({isDisabledBtn: true});
