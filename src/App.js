@@ -128,7 +128,7 @@ class App extends Component {
           await this.generateZip({mining, voting, payout, netIdName: this.state.web3Config.netIdName});
         } else {
           this.setState({loading: false, keysGenerated: false})
-
+          let content = document.createElement("div");
           let msg = `Transaction failed`;
           content.innerHTML = `<div>
             Something went wrong!<br/><br/>
@@ -144,7 +144,7 @@ class App extends Component {
       }).catch((error) => {
         console.error(error.message);
         this.setState({loading: false, keysGenerated: false})
-        var content = document.createElement("div");
+        let content = document.createElement("div");
         let msg;
         if (error.message.includes(constants.userDeniedTransactionPattern))
           msg = `Error: User ${constants.userDeniedTransactionPattern}`
