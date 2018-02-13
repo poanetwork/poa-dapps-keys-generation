@@ -122,9 +122,25 @@ class App extends Component {
         sender: initialKey
       }).then(async (receipt) => {
         console.log(receipt);
-        this.setState({loading: false})
-        swal("Congratulations!", "Your keys are generated!", "success");
-        await this.generateZip({mining, voting, payout, netIdName: this.state.web3Config.netIdName});
+        if (receipt.status == "0x1") {
+          this.setState({loading: false})
+          swal("Congratulations!", "Your keys are generated!", "success");
+          await this.generateZip({mining, voting, payout, netIdName: this.state.web3Config.netIdName});
+        } else {
+          this.setState({loading: false, keysGenerated: false})
+
+          let msg = `Transaction failed`;
+          content.innerHTML = `<div>
+            Something went wrong!<br/><br/>
+            Please contact Master Of Ceremony<br/><br/>
+            ${msg}
+          </div>`;
+          swal({
+            icon: 'error',
+            title: 'Error',
+            content: content
+          });
+        }
       }).catch((error) => {
         console.error(error.message);
         this.setState({loading: false, keysGenerated: false})
