@@ -11,6 +11,7 @@ import JSzip from 'jszip';
 import FileSaver from 'file-saver';
 import { constants } from './constants';
 import networkAddresses from './addresses';
+import Loading from './Loading';
 
 function generateElement(msg){
   let errorNode = document.createElement("div");
@@ -20,19 +21,6 @@ function generateElement(msg){
   return errorNode;
 }
 
-const Loading = () => (
-  <div className="loading-container">
-    <div className="loading">
-      <div className="loading-i"></div>
-      <div className="loading-i"></div>
-      <div className="loading-i"></div>
-      <div className="loading-i"></div>
-      <div className="loading-i"></div>
-      <div className="loading-i"></div>
-    </div>
-  </div>
-)
-
 class App extends Component {
   constructor(props){
     super(props);
@@ -40,10 +28,11 @@ class App extends Component {
     this.saveFile = (blob) => { 
       FileSaver.saveAs(blob, `poa_network_validator_keys.zip`);
     };
+    console.log(props)
     this.state = {
       web3Config: {},
       mining: null,
-      isDisabledBtn: false
+      isDisabledBtn:  props.generateKeysIsDisabled
     }
     this.keysManager = null;
     getWeb3().then(async (web3Config) => {
@@ -56,7 +45,10 @@ class App extends Component {
         netId: web3Config.netId,
         addresses,
       });
-      this.setState({web3Config})
+      this.setState({
+        isDisabledBtn: false,
+        web3Config
+      })
     }).catch((error) => {
       if(error.msg){
         this.setState({isDisabledBtn: true});
