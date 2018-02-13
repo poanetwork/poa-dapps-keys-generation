@@ -4,8 +4,6 @@ import KeysManager from './keysManager';
 import Keys from './Keys';
 import swal from 'sweetalert';
 import './index/index.css';
-import ReactDOM from 'react-dom';
-import { error } from 'util';
 import addressGenerator from './addressGenerator'
 import JSzip from 'jszip';
 import FileSaver from 'file-saver';
@@ -28,11 +26,10 @@ class App extends Component {
     this.saveFile = (blob) => { 
       FileSaver.saveAs(blob, `poa_network_validator_keys.zip`);
     };
-    console.log(props)
     this.state = {
       web3Config: {},
       mining: null,
-      isDisabledBtn:  props.generateKeysIsDisabled
+      isDisabledBtn: props.generateKeysIsDisabled
     }
     this.keysManager = null;
     getWeb3().then(async (web3Config) => {
