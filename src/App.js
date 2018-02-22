@@ -4,13 +4,12 @@ import KeysManager from './keysManager';
 import Keys from './Keys';
 import swal from 'sweetalert';
 import './index/index.css';
-import ReactDOM from 'react-dom';
-import { error } from 'util';
 import addressGenerator from './addressGenerator'
 import JSzip from 'jszip';
 import FileSaver from 'file-saver';
 import { constants } from './constants';
 import networkAddresses from './addresses';
+import Loading from './Loading';
 
 function generateElement(msg){
   let errorNode = document.createElement("div");
@@ -19,19 +18,6 @@ function generateElement(msg){
   </div>`;
   return errorNode;
 }
-
-const Loading = () => (
-  <div className="loading-container">
-    <div className="loading">
-      <div className="loading-i"></div>
-      <div className="loading-i"></div>
-      <div className="loading-i"></div>
-      <div className="loading-i"></div>
-      <div className="loading-i"></div>
-      <div className="loading-i"></div>
-    </div>
-  </div>
-)
 
 class App extends Component {
   constructor(props){
@@ -43,7 +29,7 @@ class App extends Component {
     this.state = {
       web3Config: {},
       mining: null,
-      isDisabledBtn: false
+      isDisabledBtn: props.generateKeysIsDisabled
     }
     this.keysManager = null;
     getWeb3().then(async (web3Config) => {
@@ -56,7 +42,10 @@ class App extends Component {
         netId: web3Config.netId,
         addresses,
       });
-      this.setState({web3Config})
+      this.setState({
+        isDisabledBtn: false,
+        web3Config
+      })
     }).catch((error) => {
       if(error.msg){
         this.setState({isDisabledBtn: true});
@@ -133,13 +122,29 @@ class App extends Component {
         sender: initialKey
       }).then(async (receipt) => {
         console.log(receipt);
-        this.setState({loading: false})
-        swal("Congratulations!", "Your keys are generated!", "success");
-        await this.generateZip({mining, voting, payout, netIdName: this.state.web3Config.netIdName});
+        if (receipt.status == "0x1") {
+          this.setState({loading: false})
+          swal("Congratulations!", "Your keys are generated!", "success");
+          await this.generateZip({mining, voting, payout, netIdName: this.state.web3Config.netIdName});
+        } else {
+          this.setState({loading: false, keysGenerated: false})
+          let content = document.createElement("div");
+          let msg = `Transaction failed`;
+          content.innerHTML = `<div>
+            Something went wrong!<br/><br/>
+            Please contact Master Of Ceremony<br/><br/>
+            ${msg}
+          </div>`;
+          swal({
+            icon: 'error',
+            title: 'Error',
+            content: content
+          });
+        }
       }).catch((error) => {
         console.error(error.message);
         this.setState({loading: false, keysGenerated: false})
-        var content = document.createElement("div");
+        let content = document.createElement("div");
         let msg;
         if (error.message.includes(constants.userDeniedTransactionPattern))
           msg = `Error: User ${constants.userDeniedTransactionPattern}`
