@@ -100,7 +100,12 @@ class App extends Component {
   async onClick() {
     this.setState({loading:true});
     const initialKey = window.web3.eth.defaultAccount;
-    const isValid = await this.keysManager.isInitialKeyValid(initialKey);
+    let isValid
+    try {
+      isValid = await this.keysManager.isInitialKeyValid(initialKey);
+    } catch(e) {
+      isValid = false;
+    }
     console.log(isValid);
     if(Number(isValid) !== 1){
       this.setState({loading:false});
