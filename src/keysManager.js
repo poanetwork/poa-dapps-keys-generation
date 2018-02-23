@@ -15,7 +15,13 @@ export default class KeysManager {
   }
 
   async isInitialKeyValid(initialKey) {
-    return await this.keysInstance.methods.initialKeys(initialKey).call();
+    return new Promise((resolve, reject) => {
+      this.keysInstance.methods.initialKeys(initialKey).call().then(function(result){
+        resolve(result);
+      }).catch(function(e) {
+        reject(false);
+      });
+    })
   }
 
   async generateKeys() {
