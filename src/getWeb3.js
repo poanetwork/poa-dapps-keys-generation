@@ -1,10 +1,10 @@
 let errorMsgNoMetamaskAccount = `You haven't chosen any account in MetaMask.
-Please, choose your initial key in MetaMask and reload the page.
+Please choose your initial key in MetaMask and reload the page.
 Check POA Network <a href='https://github.com/poanetwork/wiki' target='blank'>wiki</a> for more info.`;
 
 function generateElement(msg){
   let errorNode = document.createElement("div");
-  errorNode.innerHTML = `<div>
+  errorNode.innerHTML = `<div style="line-height: 1.6;">
     ${msg}
   </div>`;
   return errorNode;
@@ -33,11 +33,11 @@ let getWeb3 = () => {
               console.log('This is Core')
               break
             default:
-              netIdName = 'ERROR'
+              netIdName = 'Unknown'
               errorMsg = `You aren't connected to POA Network. 
-                  Please, switch on POA plugin and refresh the page. 
+                  Please switch on Metamask and refresh the page. 
                   Check POA Network <a href='https://github.com/poanetwork/wiki' target='blank'>wiki</a> for more info.
-                  Current Network Id: ${netId}`
+                  <b>Current Network ID</b> is <i>${netId}</i>`
 
               console.log('This is an unknown network.', netId)
           }
