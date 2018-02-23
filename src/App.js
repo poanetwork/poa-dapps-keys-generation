@@ -13,7 +13,7 @@ import Loading from './Loading';
 
 function generateElement(msg){
   let errorNode = document.createElement("div");
-  errorNode.innerHTML = `<div>
+  errorNode.innerHTML = `<div style="line-height: 1.6;">
     ${msg}
   </div>`;
   return errorNode;
@@ -102,9 +102,11 @@ class App extends Component {
     console.log(isValid);
     if(Number(isValid) !== 1){
       this.setState({loading:false});
-      const invalidKeyMsg = `The key is not valid initial Key!<br/>
-      Please make sure you have loaded correct initial key in metamask.<br/>
-      Your current selected key is ${initialKey}`
+      const invalidKeyMsg = `The key is invalid initial Key<br/>
+      or you're connect to incorrect chain!<br/>
+      Please make sure you have loaded correct initial key in Metamask.<br/><br/>
+      <b>Your current selected key is</b> <i>${initialKey}</i><br/>
+      <b>Current Network ID</b> is <i>${this.state.web3Config.netId}</i>`
       swal({
         icon: 'error',
         title: 'Error',
