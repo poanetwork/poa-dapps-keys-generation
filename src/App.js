@@ -9,6 +9,7 @@ import JSzip from 'jszip';
 import FileSaver from 'file-saver';
 import { constants } from './constants';
 import networkAddresses from './addresses';
+import Footer from './Footer';
 import Loading from './Loading';
 
 function generateElement(msg){
@@ -186,9 +187,10 @@ class App extends Component {
     return (
       <div className="App">
         {loader}
-          <section className="content">
+        <section className="content">
           {content}
-          </section>
+        </section>
+        <Footer />
       </div>
     );
   }
