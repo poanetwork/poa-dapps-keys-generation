@@ -1,7 +1,9 @@
 import React from 'react';
 import moment from 'moment';
-const Footer = () => (
-  <footer className="footer">
+const Footer = ({netId}) => {
+  const footerClassName = netId === '77' ? 'sokol' : '';
+  return (
+  <footer className={`footer ${footerClassName}`}>
     <div className="container">
       <p className="footer-rights">{moment().format('YYYY')} POA Network. All rights reserved.</p>
       <a href="/poa-dapps-keys-generation" className="footer-logo"></a>
@@ -13,6 +15,7 @@ const Footer = () => (
       </div>
     </div>
   </footer>
-)
+  )
+}
 
 export default Footer;

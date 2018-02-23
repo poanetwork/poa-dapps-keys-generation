@@ -9,6 +9,7 @@ import JSzip from 'jszip';
 import FileSaver from 'file-saver';
 import { constants } from './constants';
 import networkAddresses from './addresses';
+import Header from './Header';
 import Footer from './Footer';
 import Loading from './Loading';
 
@@ -167,7 +168,7 @@ class App extends Component {
     }
   }
   render() {    
-    let loader = this.state.loading ? <Loading /> : '';
+    let loader = this.state.loading ? <Loading netId={this.state.web3Config.netId}/> : '';
     let createKeyBtn = (<div className="create-keys">
               <h1>Create keys from initial key</h1>
               <h2>
@@ -188,11 +189,12 @@ class App extends Component {
     }
     return (
       <div className="App">
+        <Header netId={this.state.web3Config.netId}/>
         {loader}
         <section className="content">
           {content}
         </section>
-        <Footer />
+        <Footer netId={this.state.web3Config.netId}/>
       </div>
     );
   }
