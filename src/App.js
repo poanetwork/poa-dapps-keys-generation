@@ -131,7 +131,7 @@ class App extends Component {
         sender: initialKey
       }).then(async (receipt) => {
         console.log(receipt);
-        if (receipt.status == "0x1") {
+        if (receipt.status === true || receipt.status === "0x1") {
           this.setState({loading: false})
           swal("Congratulations!", "Your keys are generated!", "success");
           await this.generateZip({mining, voting, payout, netIdName: this.state.web3Config.netIdName});
