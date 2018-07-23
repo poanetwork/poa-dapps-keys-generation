@@ -16,7 +16,13 @@ export default class KeysManager {
 
   async isInitialKeyValid(initialKey) {
     return new Promise((resolve, reject) => {
-      this.keysInstance.methods.initialKeys(initialKey).call().then(function(result){
+      let getInitialKeyStatus
+      if (this.keysInstance.methods.getInitialKeyStatus) {
+        getInitialKeyStatus = this.keysInstance.methods.getInitialKeyStatus
+      } else {
+        getInitialKeyStatus = this.keysInstance.methods.initialKeys
+      }
+      getInitialKeyStatus(initialKey).call().then(function(result){
         resolve(result);
       }).catch(function(e) {
         reject(false);
