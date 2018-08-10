@@ -9,18 +9,19 @@ export default class KeysManager {
     console.log('Keys Manager ', KEYS_MANAGER_ADDRESS);
     const branch = helpers.getBranch(netId);
 
-    let KeysManagerAbi = await helpers.getABI(branch, 'KeysManager')
+    const KeysManagerAbi = await helpers.getABI(branch, 'KeysManager')
 
     this.keysInstance = new this.web3_10.eth.Contract(KeysManagerAbi, KEYS_MANAGER_ADDRESS);
   }
 
   async isInitialKeyValid(initialKey) {
     return new Promise((resolve, reject) => {
+      const methods = this.keysInstance.methods
       let getInitialKeyStatus
-      if (this.keysInstance.methods.getInitialKeyStatus) {
-        getInitialKeyStatus = this.keysInstance.methods.getInitialKeyStatus
+      if (methods.getInitialKeyStatus) {
+        getInitialKeyStatus = methods.getInitialKeyStatus
       } else {
-        getInitialKeyStatus = this.keysInstance.methods.initialKeys
+        getInitialKeyStatus = methods.initialKeys
       }
       getInitialKeyStatus(initialKey).call().then(function(result){
         resolve(result);
