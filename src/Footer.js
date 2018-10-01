@@ -1,7 +1,9 @@
-import React from 'react';
-import moment from 'moment';
+import React from 'react'
+import moment from 'moment'
+
 const Footer = ({netId}) => {
-  const footerClassName = netId === '77' ? 'sokol' : '';
+  const isTestnet = netId === '77' || netId === '79'
+  const footerClassName = isTestnet ? 'sokol' : ''
   return (
   <footer className={`footer ${footerClassName}`}>
     <div className="container">
@@ -18,4 +20,4 @@ const Footer = ({netId}) => {
   )
 }
 
-export default Footer;
+export default Footer

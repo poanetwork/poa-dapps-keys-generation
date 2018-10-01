@@ -8,8 +8,10 @@ const styles = (netId) => {
   }
   switch(netId) {
     case '77':
+    case '79':
       return sokol;
     case '99':
+    case '100':
       return core;
     default:
       return {};

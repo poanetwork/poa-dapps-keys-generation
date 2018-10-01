@@ -1,7 +1,9 @@
-import React from 'react';
+import React from 'react'
+
 let Header = ({netId}) => {
-  const headerClassName = netId === '77' ? 'sokol' : '';
-  const logoClassName = netId === '77' ? 'header-logo-sokol' : 'header-logo';
+  const isTestnet = netId === '77' || netId === '79'
+  const headerClassName = isTestnet ? 'sokol' : ''
+  const logoClassName = isTestnet ? 'header-logo-sokol' : 'header-logo'
   return (
   <header className={`header ${headerClassName}`}>
     <div className="container">
@@ -11,4 +13,4 @@ let Header = ({netId}) => {
   )
 }
 
-export default Header;
+export default Header

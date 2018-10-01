@@ -28,9 +28,17 @@ let getWeb3 = () => {
               netIdName = 'Sokol'
               console.log('This is sokol')
               break
+            case "79":
+              netIdName = 'Dai-Test'
+              console.log('This is Dai-Test')
+              break
             case "99":
               netIdName = 'Core'
               console.log('This is Core')
+              break
+            case "100":
+              netIdName = 'Dai'
+              console.log('This is Dai')
               break
             default:
               netIdName = 'Unknown'

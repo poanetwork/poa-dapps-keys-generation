@@ -9,13 +9,19 @@ export default (web3Config) => {
     switch (web3Config.netId) {
         case '77':
             branch = 'sokol'
-            break;
+            break
+        case '79':
+            branch = 'dai-test'
+            break
         case '99':
             branch = 'core'
-            break;
+            break
+        case '100':
+            branch = 'dai'
+            break
         default:
             branch = 'core'
-            break;
+            break
     }
     return new Promise((resolve, reject) => {
         fetch(helpers.addressesURL(branch)).then((response) => { 
