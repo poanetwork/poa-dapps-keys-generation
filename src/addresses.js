@@ -8,20 +8,18 @@ export default (web3Config) => {
     let branch;
     
     switch (web3Config.netId) {
-        case constants.NETID_SOKOL:
-            branch = 'sokol';
-            break;
         case constants.NETID_DAI_TEST:
-            branch = 'dai-test';
+            branch = "dai-test";
             break;
-        case constants.NETID_CORE:
-            branch = 'core';
+        case constants.NETID_SOKOL:
+            branch = "sokol";
             break;
         case constants.NETID_DAI:
-            branch = 'dai';
+            branch = "dai";
             break;
+        case constants.NETID_CORE:
         default:
-            branch = 'core';
+            branch = "core";
             break;
     }
     return new Promise((resolve, reject) => {

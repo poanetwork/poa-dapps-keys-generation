@@ -49,16 +49,15 @@ function wrongRepoAlert(addr) {
 
 function getBranch(netId) {
     switch (netId) {
-        case constants.NETID_SOKOL:
-            return 'sokol'
         case constants.NETID_DAI_TEST:
-            return 'dai-test'
-        case constants.NETID_CORE:
-            return 'core'
+            return "dai-test";
+        case constants.NETID_SOKOL:
+            return "sokol";
         case constants.NETID_DAI:
-            return 'dai'
+            return "dai";
+        case constants.NETID_CORE:
         default:
-            return 'core'
+            return "core";
     }
 }
 

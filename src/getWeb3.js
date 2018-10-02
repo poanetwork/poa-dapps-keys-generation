@@ -27,29 +27,29 @@ let getWeb3 = () => {
           let netIdName;
           switch (netId) {
             case constants.NETID_SOKOL:
-              netIdName = 'Sokol'
-              console.log('This is sokol')
+              netIdName = "Sokol";
+              console.log("This is sokol");
               break
             case constants.NETID_DAI_TEST:
-              netIdName = 'Dai-Test'
-              console.log('This is Dai-Test')
+              netIdName = "Dai-Test";
+              console.log("This is Dai-Test");
               break
             case constants.NETID_CORE:
-              netIdName = 'Core'
-              console.log('This is Core')
+              netIdName = "Core";
+              console.log("This is Core");
               break
             case constants.NETID_DAI:
-              netIdName = 'Dai'
-              console.log('This is Dai')
+              netIdName = "Dai";
+              console.log("This is Dai");
               break
             default:
-              netIdName = 'Unknown'
+              netIdName = "Unknown";
               errorMsg = `You aren't connected to POA Network. 
                   Please switch on Metamask and refresh the page. 
                   Check POA Network <a href='https://github.com/poanetwork/wiki' target='blank'>wiki</a> for more info.
-                  <b>Current Network ID</b> is <i>${netId}</i>`
+                  <b>Current Network ID</b> is <i>${netId}</i>`;
 
-              console.log('This is an unknown network.', netId)
+              console.log("This is an unknown network.", netId);
           }
           results = {
             web3Instance: web3,
