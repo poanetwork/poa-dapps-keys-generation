@@ -1,9 +1,9 @@
 import React from 'react'
 import moment from 'moment'
+import helpers from "./helpers";
 
 const Footer = ({netId}) => {
-  const isTestnet = netId === '77' || netId === '79'
-  const footerClassName = isTestnet ? 'sokol' : ''
+  const footerClassName = helpers.isTestnet(netId) ? 'sokol' : ''
   return (
   <footer className={`footer ${footerClassName}`}>
     <div className="container">

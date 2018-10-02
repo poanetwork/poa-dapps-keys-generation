@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
+import helpers from "./helpers";
 
 let Header = ({netId}) => {
-  const isTestnet = netId === '77' || netId === '79'
-  const headerClassName = isTestnet ? 'sokol' : ''
-  const logoClassName = isTestnet ? 'header-logo-sokol' : 'header-logo'
+  const thisIsTestnet = helpers.isTestnet(netId)
+  const headerClassName = thisIsTestnet ? 'sokol' : ''
+  const logoClassName = thisIsTestnet ? 'header-logo-sokol' : 'header-logo'
   return (
   <header className={`header ${headerClassName}`}>
     <div className="container">

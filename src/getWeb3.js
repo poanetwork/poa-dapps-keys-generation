@@ -1,3 +1,5 @@
+import { constants } from "./constants";
+
 let errorMsgNoMetamaskAccount = `You haven't chosen any account in MetaMask.
 Please choose your initial key in MetaMask and reload the page.
 Check POA Network <a href='https://github.com/poanetwork/wiki' target='blank'>wiki</a> for more info.`;
@@ -24,19 +26,19 @@ let getWeb3 = () => {
         web3.version.getNetwork((err, netId) => {
           let netIdName;
           switch (netId) {
-            case "77":
+            case constants.NETID_SOKOL:
               netIdName = 'Sokol'
               console.log('This is sokol')
               break
-            case "79":
+            case constants.NETID_DAI_TEST:
               netIdName = 'Dai-Test'
               console.log('This is Dai-Test')
               break
-            case "99":
+            case constants.NETID_CORE:
               netIdName = 'Core'
               console.log('This is Core')
               break
-            case "100":
+            case constants.NETID_DAI:
               netIdName = 'Dai'
               console.log('This is Dai')
               break
@@ -77,4 +79,3 @@ let getWeb3 = () => {
 }
 
 export default getWeb3
-
