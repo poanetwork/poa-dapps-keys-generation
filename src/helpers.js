@@ -49,13 +49,20 @@ function wrongRepoAlert(addr) {
 
 function getBranch(netId) {
     switch (netId) {
-        case '77':
-            return 'sokol'
-        case '99':
-            return 'core'
+        case constants.NETID_DAI_TEST:
+            return "dai-test";
+        case constants.NETID_SOKOL:
+            return "sokol";
+        case constants.NETID_DAI:
+            return "dai";
+        case constants.NETID_CORE:
         default:
-            return 'core'
+            return "core";
     }
+}
+
+function isTestnet(netId) {
+    return netId === constants.NETID_SOKOL || netId === constants.NETID_DAI_TEST;
 }
 
 let helpers = {
@@ -64,8 +71,8 @@ let helpers = {
   ABIURL,
   getABI,
   wrongRepoAlert,
-  getBranch
+  getBranch,
+  isTestnet
 }
 
 export default helpers
-

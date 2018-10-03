@@ -1,3 +1,5 @@
+import { constants } from "./constants";
+
 let errorMsgNoMetamaskAccount = `You haven't chosen any account in MetaMask.
 Please choose your initial key in MetaMask and reload the page.
 Check POA Network <a href='https://github.com/poanetwork/wiki' target='blank'>wiki</a> for more info.`;
@@ -24,22 +26,30 @@ let getWeb3 = () => {
         web3.version.getNetwork((err, netId) => {
           let netIdName;
           switch (netId) {
-            case "77":
-              netIdName = 'Sokol'
-              console.log('This is sokol')
+            case constants.NETID_SOKOL:
+              netIdName = "Sokol";
+              console.log("This is sokol");
               break
-            case "99":
-              netIdName = 'Core'
-              console.log('This is Core')
+            case constants.NETID_DAI_TEST:
+              netIdName = "Dai-Test";
+              console.log("This is Dai-Test");
+              break
+            case constants.NETID_CORE:
+              netIdName = "Core";
+              console.log("This is Core");
+              break
+            case constants.NETID_DAI:
+              netIdName = "Dai";
+              console.log("This is Dai");
               break
             default:
-              netIdName = 'Unknown'
+              netIdName = "Unknown";
               errorMsg = `You aren't connected to POA Network. 
                   Please switch on Metamask and refresh the page. 
                   Check POA Network <a href='https://github.com/poanetwork/wiki' target='blank'>wiki</a> for more info.
-                  <b>Current Network ID</b> is <i>${netId}</i>`
+                  <b>Current Network ID</b> is <i>${netId}</i>`;
 
-              console.log('This is an unknown network.', netId)
+              console.log("This is an unknown network.", netId);
           }
           results = {
             web3Instance: web3,
@@ -69,4 +79,3 @@ let getWeb3 = () => {
 }
 
 export default getWeb3
-

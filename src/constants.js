@@ -6,6 +6,12 @@ constants.ABIsSources = {
 	'KeysManager': 'KeysManager.abi.json'
 };
 constants.userDeniedTransactionPattern = 'User denied transaction';
+
+constants.NETID_SOKOL = "77";
+constants.NETID_CORE = "99";
+constants.NETID_DAI_TEST = "79";
+constants.NETID_DAI = "100";
+
 module.exports = {
   constants
 }

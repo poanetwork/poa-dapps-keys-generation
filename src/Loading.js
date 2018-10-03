@@ -1,4 +1,6 @@
 import React from 'react';
+import { constants } from "./constants";
+
 const styles = (netId) => {
   const core = {
     backgroundColor: 'rgba(35, 29, 115, 0.8)'
@@ -7,9 +9,11 @@ const styles = (netId) => {
     backgroundColor: 'rgba(47, 109, 99, 0.8)'
   }
   switch(netId) {
-    case '77':
+    case constants.NETID_SOKOL:
+    case constants.NETID_DAI_TEST:
       return sokol;
-    case '99':
+    case constants.NETID_CORE:
+    case constants.NETID_DAI:
       return core;
     default:
       return {};
