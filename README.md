@@ -6,13 +6,13 @@
 
 ## MetaMask plugin setup
 
-* Connect to POA Network in MetaMask plugin (See [Connect to POA Network via MetaMask](https://github.com/poanetwork/wiki/blob/master/MetaMask-connect.md#connect-to-poa-network-via-metamask))
+* Connect to POA Network in MetaMask (See [Connect to POA Network via MetaMask](https://github.com/poanetwork/wiki/wiki/POA-Network-on-MetaMask)) or Nifty Wallet extensions (See [Connect to POA Network via Nifty Wallet](https://github.com/poanetwork/wiki/wiki/POA-Network-on-Nifty-Wallet))
 
-* Import your initial key to MetaMask Plugin: browse keystore file, received from invitation, and enter password for the key (See [Importing of keys from wiki](https://github.com/poanetwork/wiki/blob/master/MetaMask-connect.md#importing-of-keys)).
+* Import your initial key to MetaMask or to Nifty Wallet extensions: browse keystore file, received from invitation, and enter password for the key (See Importing of keys section [in MetaMask](https://github.com/poanetwork/wiki/wiki/POA-Network-on-MetaMask#importing-of-keys) or [in Nifty Wallet](https://github.com/poanetwork/wiki/wiki/POA-Network-on-Nifty-Wallet#importing-of-keys)).
 
 ## Ceremony Dapp lifecycle
 
-Check [Ceremony Dapp section from wiki](https://github.com/poanetwork/wiki/blob/master/ceremony.md)
+Check [Ceremony Dapp section from white paper](https://github.com/poanetwork/wiki/wiki/POA-Network-Whitepaper#initial-ceremony-dapp)
 
 ## Initial page
 ![](./docs/index.png)
@@ -21,7 +21,7 @@ Check [Ceremony Dapp section from wiki](https://github.com/poanetwork/wiki/blob/
 ![](./docs/results.png)
 
 ## Configuration file
-It is configured with [POA Network contract](https://github.com/poanetwork/poa-network-consensus-contracts)
+It is configured with [POA Network governance smart contracts](https://github.com/poanetwork/poa-network-consensus-contracts)
 
 Path: [`./src/addresses.js`](./src/addresses.js)
 
