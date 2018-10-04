@@ -38,10 +38,13 @@ export default class KeysManager {
   }
 
   createKeys({mining, voting, payout, sender}){
-    let gasPrice = this.web3_10.utils.toWei('2', 'gwei');
+    let gasPrice = '2';
     if (this.netId === constants.NETID_DAI_TEST || this.netId === constants.NETID_DAI) {
-      gasPrice = 0;
+      gasPrice = '0';
     }
-    return this.keysInstance.methods.createKeys(mining, voting, payout).send({from: sender, gasPrice});
+    return this.keysInstance.methods.createKeys(mining, voting, payout).send({
+      from: sender,
+      gasPrice: this.web3_10.utils.toWei(gasPrice, 'gwei')
+    });
   }
 }
