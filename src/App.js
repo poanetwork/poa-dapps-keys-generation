@@ -42,7 +42,7 @@ class App extends Component {
       await this.keysManager.init({
         web3: web3Config.web3Instance,
         netId: web3Config.netId,
-        addresses,
+        addresses
       });
       this.setState({
         isDisabledBtn: false,
@@ -99,7 +99,7 @@ class App extends Component {
   }
   async onClick() {
     this.setState({loading:true});
-    const initialKey = window.web3.eth.defaultAccount;
+    const initialKey = this.state.web3Config.defaultAccount;
     let isValid
     try {
       isValid = await this.keysManager.isInitialKeyValid(initialKey);
