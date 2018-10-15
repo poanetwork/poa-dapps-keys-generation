@@ -1,14 +1,14 @@
-import React from 'react';
+import React from "react";
 import { constants } from "./constants";
 
-const styles = (netId) => {
+const styles = netId => {
   const core = {
-    backgroundColor: 'rgba(35, 29, 115, 0.8)'
+    backgroundColor: "rgba(35, 29, 115, 0.8)"
   };
   const sokol = {
-    backgroundColor: 'rgba(47, 109, 99, 0.8)'
-  }
-  switch(netId) {
+    backgroundColor: "rgba(47, 109, 99, 0.8)"
+  };
+  switch (netId) {
     case constants.NETID_SOKOL:
     case constants.NETID_DAI_TEST:
       return sokol;
@@ -18,17 +18,17 @@ const styles = (netId) => {
     default:
       return {};
   }
-}
-const Loading = ({netId}) => (
+};
+const Loading = ({ netId }) => (
   <div className="loading-container" style={styles(netId)}>
     <div className="loading">
-      <div className="loading-i"></div>
-      <div className="loading-i"></div>
-      <div className="loading-i"></div>
-      <div className="loading-i"></div>
-      <div className="loading-i"></div>
-      <div className="loading-i"></div>
+      <div className="loading-i" />
+      <div className="loading-i" />
+      <div className="loading-i" />
+      <div className="loading-i" />
+      <div className="loading-i" />
+      <div className="loading-i" />
     </div>
   </div>
-)
+);
 export default Loading;

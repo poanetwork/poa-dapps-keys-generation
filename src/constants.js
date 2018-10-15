@@ -1,11 +1,11 @@
 let constants = {};
-constants.organization = 'poanetwork';
-constants.repoName = 'poa-chain-spec';
-constants.addressesSourceFile = 'contracts.json';
+constants.organization = "poanetwork";
+constants.repoName = "poa-chain-spec";
+constants.addressesSourceFile = "contracts.json";
 constants.ABIsSources = {
-	'KeysManager': 'KeysManager.abi.json'
+  KeysManager: "KeysManager.abi.json"
 };
-constants.userDeniedTransactionPattern = 'User denied transaction';
+constants.userDeniedTransactionPattern = "User denied transaction";
 
 constants.NETID_SOKOL = "77";
 constants.NETID_CORE = "99";
@@ -14,4 +14,4 @@ constants.NETID_DAI = "100";
 
 module.exports = {
   constants
-}
+};
