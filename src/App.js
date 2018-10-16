@@ -49,17 +49,30 @@ class App extends Component {
         this.setState({
           isDisabledBtn: false,
           web3Config
-        });
-      })
-      .catch(error => {
-        if (error.msg) {
-          this.setState({ isDisabledBtn: true });
-          swal({
-            icon: "warning",
-            title: "Warning",
-            content: error.node
+        })
+          .then(async config => {
+            const { web3Config, addresses } = config;
+            this.keysManager = new KeysManager();
+            await this.keysManager.init({
+              web3: web3Config.web3Instance,
+              netId: web3Config.netId,
+              addresses
+            });
+            this.setState({
+              isDisabledBtn: false,
+              web3Config
+            });
+          })
+          .catch(error => {
+            if (error.msg) {
+              this.setState({ isDisabledBtn: true });
+              swal({
+                icon: "warning",
+                title: "Warning",
+                content: error.node
+              });
+            }
           });
-        }
       });
   }
   componentDidMount() {
@@ -127,7 +140,7 @@ class App extends Component {
   }
   async onClick() {
     this.setState({ loading: true });
-    const initialKey = window.web3.eth.defaultAccount;
+    const initialKey = this.state.web3Config.defaultAccount;
     let isValid;
     try {
       isValid = await this.keysManager.isInitialKeyValid(initialKey);
