@@ -1,8 +1,8 @@
 import React from 'react';
-import helpers from "./helpers";
+import { constants } from "./constants";
 
 let Header = ({netId}) => {
-  const thisIsTestnet = helpers.isTestnet(netId);
+  const thisIsTestnet = netId in constants.NETWORKS && constants.NETWORKS[netId].TESTNET;
   const headerClassName = thisIsTestnet ? "sokol" : "";
   const logoClassName = thisIsTestnet ? "header-logo-sokol" : "header-logo";
   return (

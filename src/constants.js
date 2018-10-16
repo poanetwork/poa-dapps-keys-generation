@@ -7,10 +7,28 @@ constants.ABIsSources = {
 };
 constants.userDeniedTransactionPattern = 'User denied transaction';
 
-constants.NETID_SOKOL = "77";
-constants.NETID_CORE = "99";
-constants.NETID_DAI_TEST = "79";
-constants.NETID_DAI = "100";
+constants.NETWORKS = {
+  '77': {
+    NAME: 'Sokol',
+    BRANCH: 'sokol',
+    TESTNET: true
+  },
+  '99': {
+    NAME: 'Core',
+    BRANCH: 'core',
+    TESTNET: false
+  },
+  '79': {
+    NAME: 'Dai-Test',
+    BRANCH: 'dai-test',
+    TESTNET: true
+  },
+  '100': {
+    NAME: 'Dai',
+    BRANCH: 'dai',
+    TESTNET: false
+  }
+};
 
 module.exports = {
   constants
