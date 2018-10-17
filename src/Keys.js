@@ -1,76 +1,76 @@
-import React, { Component } from "react";
-import Tooltip from "rc-tooltip";
-import "rc-tooltip/assets/bootstrap.css";
+import React, { Component } from 'react'
+import Tooltip from 'rc-tooltip'
+import 'rc-tooltip/assets/bootstrap.css'
 
 const encodeJson = json => {
-  const encoded = window.encodeURIComponent(JSON.stringify(json));
-  return `data:application/json;charset=utf-8,${encoded}`;
-};
+  const encoded = window.encodeURIComponent(JSON.stringify(json))
+  return `data:application/json;charset=utf-8,${encoded}`
+}
 
 export default class Keys extends Component {
   constructor(props) {
-    super(props);
-    this.onVisibleChange = this.onVisibleChange.bind(this);
-    this.onCopyBtnClick = this.onCopyBtnClick.bind(this);
+    super(props)
+    this.onVisibleChange = this.onVisibleChange.bind(this)
+    this.onCopyBtnClick = this.onCopyBtnClick.bind(this)
     this.state = {
       copyBtns: {
         copyMiningPass: {
           visible: false,
-          text: "Copy"
+          text: 'Copy'
         },
         copyVotingPass: {
           visible: false,
-          text: "Copy"
+          text: 'Copy'
         },
         copyPayoutPass: {
           visible: false,
-          text: "Copy"
+          text: 'Copy'
         },
         copyMiningKey: {
           visible: false,
-          text: "Copy"
+          text: 'Copy'
         },
         copyVotingKey: {
           visible: false,
-          text: "Copy"
+          text: 'Copy'
         },
         copyPayoutKey: {
           visible: false,
-          text: "Copy"
+          text: 'Copy'
         }
       }
-    };
+    }
   }
   componentWillUpdate(nextProps, nextState) {
     if (this.refs.miningKeyAddress) {
-      const Clipboard = require("clipboard");
+      const Clipboard = require('clipboard')
       // this.clipboard = new Clipboard(this.refs.copyBtn);
-      new Clipboard(this.refs.miningKeyAddress);
-      new Clipboard(this.refs.miningKeyPass);
-      new Clipboard(this.refs.payoutKeyAddress);
-      new Clipboard(this.refs.payoutKeyPass);
-      new Clipboard(this.refs.votingKeyAddress);
-      new Clipboard(this.refs.votingKeyPass);
+      new Clipboard(this.refs.miningKeyAddress)
+      new Clipboard(this.refs.miningKeyPass)
+      new Clipboard(this.refs.payoutKeyAddress)
+      new Clipboard(this.refs.payoutKeyPass)
+      new Clipboard(this.refs.votingKeyAddress)
+      new Clipboard(this.refs.votingKeyPass)
     }
   }
   onVisibleChange(id) {
-    console.log(id);
-    let copyBtns = this.state.copyBtns;
-    copyBtns[id].visible = !copyBtns[id].visible;
-    copyBtns[id].text = "Copy";
+    console.log(id)
+    let copyBtns = this.state.copyBtns
+    copyBtns[id].visible = !copyBtns[id].visible
+    copyBtns[id].text = 'Copy'
     this.setState({
       copyBtns
-    });
+    })
 
     // const id = e.target.id;
   }
   onCopyBtnClick(e) {
-    const id = e.target.id;
-    let copyBtns = this.state.copyBtns;
-    copyBtns[id].text = "Copied!";
+    const id = e.target.id
+    let copyBtns = this.state.copyBtns
+    copyBtns[id].text = 'Copied!'
     this.setState({
       copyBtns
-    });
+    })
   }
   render() {
     return (
@@ -88,7 +88,7 @@ export default class Keys extends Component {
                 animation="zoom"
                 trigger="hover"
                 onVisibleChange={() => {
-                  this.onVisibleChange("copyMiningKey");
+                  this.onVisibleChange('copyMiningKey')
                 }}
                 placement="right"
                 overlay={this.state.copyBtns.copyMiningKey.text}
@@ -98,9 +98,7 @@ export default class Keys extends Component {
                   onClick={this.onCopyBtnClick}
                   className="copy"
                   ref="miningKeyAddress"
-                  data-clipboard-text={
-                    "0x" + this.props.mining.jsonStore.address
-                  }
+                  data-clipboard-text={'0x' + this.props.mining.jsonStore.address}
                 />
               </Tooltip>
             </div>
@@ -118,7 +116,7 @@ export default class Keys extends Component {
                 animation="zoom"
                 trigger="hover"
                 onVisibleChange={() => {
-                  this.onVisibleChange("copyMiningPass");
+                  this.onVisibleChange('copyMiningPass')
                 }}
                 placement="right"
                 overlay={this.state.copyBtns.copyMiningPass.text}
@@ -133,9 +131,8 @@ export default class Keys extends Component {
               </Tooltip>
             </p>
             <p className="keys-description">
-              Download this key and use it in your mining node to validate
-              blocks in the network. Mined coins will be deposited to your
-              payout account.
+              Download this key and use it in your mining node to validate blocks in the network. Mined coins will be
+              deposited to your payout account.
             </p>
             <div className="keys-footer">
               <a
@@ -160,7 +157,7 @@ export default class Keys extends Component {
                 animation="zoom"
                 trigger="hover"
                 onVisibleChange={() => {
-                  this.onVisibleChange("copyPayoutKey");
+                  this.onVisibleChange('copyPayoutKey')
                 }}
                 placement="right"
                 overlay={this.state.copyBtns.copyPayoutKey.text}
@@ -170,9 +167,7 @@ export default class Keys extends Component {
                   onClick={this.onCopyBtnClick}
                   className="copy"
                   ref="payoutKeyAddress"
-                  data-clipboard-text={
-                    "0x" + this.props.payout.jsonStore.address
-                  }
+                  data-clipboard-text={'0x' + this.props.payout.jsonStore.address}
                 />
               </Tooltip>
             </div>
@@ -190,7 +185,7 @@ export default class Keys extends Component {
                 animation="zoom"
                 trigger="hover"
                 onVisibleChange={() => {
-                  this.onVisibleChange("copyPayoutPass");
+                  this.onVisibleChange('copyPayoutPass')
                 }}
                 placement="right"
                 overlay={this.state.copyBtns.copyPayoutPass.text}
@@ -205,8 +200,7 @@ export default class Keys extends Component {
               </Tooltip>
             </p>
             <p className="keys-description">
-              Download this key and use it on your client node/wallet to spend
-              earned coins.
+              Download this key and use it on your client node/wallet to spend earned coins.
             </p>
             <div className="keys-footer">
               <a
@@ -231,7 +225,7 @@ export default class Keys extends Component {
                 animation="zoom"
                 trigger="hover"
                 onVisibleChange={() => {
-                  this.onVisibleChange("copyVotingKey");
+                  this.onVisibleChange('copyVotingKey')
                 }}
                 placement="right"
                 overlay={this.state.copyBtns.copyVotingKey.text}
@@ -241,9 +235,7 @@ export default class Keys extends Component {
                   onClick={this.onCopyBtnClick}
                   className="copy"
                   ref="votingKeyAddress"
-                  data-clipboard-text={
-                    "0x" + this.props.voting.jsonStore.address
-                  }
+                  data-clipboard-text={'0x' + this.props.voting.jsonStore.address}
                 />
               </Tooltip>
             </div>
@@ -261,7 +253,7 @@ export default class Keys extends Component {
                 animation="zoom"
                 trigger="hover"
                 onVisibleChange={() => {
-                  this.onVisibleChange("copyVotingPass");
+                  this.onVisibleChange('copyVotingPass')
                 }}
                 placement="right"
                 overlay={this.state.copyBtns.copyVotingPass.text}
@@ -276,9 +268,8 @@ export default class Keys extends Component {
               </Tooltip>
             </p>
             <p className="keys-description">
-              Download this key and use it on your client node to vote for
-              necessary ballots, such as adding or removing miners from the
-              network.
+              Download this key and use it on your client node to vote for necessary ballots, such as adding or removing
+              miners from the network.
             </p>
             <div className="keys-footer">
               <a
@@ -295,12 +286,11 @@ export default class Keys extends Component {
         <div className="keys-note">
           <p className="keys-note-title">Important</p>
           <p className="keys-note-description">
-            Do not close this tab until you download all keys and save
-            passwords. Keep keys secure and protected. If you lose your keys,
-            you will need to get a new initial key using Voting DAPP.
+            Do not close this tab until you download all keys and save passwords. Keep keys secure and protected. If you
+            lose your keys, you will need to get a new initial key using Voting DAPP.
           </p>
         </div>
       </div>
-    );
+    )
   }
 }
