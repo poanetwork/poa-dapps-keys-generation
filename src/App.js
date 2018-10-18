@@ -50,29 +50,16 @@ class App extends Component {
           isDisabledBtn: false,
           web3Config
         })
-          .then(async config => {
-            const { web3Config, addresses } = config
-            this.keysManager = new KeysManager()
-            await this.keysManager.init({
-              web3: web3Config.web3Instance,
-              netId: web3Config.netId,
-              addresses
-            })
-            this.setState({
-              isDisabledBtn: false,
-              web3Config
-            })
+      })
+      .catch(error => {
+        if (error.msg) {
+          this.setState({ isDisabledBtn: true })
+          swal({
+            icon: 'warning',
+            title: 'Warning',
+            content: error.node
           })
-          .catch(error => {
-            if (error.msg) {
-              this.setState({ isDisabledBtn: true })
-              swal({
-                icon: 'warning',
-                title: 'Warning',
-                content: error.node
-              })
-            }
-          })
+        }
       })
   }
   componentDidMount() {
