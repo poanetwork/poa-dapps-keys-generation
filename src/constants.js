@@ -1,11 +1,11 @@
-let constants = {};
-constants.organization = 'poanetwork';
-constants.repoName = 'poa-chain-spec';
-constants.addressesSourceFile = 'contracts.json';
+let constants = {}
+constants.organization = 'poanetwork'
+constants.repoName = 'poa-chain-spec'
+constants.addressesSourceFile = 'contracts.json'
 constants.ABIsSources = {
-	'KeysManager': 'KeysManager.abi.json'
-};
-constants.userDeniedTransactionPattern = 'User denied transaction';
+  KeysManager: 'KeysManager.abi.json'
+}
+constants.userDeniedTransactionPattern = 'User denied transaction'
 
 constants.NETWORKS = {
   '77': {
@@ -28,7 +28,7 @@ constants.NETWORKS = {
     BRANCH: 'dai',
     TESTNET: false
   }
-};
+}
 
 module.exports = {
   constants
