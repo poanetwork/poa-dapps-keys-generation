@@ -1,0 +1,42 @@
+.hm-Home {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    padding-bottom: 50px;
+    padding-top: 50px;
+
+    @media (min-width: $breakpoint-xl) {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+.hm-Home_TextContainer {
+    flex-grow: 1;
+    order: 2;
+
+    @media (min-width: $breakpoint-xl) {
+        order: 1;
+    }
+}
+
+.hm-Home_ImageContainer {
+    align-items: center;
+    display: flex;
+    max-width: 100%;
+    order: 1;
+
+    @media (min-width: $breakpoint-xl) {
+        order: 2;
+    }
+}
+
+.hm-Home_Image {
+    @include aspect-ratio(520px, 408px);
+    @include image-retina('#{ $base-images-path }/Home/home-main', 'png');
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 520px;
+}

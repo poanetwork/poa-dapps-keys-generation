@@ -1,8 +1,8 @@
 @mixin content-layout-width() {
-    max-width: $container-max-width;
+    max-width: 100%;
     padding-left: $container-horizontal-padding-mobile;
     padding-right: $container-horizontal-padding-mobile;
-    width: 100%;
+    width: $container-max-width;
 
     @media (min-width: $breakpoint-md) {
         padding-left: $container-horizontal-padding-tablet;
