@@ -1,32 +1,17 @@
 import React from 'react'
 import moment from 'moment'
+import { Logo } from '../Logo'
+import { SocialIcons } from '../SocialIcons'
 import { constants } from '../../utils/constants'
 
-const Footer = ({ netId }) => {
-  const footerClassName = netId in constants.NETWORKS && constants.NETWORKS[netId].TESTNET ? 'sokol' : ''
-
+export const Footer = ({ extraClassName = '', isTestnet = false }) => {
   return (
-    <footer className={`footer ${footerClassName}`}>
-      <div className="container">
-        <p className="footer-rights">{moment().format('YYYY')} POA Network. All rights reserved.</p>
-        <a href="/poa-dapps-keys-generation" className="footer-logo" />
-        <div className="socials">
-          <a href="https://twitter.com/poanetwork" className="socials-i socials-i_twitter">
-            Twitter
-          </a>
-          <a href="https://poa.network" className="socials-i socials-i_oracles">
-            POA Network
-          </a>
-          <a href="https://t.me/oraclesnetwork" className="socials-i socials-i_telegram">
-            Telegram
-          </a>
-          <a href="https://github.com/poanetwork/" className="socials-i socials-i_github">
-            GitHub
-          </a>
-        </div>
+    <footer className={`sw-Footer ${extraClassName} ${isTestnet ? 'sw-Footer-test' : ''}`}>
+      <div className="sw-Footer_Content">
+        <Logo isTestnet={isTestnet} href={constants.baseURL} />
+        <p className="sw-Footer_Text">{moment().format('YYYY')} POA Network. All rights reserved.</p>
+        <SocialIcons />
       </div>
     </footer>
   )
 }
-
-export default Footer

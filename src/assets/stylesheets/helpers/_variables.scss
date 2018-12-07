@@ -2,18 +2,21 @@
 $brand-primary: #5a2da5;
 $brand-secondary: #8ce1d7;
 $base-border-color: #e9e9e9;
-$base-text-color: #4a4a4a;
+$base-title-color: #333;
+$base-text-color: #777;
 $base-text-color-light: #9b9b9b;
-$fullscreen-backdrop-color: rgba(78, 44, 137, 0.9);
-
-// modal
-$sw-ModalWindow-horizontal-padding-xs: 8px;
 
 // typography
-$base-font-size: 16px;
+$base-font-size: 14px;
 
 // paths
 $base-images-path: '../../assets/images';
+
+// layout
+$container-max-width: 1000px;
+$container-horizontal-padding-desktop: 20px;
+$container-horizontal-padding-tablet: 20px;
+$container-horizontal-padding-mobile: 10px;
 
 // responsive breakpoints
 $breakpoint-xs: 320px;
@@ -26,15 +29,3 @@ $breakpoint-xxxl: 1366px;
 
 // z-index
 $z-index-max: 12345678;
-
-// grid gaps
-$grid-column-gap-md: 15px;
-$grid-column-gap-xl: 39px;
-$grid-column-gap-xxl: 74px;
-$grid-column-gap-xxl: 90px;
-
-$grid-row-gap-md: 22px;
-$grid-row-gap-lg: 31px;
-
-// home
-$hm-Home_Btn-width: 230px;

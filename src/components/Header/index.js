@@ -1,17 +1,13 @@
 import React from 'react'
 import { constants } from '../../utils/constants'
+import { Logo } from '../Logo'
 
-let Header = ({ netId }) => {
-  const thisIsTestnet = netId in constants.NETWORKS && constants.NETWORKS[netId].TESTNET
-  const headerClassName = thisIsTestnet ? 'sokol' : ''
-  const logoClassName = thisIsTestnet ? 'header-logo-sokol' : 'header-logo'
+export const Header = ({ extraClassName = '', isTestnet = false }) => {
   return (
-    <header className={`header ${headerClassName}`}>
-      <div className="container">
-        <a href="/poa-dapps-keys-generation" className={logoClassName} />
+    <header className={`sw-Header ${extraClassName} ${isTestnet ? 'sw-Header-test' : ''}`}>
+      <div className="sw-Header_Content">
+        <Logo isTestnet={isTestnet} href={constants.baseURL} />
       </div>
     </header>
   )
 }
-
-export default Header

@@ -349,6 +349,173 @@ template {
 
 body {
   -webkit-font-smoothing: antialiased;
-  color: #4a4a4a;
+  color: #777;
   font-family: Nunito, sans-serif;
-  font-size: 16px; }
+  font-size: 14px; }
+
+html,
+body,
+#root,
+html.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown),
+body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
+  height: 100%; }
+
+#root {
+  display: flex;
+  overflow: auto; }
+
+.lo-App {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%; }
+
+.lo-App_Content {
+  max-width: 1000px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+  flex-grow: 1; }
+  @media (min-width: 768px) {
+    .lo-App_Content {
+      padding-left: 20px;
+      padding-right: 20px; } }
+  @media (min-width: 1024px) {
+    .lo-App_Content {
+      padding-left: 20px;
+      padding-right: 20px; } }
+
+.sw-Footer {
+  align-items: center;
+  background-color: #5a2da5;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  min-height: 50px;
+  overflow: hidden;
+  padding: 16px 0;
+  transition: background-color 0.25s ease-out;
+  width: 100%; }
+  .sw-Footer.sw-Footer-test {
+    background-color: #8ce1d7; }
+
+.sw-Footer_Content {
+  max-width: 1000px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; }
+  @media (min-width: 768px) {
+    .sw-Footer_Content {
+      padding-left: 20px;
+      padding-right: 20px; } }
+  @media (min-width: 1024px) {
+    .sw-Footer_Content {
+      padding-left: 20px;
+      padding-right: 20px; } }
+  @media (min-width: 768px) {
+    .sw-Footer_Content {
+      flex-direction: row;
+      justify-content: space-between; } }
+
+.sw-Footer_Text {
+  color: #fff;
+  flex-grow: 1;
+  font-size: 11px;
+  font-weight: 300;
+  line-height: 1.2;
+  margin: 0;
+  padding: 15px 0 0 0;
+  text-align: center; }
+  @media (min-width: 768px) {
+    .sw-Footer_Text {
+      padding-top: 0; } }
+
+.sw-Header {
+  align-items: center;
+  background-color: #5a2da5;
+  color: #fff;
+  display: flex;
+  height: 70px;
+  justify-content: center;
+  overflow: hidden;
+  transition: background-color 0.25s ease-out;
+  width: 100%; }
+  .sw-Header.sw-Header-test {
+    background-color: #8ce1d7; }
+
+.sw-Header_Content {
+  max-width: 1000px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%; }
+  @media (min-width: 768px) {
+    .sw-Header_Content {
+      padding-left: 20px;
+      padding-right: 20px; } }
+  @media (min-width: 1024px) {
+    .sw-Header_Content {
+      padding-left: 20px;
+      padding-right: 20px; } }
+
+.sw-LogoPOA {
+  display: block;
+  text-decoration: none; }
+  .sw-Header .sw-LogoPOA {
+    height: 26px;
+    width: 167px; }
+  .sw-Footer .sw-LogoPOA {
+    height: 18px;
+    width: 130px; }
+
+.sw-LogoPOA_Image {
+  display: block;
+  height: 100%;
+  width: 100%; }
+
+.sw-LogoSokol {
+  display: block;
+  text-decoration: none; }
+  .sw-Header .sw-LogoSokol {
+    height: 26px;
+    width: 178px; }
+  .sw-Footer .sw-LogoSokol {
+    height: 18px;
+    width: 123px; }
+
+.sw-LogoSokol_Image {
+  display: block;
+  height: 100%;
+  width: 100%; }
+
+.ft-SocialIcons {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 15px; }
+  @media (min-width: 768px) {
+    .ft-SocialIcons {
+      padding-top: 0; } }
+
+.ft-SocialIcons_Icon {
+  background-color: #fff;
+  border-radius: 3px;
+  font-size: 0;
+  height: 30px;
+  line-height: 0;
+  margin-right: 10px;
+  width: 30px; }
+  .ft-SocialIcons_Icon:last-child {
+    margin-right: 0; }
+  .ft-SocialIcons_Icon.ft-SocialIcons_Icon-github {
+    mask-image: url("../../assets/images/SocialIcons/github.png"); }
+  .ft-SocialIcons_Icon.ft-SocialIcons_Icon-poa {
+    mask-image: url("../../assets/images/SocialIcons/poa.png"); }
+  .ft-SocialIcons_Icon.ft-SocialIcons_Icon-telegram {
+    mask-image: url("../../assets/images/SocialIcons/telegram.png"); }
+  .ft-SocialIcons_Icon.ft-SocialIcons_Icon-twitter {
+    mask-image: url("../../assets/images/SocialIcons/twitter.png"); }

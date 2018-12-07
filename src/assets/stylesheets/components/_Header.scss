@@ -1,0 +1,19 @@
+.sw-Header {
+    align-items: center;
+    background-color: $brand-primary;
+    color: #fff;
+    display: flex;
+    height: 70px;
+    justify-content: center;
+    overflow: hidden;
+    transition: background-color 0.25s ease-out;
+    width: 100%;
+
+    &.sw-Header-test {
+        background-color: $brand-secondary;
+    }
+}
+
+.sw-Header_Content {
+    @include content-layout-width();
+}

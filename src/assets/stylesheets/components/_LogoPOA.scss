@@ -1,0 +1,21 @@
+.sw-LogoPOA {
+    display: block;
+    text-decoration: none;
+
+    .sw-Header & {
+        height: 26px;
+        width: 167px;
+    }
+
+    .sw-Footer & {
+        height: 18px;
+        width: 130px;
+    }
+
+}
+
+.sw-LogoPOA_Image {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
