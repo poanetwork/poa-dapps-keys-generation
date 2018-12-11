@@ -19,7 +19,7 @@
     }
 
     &#{ & }-dai {
-        background-color: $xdai-orange;
+        background-color: $xdai-gray;
     }
 }
 
@@ -48,5 +48,9 @@
 
     @media (min-width: $breakpoint-md) {
         padding-top: 0;
+    }
+
+    .sw-Footer & {
+        color: #000;
     }
 }

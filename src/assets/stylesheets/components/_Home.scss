@@ -28,26 +28,6 @@
     }
 }
 
-.hm-Home_ImageContainer {
-    align-items: center;
-    display: flex;
-    max-width: 100%;
-    order: 1;
-
-    @media (min-width: $breakpoint-xl) {
-        order: 2;
-    }
-}
-
-.hm-Home_Image {
-    @include aspect-ratio(520px, 408px);
-    @include image-retina('#{ $base-images-path }/Home/home-main', 'png');
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 520px;
-}
-
 .hm-Home_Title {
     color: #333;
     font-size: 24px;

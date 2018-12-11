@@ -1,5 +1,6 @@
 import React from 'react'
 import { ButtonGenerate } from '../ButtonGenerate'
+import { MainImage } from '../MainImage'
 
 export const Home = ({ extraClassName = '', networkBranch = false, onClick = null, disabled = false }) => {
   return (
@@ -12,11 +13,7 @@ export const Home = ({ extraClassName = '', networkBranch = false, onClick = nul
         </p>
         <ButtonGenerate onClick={onClick} disabled={disabled} networkBranch={networkBranch} />
       </div>
-      <div className="hm-Home_ImageContainer">
-        <div className="hm-Home_Image">
-          <div className="content-ratio" />
-        </div>
-      </div>
+      <MainImage />
     </div>
   )
 }

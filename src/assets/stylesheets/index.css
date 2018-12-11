@@ -454,7 +454,7 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   .sw-Footer.sw-Footer-sokol {
     background-color: #8ce1d7; }
   .sw-Footer.sw-Footer-dai {
-    background-color: #fec042; }
+    background-color: #f2f6f8; }
 
 .sw-Footer_Content {
   max-width: 100%;
@@ -490,6 +490,8 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   @media (min-width: 768px) {
     .sw-Footer_Text {
       padding-top: 0; } }
+  .sw-Footer .sw-Footer_Text {
+    color: #000; }
 
 .sw-Header {
   align-items: center;
@@ -506,7 +508,7 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   .sw-Header.sw-Header-sokol {
     background-color: #8ce1d7; }
   .sw-Header.sw-Header-dai {
-    background-color: #fec042; }
+    background-color: #f2f6f8; }
 
 .sw-Header_Content {
   max-width: 100%;
@@ -547,40 +549,6 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
       align-items: flex-start;
       order: 1;
       padding: 0 45px 0 0; } }
-
-.hm-Home_ImageContainer {
-  align-items: center;
-  display: flex;
-  max-width: 100%;
-  order: 1; }
-  @media (min-width: 1024px) {
-    .hm-Home_ImageContainer {
-      order: 2; } }
-
-.hm-Home_Image {
-  position: relative;
-  background-image: url("../../assets/images/Home/home-main.png");
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 520px; }
-  .hm-Home_Image:before {
-    content: "";
-    display: block;
-    padding-top: 78.46154%;
-    width: 100%; }
-  .hm-Home_Image > .content-ratio {
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0; }
-  @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-    .hm-Home_Image {
-      background-image: url("../../assets/images/Home/home-main@2x.png"); } }
-  @media (-webkit-min-device-pixel-ratio: 3), (-moz-min-device-pixel-ratio: 3), (min-resolution: 288dpi), (min-resolution: 3dppx) {
-    .hm-Home_Image {
-      background-image: url("../../assets/images/Home/home-main@3x.png"); } }
 
 .hm-Home_Title {
   color: #333;
@@ -625,6 +593,57 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   display: block;
   height: 100%;
   width: 100%; }
+
+.hm-MainImage {
+  align-items: center;
+  display: flex;
+  max-width: 100%;
+  order: 1; }
+  @media (min-width: 1024px) {
+    .hm-MainImage {
+      order: 2; } }
+
+.hm-MainImage_Img {
+  position: relative;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 520px; }
+  .hm-MainImage_Img:before {
+    content: "";
+    display: block;
+    padding-top: 78.46154%;
+    width: 100%; }
+  .hm-MainImage_Img > .content-ratio {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0; }
+  .hm-MainImage_Img, .hm-MainImage_Img.hm-MainImage_Img-poa {
+    background-image: url("../../assets/images/MainImage/poa/image.png"); }
+    @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+      .hm-MainImage_Img, .hm-MainImage_Img.hm-MainImage_Img-poa {
+        background-image: url("../../assets/images/MainImage/poa/image@2x.png"); } }
+    @media (-webkit-min-device-pixel-ratio: 3), (-moz-min-device-pixel-ratio: 3), (min-resolution: 288dpi), (min-resolution: 3dppx) {
+      .hm-MainImage_Img, .hm-MainImage_Img.hm-MainImage_Img-poa {
+        background-image: url("../../assets/images/MainImage/poa/image@3x.png"); } }
+  .hm-MainImage_Img.hm-MainImage_Img-sokol {
+    background-image: url("../../assets/images/MainImage/sokol/image.png"); }
+    @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+      .hm-MainImage_Img.hm-MainImage_Img-sokol {
+        background-image: url("../../assets/images/MainImage/sokol/image@2x.png"); } }
+    @media (-webkit-min-device-pixel-ratio: 3), (-moz-min-device-pixel-ratio: 3), (min-resolution: 288dpi), (min-resolution: 3dppx) {
+      .hm-MainImage_Img.hm-MainImage_Img-sokol {
+        background-image: url("../../assets/images/MainImage/sokol/image@3x.png"); } }
+  .hm-MainImage_Img.hm-MainImage_Img-dai {
+    background-image: url("../../assets/images/MainImage/dai/image.png"); }
+    @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+      .hm-MainImage_Img.hm-MainImage_Img-dai {
+        background-image: url("../../assets/images/MainImage/dai/image@2x.png"); } }
+    @media (-webkit-min-device-pixel-ratio: 3), (-moz-min-device-pixel-ratio: 3), (min-resolution: 288dpi), (min-resolution: 3dppx) {
+      .hm-MainImage_Img.hm-MainImage_Img-dai {
+        background-image: url("../../assets/images/MainImage/dai/image@3x.png"); } }
 
 .ft-SocialIcons {
   align-items: center;
