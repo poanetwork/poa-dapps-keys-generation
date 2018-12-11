@@ -350,7 +350,7 @@ template {
 body {
   -webkit-font-smoothing: antialiased;
   color: #777;
-  font-family: Nunito, sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 14px; }
 
 html,
@@ -388,6 +388,56 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
       padding-left: 20px;
       padding-right: 20px; } }
 
+.sw-ButtonGenerate {
+  align-items: center;
+  background-color: #5a2da5;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 5px 10px 0 rgba(92, 52, 162, 0.3);
+  cursor: pointer;
+  display: flex;
+  height: 44px;
+  justify-content: space-between;
+  line-height: 44px;
+  outline: none;
+  padding: 0 15px;
+  transition: background-color 0.25s ease-out; }
+  .sw-ButtonGenerate[disabled]:focus, .sw-ButtonGenerate[disabled].active, .sw-ButtonGenerate[disabled]:hover {
+    background-color: #5a2da5;
+    border-color: #5a2da5; }
+  .sw-ButtonGenerate[disabled] {
+    cursor: not-allowed;
+    opacity: 0.7; }
+  .sw-ButtonGenerate:focus, .sw-ButtonGenerate:active, .sw-ButtonGenerate:hover {
+    background-color: #44227d;
+    border-color: #44227d; }
+  .sw-ButtonGenerate.sw-ButtonGenerate-poa {
+    background-color: #5a2da5; }
+  .sw-ButtonGenerate.sw-ButtonGenerate-sokol {
+    background-color: #8ce1d7; }
+  .sw-ButtonGenerate.sw-ButtonGenerate-dai {
+    background-color: #fec042; }
+  .hm-Home .sw-ButtonGenerate {
+    width: 100%; }
+    @media (min-width: 768px) {
+      .hm-Home .sw-ButtonGenerate {
+        width: auto; } }
+
+.sw-ButtonGenerate_Text {
+  color: #fff;
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: left;
+  white-space: nowrap;
+  margin-right: 65px; }
+
+.sw-ButtonGenerate_Icon {
+  display: block;
+  height: 16px;
+  width: 18px; }
+
 .sw-Footer {
   align-items: center;
   background-color: #5a2da5;
@@ -399,8 +449,12 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   padding: 16px 0;
   transition: background-color 0.25s ease-out;
   width: 100%; }
-  .sw-Footer.sw-Footer-test {
+  .sw-Footer.sw-Footer-poa {
+    background-color: #5a2da5; }
+  .sw-Footer.sw-Footer-sokol {
     background-color: #8ce1d7; }
+  .sw-Footer.sw-Footer-dai {
+    background-color: #fec042; }
 
 .sw-Footer_Content {
   max-width: 100%;
@@ -447,8 +501,12 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   overflow: hidden;
   transition: background-color 0.25s ease-out;
   width: 100%; }
-  .sw-Header.sw-Header-test {
+  .sw-Header.sw-Header-poa {
+    background-color: #5a2da5; }
+  .sw-Header.sw-Header-sokol {
     background-color: #8ce1d7; }
+  .sw-Header.sw-Header-dai {
+    background-color: #fec042; }
 
 .sw-Header_Content {
   max-width: 100%;
@@ -470,18 +528,25 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   flex-direction: column;
   max-width: 100%;
   padding-bottom: 50px;
-  padding-top: 50px; }
+  padding-top: 50px;
+  text-align: center; }
   @media (min-width: 1024px) {
     .hm-Home {
       flex-direction: row;
-      justify-content: space-between; } }
+      justify-content: space-between;
+      text-align: left; } }
 
 .hm-Home_TextContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   order: 2; }
   @media (min-width: 1024px) {
     .hm-Home_TextContainer {
-      order: 1; } }
+      align-items: flex-start;
+      order: 1;
+      padding: 0 45px 0 0; } }
 
 .hm-Home_ImageContainer {
   align-items: center;
@@ -516,6 +581,20 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   @media (-webkit-min-device-pixel-ratio: 3), (-moz-min-device-pixel-ratio: 3), (min-resolution: 288dpi), (min-resolution: 3dppx) {
     .hm-Home_Image {
       background-image: url("../../assets/images/Home/home-main@3x.png"); } }
+
+.hm-Home_Title {
+  color: #333;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0 0 24px; }
+
+.hm-Home_Text {
+  color: #777;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.71;
+  margin: 0 0 30px; }
 
 .sw-LogoPOA {
   display: block;

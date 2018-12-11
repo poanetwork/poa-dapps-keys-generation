@@ -12,7 +12,7 @@ import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { Home } from './components/Home'
 import { constants } from './utils/constants'
-import { isTestnet } from './utils/utils'
+import { getNetworkBranch } from './utils/utils'
 import './assets/stylesheets/index.css'
 
 function generateElement(msg) {
@@ -34,7 +34,7 @@ class App extends Component {
       web3Config: {},
       mining: null,
       isDisabledBtn: props.generateKeysIsDisabled,
-      isTestnet: false
+      networkBranch: ''
     }
     this.keysManager = null
 
@@ -52,9 +52,8 @@ class App extends Component {
           addresses
         })
 
-        console.log('culo ' + isTestnet(web3Config.netId))
         this.setState({
-          isTestnet: isTestnet(web3Config.netId),
+          networkBranch: getNetworkBranch(web3Config.netId),
           isDisabledBtn: false,
           web3Config
         })
@@ -219,16 +218,16 @@ class App extends Component {
 
     return (
       <div className="lo-App">
-        <Header isTestnet={this.state.isTestnet} />
+        <Header networkBranch={this.state.networkBranch} />
         {loader}
         <section className="lo-App_Content">
           {this.state.keysGenerated ? (
             <Keys mining={this.state.mining} voting={this.state.voting} payout={this.state.payout} />
           ) : (
-            <Home />
+            <Home onClick={this.onClick} disabled={this.state.isDisabledBtn} networkBranch={this.state.networkBranch} />
           )}
         </section>
-        <Footer isTestnet={this.state.isTestnet} />
+        <Footer networkBranch={this.state.networkBranch} />
       </div>
     )
   }

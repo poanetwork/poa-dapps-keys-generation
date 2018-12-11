@@ -1,6 +1,6 @@
 .sw-Header {
     align-items: center;
-    background-color: $brand-primary;
+    background-color: $poa-purple;
     color: #fff;
     display: flex;
     height: 70px;
@@ -9,8 +9,16 @@
     transition: background-color 0.25s ease-out;
     width: 100%;
 
-    &.sw-Header-test {
-        background-color: $brand-secondary;
+    &#{ & }-poa {
+        background-color: $poa-purple;
+    }
+
+    &#{ & }-sokol {
+        background-color: $sokol-cyan;
+    }
+
+    &#{ & }-dai {
+        background-color: $xdai-orange;
     }
 }
 

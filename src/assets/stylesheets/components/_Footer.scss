@@ -1,6 +1,6 @@
 .sw-Footer {
     align-items: center;
-    background-color: $brand-primary;
+    background-color: $poa-purple;
     color: #fff;
     display: flex;
     justify-content: center;
@@ -10,8 +10,16 @@
     transition: background-color 0.25s ease-out;
     width: 100%;
 
-    &.sw-Footer-test {
-        background-color: $brand-secondary;
+    &#{ & }-poa {
+        background-color: $poa-purple;
+    }
+
+    &#{ & }-sokol {
+        background-color: $sokol-cyan;
+    }
+
+    &#{ & }-dai {
+        background-color: $xdai-orange;
     }
 }
 
