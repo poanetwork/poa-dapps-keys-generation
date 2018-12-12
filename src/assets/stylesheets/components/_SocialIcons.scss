@@ -10,30 +10,3 @@ $ft-SocialIcons_Icon-dimensions: 30px !default;
         padding-top: 0;
     }
 }
-
-.ft-SocialIcons_Icon {
-    background-color: #fff;
-    border-radius: 3px;
-    font-size: 0;
-    height: $ft-SocialIcons_Icon-dimensions;
-    line-height: 0;
-    margin-right: 10px;
-    width: $ft-SocialIcons_Icon-dimensions;
-
-    &:last-child {
-        margin-right: 0;
-    }
-
-    &#{ & }-github {
-        mask-image: url('#{ $base-images-path }/SocialIcons/github.png');
-    }
-    &#{ & }-poa {
-        mask-image: url('#{ $base-images-path }/SocialIcons/poa.png');
-    }
-    &#{ & }-telegram {
-        mask-image: url('#{ $base-images-path }/SocialIcons/telegram.png');
-    }
-    &#{ & }-twitter {
-        mask-image: url('#{ $base-images-path }/SocialIcons/twitter.png');
-    }
-}

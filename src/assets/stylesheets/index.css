@@ -393,7 +393,6 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   background-color: #5a2da5;
   border-radius: 5px;
   border: none;
-  box-shadow: 0 5px 10px 0 rgba(92, 52, 162, 0.3);
   cursor: pointer;
   display: flex;
   height: 44px;
@@ -401,22 +400,36 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   line-height: 44px;
   outline: none;
   padding: 0 15px;
-  transition: background-color 0.25s ease-out; }
+  transition: background-color 0.25s ease-out;
+  box-shadow: 0 5px 10px 0 rgba(90, 45, 165, 0.3); }
+  .sw-ButtonGenerate:focus, .sw-ButtonGenerate:active, .sw-ButtonGenerate:hover {
+    background-color: #44227d; }
   .sw-ButtonGenerate[disabled]:focus, .sw-ButtonGenerate[disabled].active, .sw-ButtonGenerate[disabled]:hover {
-    background-color: #5a2da5;
-    border-color: #5a2da5; }
+    background-color: #5a2da5; }
   .sw-ButtonGenerate[disabled] {
     cursor: not-allowed;
     opacity: 0.7; }
-  .sw-ButtonGenerate:focus, .sw-ButtonGenerate:active, .sw-ButtonGenerate:hover {
-    background-color: #44227d;
-    border-color: #44227d; }
   .sw-ButtonGenerate.sw-ButtonGenerate-poa {
-    background-color: #5a2da5; }
+    background-color: #5a2da5;
+    box-shadow: 0 5px 10px 0 rgba(90, 45, 165, 0.3); }
+    .sw-ButtonGenerate.sw-ButtonGenerate-poa:focus, .sw-ButtonGenerate.sw-ButtonGenerate-poa:active, .sw-ButtonGenerate.sw-ButtonGenerate-poa:hover {
+      background-color: #44227d; }
+    .sw-ButtonGenerate.sw-ButtonGenerate-poa[disabled]:focus, .sw-ButtonGenerate.sw-ButtonGenerate-poa[disabled].active, .sw-ButtonGenerate.sw-ButtonGenerate-poa[disabled]:hover {
+      background-color: #5a2da5; }
   .sw-ButtonGenerate.sw-ButtonGenerate-sokol {
-    background-color: #8ce1d7; }
+    background-color: #8ce1d7;
+    box-shadow: 0 5px 10px 0 rgba(140, 225, 215, 0.3); }
+    .sw-ButtonGenerate.sw-ButtonGenerate-sokol:focus, .sw-ButtonGenerate.sw-ButtonGenerate-sokol:active, .sw-ButtonGenerate.sw-ButtonGenerate-sokol:hover {
+      background-color: #64d6c9; }
+    .sw-ButtonGenerate.sw-ButtonGenerate-sokol[disabled]:focus, .sw-ButtonGenerate.sw-ButtonGenerate-sokol[disabled].active, .sw-ButtonGenerate.sw-ButtonGenerate-sokol[disabled]:hover {
+      background-color: #8ce1d7; }
   .sw-ButtonGenerate.sw-ButtonGenerate-dai {
-    background-color: #fec042; }
+    background-color: #fec042;
+    box-shadow: 0 5px 10px 0 rgba(254, 192, 66, 0.3); }
+    .sw-ButtonGenerate.sw-ButtonGenerate-dai:focus, .sw-ButtonGenerate.sw-ButtonGenerate-dai:active, .sw-ButtonGenerate.sw-ButtonGenerate-dai:hover {
+      background-color: #feaf0f; }
+    .sw-ButtonGenerate.sw-ButtonGenerate-dai[disabled]:focus, .sw-ButtonGenerate.sw-ButtonGenerate-dai[disabled].active, .sw-ButtonGenerate.sw-ButtonGenerate-dai[disabled]:hover {
+      background-color: #fec042; }
   .hm-Home .sw-ButtonGenerate {
     width: 100%; }
     @media (min-width: 768px) {
@@ -490,8 +503,8 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   @media (min-width: 768px) {
     .sw-Footer_Text {
       padding-top: 0; } }
-  .sw-Footer .sw-Footer_Text {
-    color: #000; }
+  .sw-Footer-dai .sw-Footer_Text {
+    color: #333; }
 
 .sw-Header {
   align-items: center;
@@ -563,6 +576,48 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   font-weight: 400;
   line-height: 1.71;
   margin: 0 0 30px; }
+
+.sw-IconGithub {
+  align-items: center;
+  border-radius: 3px;
+  display: flex;
+  font-size: 0;
+  justify-content: center;
+  line-height: 0;
+  transition: background-color 0.25s ease-out; }
+  .ft-SocialIcons .sw-IconGithub {
+    margin-right: 10px; }
+
+.sw-IconPOA {
+  align-items: center;
+  border-radius: 3px;
+  display: flex;
+  font-size: 0;
+  justify-content: center;
+  line-height: 0;
+  transition: background-color 0.25s ease-out; }
+
+.sw-IconTelegram {
+  align-items: center;
+  border-radius: 3px;
+  display: flex;
+  font-size: 0;
+  justify-content: center;
+  line-height: 0;
+  transition: background-color 0.25s ease-out; }
+  .ft-SocialIcons .sw-IconTelegram {
+    margin-right: 10px; }
+
+.sw-IconTwitter {
+  align-items: center;
+  border-radius: 3px;
+  display: flex;
+  font-size: 0;
+  justify-content: center;
+  line-height: 0;
+  transition: background-color 0.25s ease-out; }
+  .ft-SocialIcons .sw-IconTwitter {
+    margin-right: 10px; }
 
 .sw-LogoPOA {
   display: block;
@@ -653,22 +708,3 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   @media (min-width: 768px) {
     .ft-SocialIcons {
       padding-top: 0; } }
-
-.ft-SocialIcons_Icon {
-  background-color: #fff;
-  border-radius: 3px;
-  font-size: 0;
-  height: 30px;
-  line-height: 0;
-  margin-right: 10px;
-  width: 30px; }
-  .ft-SocialIcons_Icon:last-child {
-    margin-right: 0; }
-  .ft-SocialIcons_Icon.ft-SocialIcons_Icon-github {
-    mask-image: url("../../assets/images/SocialIcons/github.png"); }
-  .ft-SocialIcons_Icon.ft-SocialIcons_Icon-poa {
-    mask-image: url("../../assets/images/SocialIcons/poa.png"); }
-  .ft-SocialIcons_Icon.ft-SocialIcons_Icon-telegram {
-    mask-image: url("../../assets/images/SocialIcons/telegram.png"); }
-  .ft-SocialIcons_Icon.ft-SocialIcons_Icon-twitter {
-    mask-image: url("../../assets/images/SocialIcons/twitter.png"); }

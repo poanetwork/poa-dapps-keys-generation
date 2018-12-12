@@ -3,7 +3,6 @@
     background-color: $button-background-color;
     border-radius: 5px;
     border: none;
-    box-shadow: 0 5px 10px 0 rgba(92, 52, 162, 0.3);
     cursor: pointer;
     display: flex;
     height: $button-height;
@@ -12,6 +11,10 @@
     outline: none;
     padding: 0 15px;
     transition: background-color 0.25s ease-out;
+}
+
+@mixin button-shadow($button-shadow-color) {
+    box-shadow: 0 5px 10px 0 rgba($button-shadow-color, 0.3);
 }
 
 @mixin button-text($text-color: #fff, $font-size: 16px) {
@@ -30,21 +33,19 @@
     &:active,
     &:hover {
         background-color: darken($button-background-color, 10%);
-        border-color: darken($button-background-color, 10%);
     }
-
-}
-
-@mixin button-disabled($button-background-color) {
 
     &[disabled] {
         &:focus,
         &.active,
         &:hover {
             background-color: $button-background-color;
-            border-color: $button-background-color;
         }
     }
+
+}
+
+@mixin button-disabled($button-background-color) {
 
     &[disabled] {
         cursor: not-allowed;

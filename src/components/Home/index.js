@@ -13,7 +13,7 @@ export const Home = ({ extraClassName = '', networkBranch = false, onClick = nul
         </p>
         <ButtonGenerate onClick={onClick} disabled={disabled} networkBranch={networkBranch} />
       </div>
-      <MainImage />
+      <MainImage networkBranch={networkBranch} />
     </div>
   )
 }

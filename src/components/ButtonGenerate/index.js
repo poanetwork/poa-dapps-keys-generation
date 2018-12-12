@@ -4,7 +4,7 @@ import icon from './icon.svg'
 export const ButtonGenerate = ({ extraClassName = '', networkBranch = '', onClick = null, disabled = false }) => {
   return (
     <button
-      className={`sw-ButtonGenerate ${extraClassName} ${networkBranch ? 'sw-ButtonGenerate-' + networkBranch : ''}`}
+      className={`sw-ButtonGenerate ${extraClassName} ${'sw-ButtonGenerate-' + networkBranch}`}
       disabled={disabled}
       onClick={onClick}
       type="button"
