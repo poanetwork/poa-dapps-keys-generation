@@ -201,20 +201,6 @@ class App extends Component {
 
   render() {
     let loader = this.state.loading ? <Loading netId={this.state.web3Config.netId} /> : ''
-    // let createKeyBtn = (
-    //   <div className="create-keys">
-    //     <h1>Create keys from initial key</h1>
-    //     <h2>
-    //       In this application, you will create mining, payout and voting keys. The app will make your initial key
-    //       unusable after the process. Please proceed with care, don't lose your keys and follow instructions.
-    //     </h2>
-    //     <div className="create-keys-button-container">
-    //       <button className="create-keys-button" onClick={this.onClick} disabled={this.state.isDisabledBtn}>
-    //         Generate keys
-    //       </button>
-    //     </div>
-    //   </div>
-    // )
 
     return (
       <div className="lo-App">
@@ -222,7 +208,12 @@ class App extends Component {
         {loader}
         <section className="lo-App_Content">
           {this.state.keysGenerated ? (
-            <Keys mining={this.state.mining} voting={this.state.voting} payout={this.state.payout} />
+            <Keys
+              mining={this.state.mining}
+              networkBranch={this.state.networkBranch}
+              payout={this.state.payout}
+              voting={this.state.voting}
+            />
           ) : (
             <Home onClick={this.onClick} disabled={this.state.isDisabledBtn} networkBranch={this.state.networkBranch} />
           )}

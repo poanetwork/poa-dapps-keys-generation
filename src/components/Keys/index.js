@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Tooltip from 'rc-tooltip'
-// TODO: Check if this is worth it, or move it to vendors' folder
-import 'rc-tooltip/assets/bootstrap.css'
+import { ButtonDownload } from '../ButtonDownload'
 
 const encodeJson = json => {
   const encoded = window.encodeURIComponent(JSON.stringify(json))
@@ -45,7 +44,7 @@ export default class Keys extends Component {
   componentWillUpdate(nextProps, nextState) {
     if (this.refs.miningKeyAddress) {
       const Clipboard = require('clipboard')
-      // this.clipboard = new Clipboard(this.refs.copyBtn);
+
       new Clipboard(this.refs.miningKeyAddress)
       new Clipboard(this.refs.miningKeyPass)
       new Clipboard(this.refs.payoutKeyAddress)
@@ -55,15 +54,12 @@ export default class Keys extends Component {
     }
   }
   onVisibleChange(id) {
-    console.log(id)
     let copyBtns = this.state.copyBtns
     copyBtns[id].visible = !copyBtns[id].visible
     copyBtns[id].text = 'Copy'
     this.setState({
       copyBtns
     })
-
-    // const id = e.target.id;
   }
   onCopyBtnClick(e) {
     const id = e.target.id
@@ -74,219 +70,221 @@ export default class Keys extends Component {
     })
   }
   render() {
+    const { networkBranch } = this.props
+
     return (
-      <div className="container">
-        <div className="keys">
-          <div className="keys-i">
-            <p className="keys-title">Mining key</p>
-            <div className="keys-hash-container">
-              <p className="keys-hash" id="miningKey">
-                0x
-                {this.props.mining.jsonStore.address}
-              </p>
-              <Tooltip
-                visible={this.state.copyBtns.copyMiningKey.visible}
-                animation="zoom"
-                trigger="hover"
-                onVisibleChange={() => {
-                  this.onVisibleChange('copyMiningKey')
-                }}
-                placement="right"
-                overlay={this.state.copyBtns.copyMiningKey.text}
-              >
-                <span
-                  id="copyMiningKey"
-                  onClick={this.onCopyBtnClick}
-                  className="copy"
-                  ref="miningKeyAddress"
-                  data-clipboard-text={'0x' + this.props.mining.jsonStore.address}
-                />
-              </Tooltip>
-            </div>
-            <p className="keys-hash">
-              <label className="password-label">Password:</label>
-              <input
-                disabled={true}
-                defaultValue={this.props.mining.password}
-                type="password"
-                id="miningKeyPass"
-                className="pass"
+      <div className={`ky-Keys`}>
+        <div className="ky-Keys_Block">
+          <h2 className="ky-Keys_BlockTitle">Mining key</h2>
+          <div className="ky-Keys_HashContainer">
+            <p className={`ky-Keys_Hash ky-Keys_Hash-${networkBranch}`} id="miningKey">
+              0x
+              {this.props.mining.jsonStore.address}
+            </p>
+            <Tooltip
+              visible={this.state.copyBtns.copyMiningKey.visible}
+              animation="zoom"
+              trigger="hover"
+              onVisibleChange={() => {
+                this.onVisibleChange('copyMiningKey')
+              }}
+              placement="right"
+              overlay={this.state.copyBtns.copyMiningKey.text}
+            >
+              <span
+                className={`ky-Keys_Copy ky-Keys_Copy-${networkBranch}`}
+                data-clipboard-text={'0x' + this.props.mining.jsonStore.address}
+                id="copyMiningKey"
+                onClick={this.onCopyBtnClick}
+                ref="miningKeyAddress"
               />
-              <Tooltip
-                visible={this.state.copyBtns.copyMiningPass.visible}
-                animation="zoom"
-                trigger="hover"
-                onVisibleChange={() => {
-                  this.onVisibleChange('copyMiningPass')
-                }}
-                placement="right"
-                overlay={this.state.copyBtns.copyMiningPass.text}
-              >
-                <span
-                  id="copyMiningPass"
-                  onClick={this.onCopyBtnClick}
-                  className="copy"
-                  ref="miningKeyPass"
-                  data-clipboard-text={this.props.mining.password}
-                />
-              </Tooltip>
-            </p>
-            <p className="keys-description">
-              Download this key and use it in your mining node to validate blocks in the network. Mined coins will be
-              deposited to your payout account.
-            </p>
-            <div className="keys-footer">
-              <a
-                className="keys-download"
-                id="miningKeyDownload"
-                href={encodeJson(this.props.mining.jsonStore)}
-                download={`mining_${this.props.mining.jsonStore.address}.json`}
-              >
-                Download Mining Key
-              </a>
-            </div>
+            </Tooltip>
           </div>
-          <div className="keys-i">
-            <p className="keys-title">Payout key</p>
-            <div className="keys-hash-container">
-              <p className="keys-hash" id="payoutKey">
-                0x
-                {this.props.payout.jsonStore.address}
-              </p>
-              <Tooltip
-                visible={this.state.copyBtns.copyPayoutKey.visible}
-                animation="zoom"
-                trigger="hover"
-                onVisibleChange={() => {
-                  this.onVisibleChange('copyPayoutKey')
-                }}
-                placement="right"
-                overlay={this.state.copyBtns.copyPayoutKey.text}
-              >
-                <span
-                  id="copyPayoutKey"
-                  onClick={this.onCopyBtnClick}
-                  className="copy"
-                  ref="payoutKeyAddress"
-                  data-clipboard-text={'0x' + this.props.payout.jsonStore.address}
-                />
-              </Tooltip>
-            </div>
-            <p className="keys-hash">
-              <label className="password-label">Password:</label>
-              <input
-                type="password"
-                disabled={true}
-                id="payoutKeyPass"
-                className="pass"
-                defaultValue={this.props.payout.password}
+          <div className="ky-Keys_PasswordContainer">
+            <label className="ky-Keys_PasswordLabel">Password:</label>
+            <input
+              className="ky-Keys_PasswordInput"
+              defaultValue={this.props.mining.password}
+              disabled={true}
+              id="miningKeyPass"
+              size={this.props.mining.password.length}
+              type="password"
+            />
+            <Tooltip
+              animation="zoom"
+              trigger="hover"
+              visible={this.state.copyBtns.copyMiningPass.visible}
+              onVisibleChange={() => {
+                this.onVisibleChange('copyMiningPass')
+              }}
+              placement="right"
+              overlay={this.state.copyBtns.copyMiningPass.text}
+            >
+              <span
+                id="copyMiningPass"
+                onClick={this.onCopyBtnClick}
+                className={`ky-Keys_Copy ky-Keys_Copy-${networkBranch}`}
+                ref="miningKeyPass"
+                data-clipboard-text={this.props.mining.password}
               />
-              <Tooltip
-                visible={this.state.copyBtns.copyPayoutPass.visible}
-                animation="zoom"
-                trigger="hover"
-                onVisibleChange={() => {
-                  this.onVisibleChange('copyPayoutPass')
-                }}
-                placement="right"
-                overlay={this.state.copyBtns.copyPayoutPass.text}
-              >
-                <span
-                  id="copyPayoutPass"
-                  onClick={this.onCopyBtnClick}
-                  className="copy"
-                  ref="payoutKeyPass"
-                  data-clipboard-text={this.props.payout.password}
-                />
-              </Tooltip>
-            </p>
-            <p className="keys-description">
-              Download this key and use it on your client node/wallet to spend earned coins.
-            </p>
-            <div className="keys-footer">
-              <a
-                className="keys-download"
-                id="payoutKeyDownload"
-                href={encodeJson(this.props.payout.jsonStore)}
-                download={`payout_${this.props.payout.jsonStore.address}.json`}
-              >
-                Download Payout Key
-              </a>
-            </div>
+            </Tooltip>
           </div>
-          <div className="keys-i">
-            <p className="keys-title">Voting key</p>
-            <div className="keys-hash-container">
-              <p className="keys-hash" id="votingKey">
-                0x
-                {this.props.voting.jsonStore.address}
-              </p>
-              <Tooltip
-                visible={this.state.copyBtns.copyVotingKey.visible}
-                animation="zoom"
-                trigger="hover"
-                onVisibleChange={() => {
-                  this.onVisibleChange('copyVotingKey')
-                }}
-                placement="right"
-                overlay={this.state.copyBtns.copyVotingKey.text}
-              >
-                <span
-                  id="copyVotingKey"
-                  onClick={this.onCopyBtnClick}
-                  className="copy"
-                  ref="votingKeyAddress"
-                  data-clipboard-text={'0x' + this.props.voting.jsonStore.address}
-                />
-              </Tooltip>
-            </div>
-            <p className="keys-hash">
-              <label className="password-label">Password:</label>
-              <input
-                type="password"
-                disabled={true}
-                id="votingKeyPass"
-                className="pass"
-                defaultValue={this.props.voting.password}
-              />
-              <Tooltip
-                visible={this.state.copyBtns.copyVotingPass.visible}
-                animation="zoom"
-                trigger="hover"
-                onVisibleChange={() => {
-                  this.onVisibleChange('copyVotingPass')
-                }}
-                placement="right"
-                overlay={this.state.copyBtns.copyVotingPass.text}
-              >
-                <span
-                  id="copyVotingPass"
-                  onClick={this.onCopyBtnClick}
-                  className="copy"
-                  ref="votingKeyPass"
-                  data-clipboard-text={this.props.voting.password}
-                />
-              </Tooltip>
-            </p>
-            <p className="keys-description">
-              Download this key and use it on your client node to vote for necessary ballots, such as adding or removing
-              miners from the network.
-            </p>
-            <div className="keys-footer">
-              <a
-                className="keys-download"
-                id="votingKeyDownload"
-                href={encodeJson(this.props.voting.jsonStore)}
-                download={`voting_${this.props.voting.jsonStore.address}.json`}
-              >
-                Download Voting Key
-              </a>
-            </div>
-          </div>
+          <p className="ky-Keys_Description">
+            Download this key and use it in your mining node to validate blocks in the network. Mined coins will be
+            deposited to your payout account.
+          </p>
+          <ButtonDownload
+            download={`mining_${this.props.mining.jsonStore.address}.json`}
+            href={encodeJson(this.props.mining.jsonStore)}
+            id="miningKeyDownload"
+            networkBranch={networkBranch}
+            text="Download Mining Key"
+          />
         </div>
-        <div className="keys-note">
-          <p className="keys-note-title">Important</p>
-          <p className="keys-note-description">
+        <div className="ky-Keys_Block">
+          <h2 className="ky-Keys_BlockTitle">Payout key</h2>
+          <div className="ky-Keys_HashContainer">
+            <p className={`ky-Keys_Hash ky-Keys_Hash-${networkBranch}`} id="payoutKey">
+              0x
+              {this.props.payout.jsonStore.address}
+            </p>
+            <Tooltip
+              visible={this.state.copyBtns.copyPayoutKey.visible}
+              animation="zoom"
+              trigger="hover"
+              onVisibleChange={() => {
+                this.onVisibleChange('copyPayoutKey')
+              }}
+              placement="right"
+              overlay={this.state.copyBtns.copyPayoutKey.text}
+            >
+              <span
+                className={`ky-Keys_Copy ky-Keys_Copy-${networkBranch}`}
+                data-clipboard-text={'0x' + this.props.payout.jsonStore.address}
+                id="copyPayoutKey"
+                onClick={this.onCopyBtnClick}
+                ref="payoutKeyAddress"
+              />
+            </Tooltip>
+          </div>
+          <div className="ky-Keys_PasswordContainer">
+            <label className="ky-Keys_PasswordLabel">Password:</label>
+            <input
+              className="ky-Keys_PasswordInput"
+              defaultValue={this.props.payout.password}
+              disabled={true}
+              id="payoutKeyPass"
+              size={this.props.payout.password.length}
+              type="password"
+            />
+            <Tooltip
+              visible={this.state.copyBtns.copyPayoutPass.visible}
+              animation="zoom"
+              trigger="hover"
+              onVisibleChange={() => {
+                this.onVisibleChange('copyPayoutPass')
+              }}
+              placement="right"
+              overlay={this.state.copyBtns.copyPayoutPass.text}
+            >
+              <span
+                id="copyPayoutPass"
+                onClick={this.onCopyBtnClick}
+                className={`ky-Keys_Copy ky-Keys_Copy-${networkBranch}`}
+                ref="payoutKeyPass"
+                data-clipboard-text={this.props.payout.password}
+              />
+            </Tooltip>
+          </div>
+          <p className="ky-Keys_Description">
+            Download this key and use it on your client node/wallet to spend earned coins.
+          </p>
+          <ButtonDownload
+            download={`payout_${this.props.payout.jsonStore.address}.json`}
+            href={encodeJson(this.props.payout.jsonStore)}
+            id="payoutKeyDownload"
+            networkBranch={networkBranch}
+            text="Download Payout Key"
+          />
+        </div>
+        <div className="ky-Keys_Block">
+          <h2 className="ky-Keys_BlockTitle">Voting key</h2>
+          <div className="ky-Keys_HashContainer">
+            <p className={`ky-Keys_Hash ky-Keys_Hash-${networkBranch}`} id="votingKey">
+              0x
+              {this.props.voting.jsonStore.address}
+            </p>
+            <Tooltip
+              visible={this.state.copyBtns.copyVotingKey.visible}
+              animation="zoom"
+              trigger="hover"
+              onVisibleChange={() => {
+                this.onVisibleChange('copyVotingKey')
+              }}
+              placement="right"
+              overlay={this.state.copyBtns.copyVotingKey.text}
+            >
+              <span
+                id="copyVotingKey"
+                onClick={this.onCopyBtnClick}
+                className={`ky-Keys_Copy ky-Keys_Copy-${networkBranch}`}
+                ref="votingKeyAddress"
+                data-clipboard-text={'0x' + this.props.voting.jsonStore.address}
+              />
+            </Tooltip>
+          </div>
+          <div className="ky-Keys_PasswordContainer">
+            <label className="ky-Keys_PasswordLabel">Password:</label>
+            <input
+              className="ky-Keys_PasswordInput"
+              defaultValue={this.props.voting.password}
+              disabled={true}
+              id="votingKeyPass"
+              size={this.props.voting.password.length}
+              type="password"
+            />
+            <Tooltip
+              visible={this.state.copyBtns.copyVotingPass.visible}
+              animation="zoom"
+              trigger="hover"
+              onVisibleChange={() => {
+                this.onVisibleChange('copyVotingPass')
+              }}
+              placement="right"
+              overlay={this.state.copyBtns.copyVotingPass.text}
+            >
+              <span
+                id="copyVotingPass"
+                onClick={this.onCopyBtnClick}
+                className={`ky-Keys_Copy ky-Keys_Copy-${networkBranch}`}
+                ref="votingKeyPass"
+                data-clipboard-text={this.props.voting.password}
+              />
+            </Tooltip>
+          </div>
+          <p className="ky-Keys_Description">
+            Download this key and use it on your client node to vote for necessary ballots, such as adding or removing
+            miners from the network.
+          </p>
+          <ButtonDownload
+            download={`voting_${this.props.voting.jsonStore.address}.json`}
+            href={encodeJson(this.props.voting.jsonStore)}
+            id="votingKeyDownload"
+            networkBranch={networkBranch}
+            text="Download Voting Key"
+          />
+        </div>
+        <div className={`ky-Keys_Block ky-Keys_Block-${networkBranch}`}>
+          <svg className="ky-Keys_WarningIcon" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+            <path
+              className={`ky-Keys_WarningIconPath ky-Keys_WarningIconPath-${networkBranch}`}
+              fill="#5C34A2"
+              fillRule="evenodd"
+              d="M24 48C10.745 48 0 37.255 0 24S10.745 0 24 0s24 10.745 24 24-10.745 24-24 24zm0-46C11.85 2 2 11.85 2 24s9.85 22 22 22 22-9.85 22-22S36.15 2 24 2zm0 35a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0-6a1 1 0 0 1-1-1V12a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1z"
+            />
+          </svg>
+          <h2 className={`ky-Keys_BlockTitle ky-Keys_BlockTitle-${networkBranch}`}>Important</h2>
+          <p className={`ky-Keys_Warning ky-Keys_Warning-${networkBranch}`}>
             Do not close this tab until you download all keys and save passwords. Keep keys secure and protected. If you
             lose your keys, you will need to get a new initial key using Voting DAPP.
           </p>
