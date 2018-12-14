@@ -17,7 +17,7 @@
     width: 520px;
 
     &,
-    &#{ & }-poa {
+    &#{ & }-core {
         @include image-retina('#{ $base-images-path }/MainImage/poa/image', 'png');
     }
 

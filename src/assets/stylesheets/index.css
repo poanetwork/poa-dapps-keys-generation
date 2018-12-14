@@ -624,12 +624,12 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   .sw-ButtonDownload[disabled] {
     cursor: not-allowed;
     opacity: 0.7; }
-  .sw-ButtonDownload.sw-ButtonDownload-poa {
+  .sw-ButtonDownload.sw-ButtonDownload-core {
     background-color: #5a2da5;
     box-shadow: 0 5px 10px 0 rgba(90, 45, 165, 0.3); }
-    .sw-ButtonDownload.sw-ButtonDownload-poa:focus, .sw-ButtonDownload.sw-ButtonDownload-poa:active, .sw-ButtonDownload.sw-ButtonDownload-poa:hover {
+    .sw-ButtonDownload.sw-ButtonDownload-core:focus, .sw-ButtonDownload.sw-ButtonDownload-core:active, .sw-ButtonDownload.sw-ButtonDownload-core:hover {
       background-color: #44227d; }
-    .sw-ButtonDownload.sw-ButtonDownload-poa[disabled]:focus, .sw-ButtonDownload.sw-ButtonDownload-poa[disabled].active, .sw-ButtonDownload.sw-ButtonDownload-poa[disabled]:hover {
+    .sw-ButtonDownload.sw-ButtonDownload-core[disabled]:focus, .sw-ButtonDownload.sw-ButtonDownload-core[disabled].active, .sw-ButtonDownload.sw-ButtonDownload-core[disabled]:hover {
       background-color: #5a2da5; }
   .sw-ButtonDownload.sw-ButtonDownload-sokol {
     background-color: #8ce1d7;
@@ -688,12 +688,12 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   .sw-ButtonGenerate[disabled] {
     cursor: not-allowed;
     opacity: 0.7; }
-  .sw-ButtonGenerate.sw-ButtonGenerate-poa {
+  .sw-ButtonGenerate.sw-ButtonGenerate-core {
     background-color: #5a2da5;
     box-shadow: 0 5px 10px 0 rgba(90, 45, 165, 0.3); }
-    .sw-ButtonGenerate.sw-ButtonGenerate-poa:focus, .sw-ButtonGenerate.sw-ButtonGenerate-poa:active, .sw-ButtonGenerate.sw-ButtonGenerate-poa:hover {
+    .sw-ButtonGenerate.sw-ButtonGenerate-core:focus, .sw-ButtonGenerate.sw-ButtonGenerate-core:active, .sw-ButtonGenerate.sw-ButtonGenerate-core:hover {
       background-color: #44227d; }
-    .sw-ButtonGenerate.sw-ButtonGenerate-poa[disabled]:focus, .sw-ButtonGenerate.sw-ButtonGenerate-poa[disabled].active, .sw-ButtonGenerate.sw-ButtonGenerate-poa[disabled]:hover {
+    .sw-ButtonGenerate.sw-ButtonGenerate-core[disabled]:focus, .sw-ButtonGenerate.sw-ButtonGenerate-core[disabled].active, .sw-ButtonGenerate.sw-ButtonGenerate-core[disabled]:hover {
       background-color: #5a2da5; }
   .sw-ButtonGenerate.sw-ButtonGenerate-sokol {
     background-color: #8ce1d7;
@@ -741,7 +741,7 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   padding: 16px 0;
   transition: background-color 0.25s ease-out;
   width: 100%; }
-  .sw-Footer.sw-Footer-poa {
+  .sw-Footer.sw-Footer-core {
     background-color: #5a2da5; }
   .sw-Footer.sw-Footer-sokol {
     background-color: #8ce1d7; }
@@ -795,7 +795,7 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   overflow: hidden;
   transition: background-color 0.25s ease-out;
   width: 100%; }
-  .sw-Header.sw-Header-poa {
+  .sw-Header.sw-Header-core {
     background-color: #5a2da5; }
   .sw-Header.sw-Header-sokol {
     background-color: #8ce1d7; }
@@ -918,10 +918,8 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   @media (min-width: 768px) {
     .ky-Keys_Block {
       margin-bottom: 0; } }
-  .ky-Keys_Block.ky-Keys_Block-poa {
+  .ky-Keys_Block.ky-Keys_Block-core {
     border-color: #5a2da5; }
-  .ky-Keys_Block.ky-Keys_Block-dai {
-    border-color: #fec042; }
   .ky-Keys_Block.ky-Keys_Block-sokol {
     border-color: #8ce1d7; }
 
@@ -932,12 +930,12 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   line-height: 1.2;
   margin: 0 0 25px;
   text-align: left; }
-  .ky-Keys_BlockTitle.ky-Keys_BlockTitle-poa {
+  .ky-Keys_BlockTitle.ky-Keys_BlockTitle-core {
     color: #5a2da5; }
-  .ky-Keys_BlockTitle.ky-Keys_BlockTitle-dai {
-    color: #fec042; }
   .ky-Keys_BlockTitle.ky-Keys_BlockTitle-sokol {
     color: #8ce1d7; }
+  .ky-Keys_BlockTitle.ky-Keys_BlockTitle-dai {
+    color: #333; }
 
 .ky-Keys_HashContainer {
   display: flex;
@@ -951,12 +949,12 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   margin: 0;
   text-align: left;
   word-break: break-word; }
-  .ky-Keys_Hash.ky-Keys_Hash-poa {
+  .ky-Keys_Hash.ky-Keys_Hash-core {
     color: #5a2da5; }
-  .ky-Keys_Hash.ky-Keys_Hash-dai {
-    color: #fec042; }
   .ky-Keys_Hash.ky-Keys_Hash-sokol {
     color: #8ce1d7; }
+  .ky-Keys_Hash.ky-Keys_Hash-dai {
+    color: #333; }
 
 .ky-Keys_Copy {
   background-image: url("../../assets/images/Keys/poa.svg");
@@ -966,7 +964,7 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   cursor: pointer;
   height: 20px;
   width: 20px; }
-  .ky-Keys_Copy.ky-Keys_Copy-poa {
+  .ky-Keys_Copy.ky-Keys_Copy-core {
     background-image: url("../../assets/images/Keys/poa.svg"); }
   .ky-Keys_Copy.ky-Keys_Copy-sokol {
     background-image: url("../../assets/images/Keys/sokol.svg"); }
@@ -1012,32 +1010,92 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   text-align: left; }
 
 .ky-Keys_Warning {
-  color: #777;
+  color: #5a2da5;
   font-size: 14px;
   font-weight: 400;
   line-height: 1.5;
   margin: 0;
   text-align: left; }
-  .ky-Keys_Warning.ky-Keys_Warning-poa {
+  .ky-Keys_Warning.ky-Keys_Warning-core {
     color: #5a2da5; }
-  .ky-Keys_Warning.ky-Keys_Warning-dai {
-    color: #fec042; }
   .ky-Keys_Warning.ky-Keys_Warning-sokol {
     color: #8ce1d7; }
+  .ky-Keys_Warning.ky-Keys_Warning-dai {
+    color: #333; }
 
 .ky-Keys_WarningIcon {
   height: 48px;
   margin-bottom: 30px;
   width: 48px; }
 
-.ky-Keys_WarningIconPath.ky-Keys_WarningIconPath-poa {
+.ky-Keys_WarningIconPath.ky-Keys_WarningIconPath-core {
   fill: #5a2da5; }
+
+.ky-Keys_WarningIconPath.ky-Keys_WarningIconPath-sokol {
+  fill: #8ce1d7; }
 
 .ky-Keys_WarningIconPath.ky-Keys_WarningIconPath-dai {
   fill: #fec042; }
 
-.ky-Keys_WarningIconPath.ky-Keys_WarningIconPath-sokol {
-  fill: #8ce1d7; }
+.ld-Loading {
+  align-items: center;
+  background-color: rgba(90, 45, 165, 0.5);
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1000000; }
+  .ld-Loading.ld-Loading-core {
+    background-color: rgba(90, 45, 165, 0.5); }
+  .ld-Loading.ld-Loading-sokol {
+    background-color: rgba(140, 225, 215, 0.5); }
+  .ld-Loading.ld-Loading-dai {
+    background-color: rgba(254, 192, 66, 0.5); }
+
+.ld-Loading_Animation {
+  display: flex;
+  justify-content: space-between;
+  width: 206px; }
+
+.ld-Loading_Image {
+  margin-bottom: 40px;
+  width: 120px; }
+
+.ld-Loading_AnimationItem {
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: fadeOut;
+  animation-timing-function: linear;
+  background-color: #fff;
+  border-radius: 50%;
+  height: 9px;
+  opacity: .2;
+  width: 9px; }
+  .ld-Loading_AnimationItem:nth-child(2) {
+    animation-delay: .1s; }
+  .ld-Loading_AnimationItem:nth-child(3) {
+    animation-delay: .2s; }
+  .ld-Loading_AnimationItem:nth-child(4) {
+    animation-delay: .3s; }
+  .ld-Loading_AnimationItem:nth-child(5) {
+    animation-delay: .4s; }
+  .ld-Loading_AnimationItem:nth-child(6) {
+    animation-delay: .5s; }
+
+@keyframes fadeOut {
+  0% {
+    opacity: .2; }
+  20% {
+    opacity: 1;
+    transform: scale(1); }
+  100% {
+    opacity: .2;
+    transform: scale(0.3); } }
 
 .sw-LogoPOA {
   display: block;
@@ -1095,13 +1153,13 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
     position: absolute;
     right: 0;
     top: 0; }
-  .hm-MainImage_Img, .hm-MainImage_Img.hm-MainImage_Img-poa {
+  .hm-MainImage_Img, .hm-MainImage_Img.hm-MainImage_Img-core {
     background-image: url("../../assets/images/MainImage/poa/image.png"); }
     @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-      .hm-MainImage_Img, .hm-MainImage_Img.hm-MainImage_Img-poa {
+      .hm-MainImage_Img, .hm-MainImage_Img.hm-MainImage_Img-core {
         background-image: url("../../assets/images/MainImage/poa/image@2x.png"); } }
     @media (-webkit-min-device-pixel-ratio: 3), (-moz-min-device-pixel-ratio: 3), (min-resolution: 288dpi), (min-resolution: 3dppx) {
-      .hm-MainImage_Img, .hm-MainImage_Img.hm-MainImage_Img-poa {
+      .hm-MainImage_Img, .hm-MainImage_Img.hm-MainImage_Img-core {
         background-image: url("../../assets/images/MainImage/poa/image@3x.png"); } }
   .hm-MainImage_Img.hm-MainImage_Img-sokol {
     background-image: url("../../assets/images/MainImage/sokol/image.png"); }

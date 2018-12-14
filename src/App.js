@@ -2,7 +2,6 @@ import FileSaver from 'file-saver'
 import JSzip from 'jszip'
 import Keys from './components/Keys'
 import KeysManager from './utils/keysManager'
-import Loading from './components/Loading'
 import React, { Component } from 'react'
 import addressGenerator from './utils/addressGenerator'
 import getWeb3 from './utils/getWeb3'
@@ -11,8 +10,10 @@ import swal from 'sweetalert'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { Home } from './components/Home'
+import { Loading } from './components/Loading'
 import { constants } from './utils/constants'
 import { getNetworkBranch } from './utils/utils'
+
 import './assets/stylesheets/index.css'
 
 function generateElement(msg) {
@@ -200,12 +201,12 @@ class App extends Component {
   }
 
   render() {
-    let loader = this.state.loading ? <Loading netId={this.state.web3Config.netId} /> : ''
+    const loader = this.state.loading ? <Loading networkBranch={this.state.networkBranch} /> : null
 
     return (
       <div className="lo-App">
-        <Header networkBranch={this.state.networkBranch} />
         {loader}
+        <Header networkBranch={this.state.networkBranch} />
         <section className="lo-App_Content">
           {this.state.keysGenerated ? (
             <Keys

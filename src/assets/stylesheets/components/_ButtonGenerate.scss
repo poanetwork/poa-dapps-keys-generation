@@ -7,7 +7,7 @@ $sw-ButtonGenerate-height: 44px !default;
     @include button-disabled($poa-purple);
     @include button-shadow($poa-purple);
 
-    &#{ & }-poa {
+    &#{ & }-core {
         background-color: $poa-purple;
         @include button-focus-active-hover($poa-purple);
         @include button-shadow($poa-purple);
