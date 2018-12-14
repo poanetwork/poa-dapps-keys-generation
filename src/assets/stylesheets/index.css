@@ -1110,6 +1110,20 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
     opacity: .2;
     transform: scale(0.3); } }
 
+.sw-LogoDai {
+  display: block;
+  text-decoration: none; }
+  .sw-Header .sw-LogoDai {
+    height: 58px;
+    width: 167px; }
+  .sw-Footer .sw-LogoDai {
+    width: 120px; }
+
+.sw-LogoDai_Image {
+  display: block;
+  height: 100%;
+  width: 100%; }
+
 .sw-LogoPOA {
   display: block;
   text-decoration: none; }
@@ -1117,7 +1131,6 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
     height: 26px;
     width: 167px; }
   .sw-Footer .sw-LogoPOA {
-    height: 18px;
     width: 130px; }
 
 .sw-LogoPOA_Image {
@@ -1129,11 +1142,10 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   display: block;
   text-decoration: none; }
   .sw-Header .sw-LogoSokol {
-    height: 26px;
+    height: 30px;
     width: 178px; }
   .sw-Footer .sw-LogoSokol {
-    height: 18px;
-    width: 123px; }
+    height: 26px; }
 
 .sw-LogoSokol_Image {
   display: block;
