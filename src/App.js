@@ -7,6 +7,7 @@ import addressGenerator from './utils/addressGenerator'
 import getWeb3 from './utils/getWeb3'
 import networkAddresses from './utils/addresses'
 import swal from 'sweetalert'
+import { BaseLoader } from './components/BaseLoader'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { Home } from './components/Home'
@@ -201,11 +202,9 @@ class App extends Component {
   }
 
   render() {
-    const loader = this.state.loading ? <Loading networkBranch={this.state.networkBranch} /> : null
-
-    return (
+    return this.state.networkBranch ? (
       <div className="lo-App">
-        {loader}
+        {this.state.loading ? <Loading networkBranch={this.state.networkBranch} /> : null}
         <Header networkBranch={this.state.networkBranch} />
         <section className="lo-App_Content">
           {this.state.keysGenerated ? (
@@ -216,11 +215,13 @@ class App extends Component {
               voting={this.state.voting}
             />
           ) : (
-            <Home onClick={this.onClick} disabled={this.state.isDisabledBtn} networkBranch={this.state.networkBranch} />
+            <Home disabled={this.state.isDisabledBtn} networkBranch={this.state.networkBranch} onClick={this.onClick} />
           )}
         </section>
         <Footer networkBranch={this.state.networkBranch} />
       </div>
+    ) : (
+      <BaseLoader />
     )
   }
 }
