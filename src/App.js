@@ -1,17 +1,21 @@
-import React, { Component } from 'react'
-import getWeb3 from './getWeb3'
-import KeysManager from './keysManager'
-import Keys from './Keys'
-import swal from 'sweetalert'
-import './index/index.css'
-import addressGenerator from './addressGenerator'
-import JSzip from 'jszip'
 import FileSaver from 'file-saver'
-import { constants } from './constants'
-import networkAddresses from './addresses'
-import Header from './Header'
-import Footer from './Footer'
-import Loading from './Loading'
+import JSzip from 'jszip'
+import Keys from './components/Keys'
+import KeysManager from './utils/keysManager'
+import React, { Component } from 'react'
+import addressGenerator from './utils/addressGenerator'
+import getWeb3 from './utils/getWeb3'
+import networkAddresses from './utils/addresses'
+import swal from 'sweetalert'
+import { BaseLoader } from './components/BaseLoader'
+import { Footer } from './components/Footer'
+import { Header } from './components/Header'
+import { Home } from './components/Home'
+import { Loading } from './components/Loading'
+import { constants } from './utils/constants'
+import { getNetworkBranch } from './utils/utils'
+
+import './assets/stylesheets/index.css'
 
 function generateElement(msg) {
   let errorNode = document.createElement('div')
@@ -31,22 +35,27 @@ class App extends Component {
     this.state = {
       web3Config: {},
       mining: null,
-      isDisabledBtn: props.generateKeysIsDisabled
+      isDisabledBtn: props.generateKeysIsDisabled,
+      networkBranch: ''
     }
     this.keysManager = null
+
     getWeb3()
       .then(async web3Config => {
         return networkAddresses(web3Config)
       })
       .then(async config => {
         const { web3Config, addresses } = config
+
         this.keysManager = new KeysManager()
         await this.keysManager.init({
           web3: web3Config.web3Instance,
           netId: web3Config.netId,
           addresses
         })
+
         this.setState({
+          networkBranch: getNetworkBranch(web3Config.netId),
           isDisabledBtn: false,
           web3Config
         })
@@ -62,6 +71,7 @@ class App extends Component {
         }
       })
   }
+
   componentDidMount() {
     if (window.location.hash.indexOf('just-generate-keys') !== -1) {
       this.setState({ loading: true })
@@ -77,6 +87,7 @@ class App extends Component {
       }, 150)
     }
   }
+
   async generateKeys(cb) {
     const mining = await addressGenerator()
     const voting = await addressGenerator()
@@ -93,6 +104,7 @@ class App extends Component {
       payout
     }
   }
+
   async generateZip({ mining, voting, payout, netIdName }) {
     const zip = new JSzip()
     zip.file(`${netIdName}_keys/mining_key_${mining.jsonStore.address}.json`, JSON.stringify(mining.jsonStore))
@@ -107,6 +119,7 @@ class App extends Component {
       FileSaver.saveAs(blob, `poa_network_validator_keys.zip`)
     })
   }
+
   async onClick() {
     this.setState({ loading: true })
     const initialKey = this.state.web3Config.defaultAccount
@@ -116,7 +129,7 @@ class App extends Component {
     } catch (e) {
       isValid = false
     }
-    console.log(isValid)
+
     if (Number(isValid) !== 1) {
       this.setState({ loading: false })
       const invalidKeyMsg = `The key is an invalid Initial key<br/>
@@ -142,7 +155,6 @@ class App extends Component {
           sender: initialKey
         })
         .then(async receipt => {
-          console.log(receipt)
           if (receipt.status === true || receipt.status === '0x1') {
             this.setState({ loading: false })
             swal('Congratulations!', 'Your keys are generated!', 'success')
@@ -169,7 +181,6 @@ class App extends Component {
           }
         })
         .catch(error => {
-          console.error(error.message)
           this.setState({ loading: false, keysGenerated: false })
           let content = document.createElement('div')
           let msg
@@ -189,35 +200,28 @@ class App extends Component {
         })
     }
   }
+
   render() {
-    let loader = this.state.loading ? <Loading netId={this.state.web3Config.netId} /> : ''
-    let createKeyBtn = (
-      <div className="create-keys">
-        <h1>Create keys from initial key</h1>
-        <h2>
-          In this application, you will create mining, payout and voting keys. The app will make your initial key
-          unusable after the process. Please proceed with care, don't lose your keys and follow instructions.
-        </h2>
-        <div className="create-keys-button-container">
-          <button className="create-keys-button" onClick={this.onClick} disabled={this.state.isDisabledBtn}>
-            Generate keys
-          </button>
-        </div>
+    return this.state.networkBranch ? (
+      <div className="lo-App">
+        {this.state.loading ? <Loading networkBranch={this.state.networkBranch} /> : null}
+        <Header networkBranch={this.state.networkBranch} />
+        <section className="lo-App_Content">
+          {this.state.keysGenerated ? (
+            <Keys
+              mining={this.state.mining}
+              networkBranch={this.state.networkBranch}
+              payout={this.state.payout}
+              voting={this.state.voting}
+            />
+          ) : (
+            <Home disabled={this.state.isDisabledBtn} networkBranch={this.state.networkBranch} onClick={this.onClick} />
+          )}
+        </section>
+        <Footer networkBranch={this.state.networkBranch} />
       </div>
-    )
-    let content
-    if (this.state.keysGenerated) {
-      content = <Keys mining={this.state.mining} voting={this.state.voting} payout={this.state.payout} />
-    } else {
-      content = createKeyBtn
-    }
-    return (
-      <div className="App">
-        <Header netId={this.state.web3Config.netId} />
-        {loader}
-        <section className="content">{content}</section>
-        <Footer netId={this.state.web3Config.netId} />
-      </div>
+    ) : (
+      <BaseLoader />
     )
   }
 }

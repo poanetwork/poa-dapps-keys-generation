@@ -1,0 +1,31 @@
+.hm-MainImage {
+    align-items: center;
+    display: flex;
+    max-width: 100%;
+    order: 1;
+
+    @media (min-width: $breakpoint-xl) {
+        order: 2;
+    }
+}
+
+.hm-MainImage_Img {
+    @include aspect-ratio(520px, 408px);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 520px;
+
+    &,
+    &#{ & }-core {
+        @include image-retina('#{ $base-images-path }/MainImage/poa/image', 'png');
+    }
+
+    &#{ & }-sokol {
+        @include image-retina('#{ $base-images-path }/MainImage/sokol/image', 'png');
+    }
+
+    &#{ & }-dai {
+        @include image-retina('#{ $base-images-path }/MainImage/dai/image', 'png');
+    }
+}

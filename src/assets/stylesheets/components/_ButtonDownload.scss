@@ -1,0 +1,48 @@
+$sw-ButtonDownload-height: 44px !default;
+
+.sw-ButtonDownload {
+
+    @include button-base($poa-purple, $sw-ButtonDownload-height);
+    @include button-focus-active-hover($poa-purple);
+    @include button-disabled($poa-purple);
+    @include button-shadow($poa-purple);
+
+    &#{ & }-core {
+        background-color: $poa-purple;
+        @include button-focus-active-hover($poa-purple);
+        @include button-shadow($poa-purple);
+    }
+
+    &#{ & }-sokol {
+        background-color: $sokol-cyan;
+        @include button-focus-active-hover($sokol-cyan);
+        @include button-shadow($sokol-cyan);
+    }
+
+    &#{ & }-dai {
+        background-color: $xdai-orange;
+        @include button-focus-active-hover($xdai-orange);
+        @include button-shadow($xdai-orange);
+    }
+
+    .ky-Keys_Block & {
+        margin-top: auto;
+
+        @media (min-width: $breakpoint-lg) {
+            max-width: fit-content;
+        }
+    }
+}
+
+.sw-ButtonDownload_Text {
+
+    @include button-text(#fff, 16px);
+    margin-right: 65px;
+
+}
+
+.sw-ButtonDownload_Icon {
+    display: block;
+    height: 16px;
+    width: 18px;
+}

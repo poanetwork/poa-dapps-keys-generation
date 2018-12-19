@@ -1,0 +1,14 @@
+.lo-App {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: fit-content;
+    width: 100%;
+}
+
+.lo-App_Content {
+    @include content-layout-width();
+    display: flex;
+    flex-grow: 1;
+}

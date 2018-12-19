@@ -1,0 +1,45 @@
+.hm-Home {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    padding-bottom: 50px;
+    padding-top: 50px;
+    text-align: center;
+
+    @media (min-width: $breakpoint-xl) {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+}
+
+.hm-Home_TextContainer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    order: 2;
+
+    @media (min-width: $breakpoint-xl) {
+        align-items: flex-start;
+        order: 1;
+        padding: 0 45px 0 0;
+    }
+}
+
+.hm-Home_Title {
+    color: #333;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0 0 24px;
+}
+
+.hm-Home_Text {
+    color: #777;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.71;
+    margin: 0 0 30px;
+}

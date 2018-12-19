@@ -1,0 +1,27 @@
+.sw-Header {
+    align-items: center;
+    background-color: $poa-purple;
+    color: #fff;
+    display: flex;
+    height: 70px;
+    justify-content: center;
+    overflow: hidden;
+    transition: background-color 0.25s ease-out;
+    width: 100%;
+
+    &#{ & }-core {
+        background-color: $poa-purple;
+    }
+
+    &#{ & }-sokol {
+        background-color: $sokol-cyan;
+    }
+
+    &#{ & }-dai {
+        background-color: $xdai-gray;
+    }
+}
+
+.sw-Header_Content {
+    @include content-layout-width();
+}

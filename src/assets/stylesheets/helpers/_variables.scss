@@ -1,0 +1,35 @@
+// brand colors
+$poa-purple: #5a2da5;
+$sokol-cyan: #8ce1d7;
+$xdai-orange: #fec042;
+$xdai-gray: #f2f6f8;
+
+// base colors
+$base-border-color: #dfdfdf;
+$base-title-color: #333;
+$base-text-color: #777;
+$base-text-color-light: #9b9b9b;
+
+// typography
+$base-font-size: 14px;
+
+// paths
+$base-images-path: '../../assets/images';
+
+// layout
+$container-max-width: 1000px;
+$container-horizontal-padding-desktop: 20px;
+$container-horizontal-padding-tablet: 20px;
+$container-horizontal-padding-mobile: 10px;
+
+// responsive breakpoints
+$breakpoint-xs: 320px;
+$breakpoint-sm: 480px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1024px;
+$breakpoint-xxl: 1280px;
+$breakpoint-xxxl: 1366px;
+
+// z-index
+$z-index-max: 12345678;

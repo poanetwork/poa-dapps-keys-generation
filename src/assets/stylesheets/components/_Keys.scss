@@ -1,0 +1,180 @@
+$ky-Keys-gap: 40px;
+
+@mixin keys-color-variants-base($property) {
+
+    &#{ & }-core {
+        #{ $property }: $poa-purple;
+    }
+
+    &#{ & }-sokol {
+        #{ $property }: $sokol-cyan;
+    }
+
+}
+
+@mixin keys-color-variants($property) {
+
+    @include keys-color-variants-base($property);
+
+    &#{ & }-dai {
+        #{ $property }: $xdai-orange;
+    }
+
+}
+
+@mixin keys-color-variants-dai-dark($property) {
+
+    @include keys-color-variants-base($property);
+
+    &#{ & }-dai {
+        #{ $property }: #333;
+    }
+
+}
+
+.ky-Keys {
+    padding-bottom: $ky-Keys-gap;
+    padding-top: $ky-Keys-gap;
+
+    @media (min-width: $breakpoint-md) {
+        display: grid;
+        grid-column-gap: $ky-Keys-gap;
+        grid-row-gap: $ky-Keys-gap;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.ky-Keys_Block {
+    border-radius: 10px;
+    border: 1px solid $base-border-color;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: $ky-Keys-gap;
+    padding: 30px 35px 30px 30px;
+
+    @media (min-width: $breakpoint-md) {
+        margin-bottom: 0;
+    }
+
+    @include keys-color-variants-base('border-color');
+
+}
+
+.ky-Keys_BlockTitle {
+    color: #333;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0 0 25px;
+    text-align: left;
+
+    @include keys-color-variants-dai-dark('color');
+}
+
+.ky-Keys_HashContainer {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.ky-Keys_Hash {
+    color: $poa-purple;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0;
+    text-align: left;
+    word-break: break-word;
+
+    @include keys-color-variants-dai-dark('color');
+}
+
+.ky-Keys_Copy {
+    background-image: url('#{ $base-images-path }/Keys/poa.svg');
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: 14px 14px;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+
+    &#{ & }-core {
+        background-image: url('#{ $base-images-path }/Keys/poa.svg');
+    }
+
+    &#{ & }-sokol {
+        background-image: url('#{ $base-images-path }/Keys/sokol.svg');
+    }
+
+    &#{ & }-dai {
+        background-image: url('#{ $base-images-path }/Keys/dai.svg');
+    }
+
+    .ky-Keys_HashContainer & {
+        margin-left: 3px;
+        margin-top: -4px;
+    }
+
+    .ky-Keys_PasswordContainer & {
+        margin-left: 3px;
+    }
+}
+
+.ky-Keys_PasswordContainer {
+    align-items: center;
+    display: flex;
+    margin-bottom: 25px;
+}
+
+.ky-Keys_PasswordLabel {
+    color: #333;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: left;
+
+    .ky-Keys_PasswordContainer & {
+        margin-right: 5px;
+    }
+}
+
+.ky-Keys_PasswordInput {
+    background-color: transparent;
+    border: none;
+    color: #333;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+.ky-Keys_Description {
+    color: #777;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0 0 25px;
+    text-align: left;
+}
+
+.ky-Keys_Warning {
+    color: $poa-purple;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+    text-align: left;
+
+    @include keys-color-variants-dai-dark('color');
+}
+
+.ky-Keys_WarningIcon {
+    height: 48px;
+    margin-bottom: 30px;
+    width: 48px;
+}
+
+.ky-Keys_WarningIconPath {
+    @include keys-color-variants('fill');
+}

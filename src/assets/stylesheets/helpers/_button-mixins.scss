@@ -1,0 +1,56 @@
+@mixin button-base($button-background-color, $button-height) {
+    align-items: center;
+    background-color: $button-background-color;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    height: $button-height;
+    justify-content: space-between;
+    line-height: $button-height;
+    outline: none;
+    padding: 0 15px;
+    text-decoration: none;
+    transition: background-color 0.25s ease-out;
+}
+
+@mixin button-shadow($button-shadow-color) {
+    box-shadow: 0 5px 10px 0 rgba($button-shadow-color, 0.3);
+}
+
+@mixin button-text($text-color: #fff, $font-size: 16px) {
+    color: $text-color;
+    display: block;
+    font-size: $font-size;
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: left;
+    white-space: nowrap;
+}
+
+@mixin button-focus-active-hover($button-background-color) {
+
+    &:focus,
+    &:active,
+    &:hover {
+        background-color: darken($button-background-color, 10%);
+    }
+
+    &[disabled] {
+        &:focus,
+        &.active,
+        &:hover {
+            background-color: $button-background-color;
+        }
+    }
+
+}
+
+@mixin button-disabled($button-background-color) {
+
+    &[disabled] {
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+
+}
