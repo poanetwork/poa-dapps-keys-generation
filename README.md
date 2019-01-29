@@ -8,7 +8,7 @@
 
 * Connect to POA Network in MetaMask extension (See [POA Network on MetaMask](https://github.com/poanetwork/wiki/wiki/POA-Network-on-MetaMask)) or Nifty Wallet extension (See [POA Network on Nifty Wallet](https://github.com/poanetwork/wiki/wiki/POA-Network-on-Nifty-Wallet))
 
-* Import your initial key to MetaMask or to Nifty Wallet extensions: browse keystore file, received from invitation, and enter password for the key (See Importing of keys section [in MetaMask](https://github.com/poanetwork/wiki/wiki/POA-Network-on-MetaMask#importing-of-keys) or [in Nifty Wallet](https://github.com/poanetwork/wiki/wiki/POA-Network-on-Nifty-Wallet#importing-of-keys)).
+* Import your initial key to MetaMask or to Nifty Wallet extensions: browse keystore file, received from invitation, and enter password for the key (See Importing of keys section [in MetaMask](https://github.com/poanetwork/wiki/wiki/POA-Network-on-MetaMask#importing-of-keys) or [in Nifty Wallet](https://github.com/poanetwork/wiki/wiki/POA-Network-on-Nifty-Wallet#importing-keys)).
 
 ## Ceremony Dapp lifecycle
 
