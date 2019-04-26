@@ -25,6 +25,12 @@ $sw-ButtonDownload-height: 44px !default;
         @include button-shadow($xdai-orange);
     }
 
+    &#{ & }-kovan {
+        background-color: $kovan-cyan;
+        @include button-focus-active-hover($kovan-cyan);
+        @include button-shadow($kovan-cyan);
+    }
+
     .ky-Keys_Block & {
         margin-top: auto;
 

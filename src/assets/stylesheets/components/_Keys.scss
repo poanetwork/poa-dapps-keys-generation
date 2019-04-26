@@ -10,6 +10,10 @@ $ky-Keys-gap: 40px;
         #{ $property }: $sokol-cyan;
     }
 
+    &#{ & }-kovan {
+        #{ $property }: $kovan-cyan;
+    }
+
 }
 
 @mixin keys-color-variants($property) {
@@ -107,6 +111,10 @@ $ky-Keys-gap: 40px;
 
     &#{ & }-dai {
         background-image: url('#{ $base-images-path }/Keys/dai.svg');
+    }
+
+    &#{ & }-kovan {
+        background-image: url('#{ $base-images-path }/Keys/kovan.svg');
     }
 
     .ky-Keys_HashContainer & {

@@ -658,6 +658,13 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
       background-color: #feaf0f; }
     .sw-ButtonDownload.sw-ButtonDownload-dai[disabled]:focus, .sw-ButtonDownload.sw-ButtonDownload-dai[disabled].active, .sw-ButtonDownload.sw-ButtonDownload-dai[disabled]:hover {
       background-color: #fec042; }
+  .sw-ButtonDownload.sw-ButtonDownload-kovan {
+    background-color: #8ce1d7;
+    box-shadow: 0 5px 10px 0 rgba(140, 225, 215, 0.3); }
+    .sw-ButtonDownload.sw-ButtonDownload-kovan:focus, .sw-ButtonDownload.sw-ButtonDownload-kovan:active, .sw-ButtonDownload.sw-ButtonDownload-kovan:hover {
+      background-color: #64d6c9; }
+    .sw-ButtonDownload.sw-ButtonDownload-kovan[disabled]:focus, .sw-ButtonDownload.sw-ButtonDownload-kovan[disabled].active, .sw-ButtonDownload.sw-ButtonDownload-kovan[disabled]:hover {
+      background-color: #8ce1d7; }
   .ky-Keys_Block .sw-ButtonDownload {
     margin-top: auto; }
     @media (min-width: 992px) {
@@ -722,6 +729,13 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
       background-color: #feaf0f; }
     .sw-ButtonGenerate.sw-ButtonGenerate-dai[disabled]:focus, .sw-ButtonGenerate.sw-ButtonGenerate-dai[disabled].active, .sw-ButtonGenerate.sw-ButtonGenerate-dai[disabled]:hover {
       background-color: #fec042; }
+  .sw-ButtonGenerate.sw-ButtonGenerate-kovan {
+    background-color: #8ce1d7;
+    box-shadow: 0 5px 10px 0 rgba(140, 225, 215, 0.3); }
+    .sw-ButtonGenerate.sw-ButtonGenerate-kovan:focus, .sw-ButtonGenerate.sw-ButtonGenerate-kovan:active, .sw-ButtonGenerate.sw-ButtonGenerate-kovan:hover {
+      background-color: #64d6c9; }
+    .sw-ButtonGenerate.sw-ButtonGenerate-kovan[disabled]:focus, .sw-ButtonGenerate.sw-ButtonGenerate-kovan[disabled].active, .sw-ButtonGenerate.sw-ButtonGenerate-kovan[disabled]:hover {
+      background-color: #8ce1d7; }
   .hm-Home .sw-ButtonGenerate {
     width: 100%; }
     @media (min-width: 768px) {
@@ -760,6 +774,8 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
     background-color: #8ce1d7; }
   .sw-Footer.sw-Footer-dai {
     background-color: #f2f6f8; }
+  .sw-Footer.sw-Footer-kovan {
+    background-color: #8ce1d7; }
 
 .sw-Footer_Content {
   max-width: 100%;
@@ -814,6 +830,8 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
     background-color: #8ce1d7; }
   .sw-Header.sw-Header-dai {
     background-color: #f2f6f8; }
+  .sw-Header.sw-Header-kovan {
+    background-color: #8ce1d7; }
 
 .sw-Header_Content {
   max-width: 100%;
@@ -935,6 +953,8 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
     border-color: #5a2da5; }
   .ky-Keys_Block.ky-Keys_Block-sokol {
     border-color: #8ce1d7; }
+  .ky-Keys_Block.ky-Keys_Block-kovan {
+    border-color: #8ce1d7; }
 
 .ky-Keys_BlockTitle {
   color: #333;
@@ -946,6 +966,8 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   .ky-Keys_BlockTitle.ky-Keys_BlockTitle-core {
     color: #5a2da5; }
   .ky-Keys_BlockTitle.ky-Keys_BlockTitle-sokol {
+    color: #8ce1d7; }
+  .ky-Keys_BlockTitle.ky-Keys_BlockTitle-kovan {
     color: #8ce1d7; }
   .ky-Keys_BlockTitle.ky-Keys_BlockTitle-dai {
     color: #333; }
@@ -966,6 +988,8 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
     color: #5a2da5; }
   .ky-Keys_Hash.ky-Keys_Hash-sokol {
     color: #8ce1d7; }
+  .ky-Keys_Hash.ky-Keys_Hash-kovan {
+    color: #8ce1d7; }
   .ky-Keys_Hash.ky-Keys_Hash-dai {
     color: #333; }
 
@@ -983,6 +1007,8 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
     background-image: url("../../assets/images/Keys/sokol.svg"); }
   .ky-Keys_Copy.ky-Keys_Copy-dai {
     background-image: url("../../assets/images/Keys/dai.svg"); }
+  .ky-Keys_Copy.ky-Keys_Copy-kovan {
+    background-image: url("../../assets/images/Keys/kovan.svg"); }
   .ky-Keys_HashContainer .ky-Keys_Copy {
     margin-left: 3px;
     margin-top: -4px; }
@@ -1033,6 +1059,8 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
     color: #5a2da5; }
   .ky-Keys_Warning.ky-Keys_Warning-sokol {
     color: #8ce1d7; }
+  .ky-Keys_Warning.ky-Keys_Warning-kovan {
+    color: #8ce1d7; }
   .ky-Keys_Warning.ky-Keys_Warning-dai {
     color: #333; }
 
@@ -1045,6 +1073,9 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   fill: #5a2da5; }
 
 .ky-Keys_WarningIconPath.ky-Keys_WarningIconPath-sokol {
+  fill: #8ce1d7; }
+
+.ky-Keys_WarningIconPath.ky-Keys_WarningIconPath-kovan {
   fill: #8ce1d7; }
 
 .ky-Keys_WarningIconPath.ky-Keys_WarningIconPath-dai {
@@ -1068,6 +1099,8 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
     background-color: rgba(140, 225, 215, 0.5); }
   .ld-Loading.ld-Loading-dai {
     background-color: rgba(254, 192, 66, 0.5); }
+  .ld-Loading.ld-Loading-kovan {
+    background-color: rgba(140, 225, 215, 0.5); }
 
 .ld-Loading_Animation {
   display: flex;
@@ -1152,6 +1185,20 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
   height: 100%;
   width: 100%; }
 
+.sw-LogoKovan {
+  display: block;
+  text-decoration: none; }
+  .sw-Header .sw-LogoKovan {
+    height: 30px;
+    width: 178px; }
+  .sw-Footer .sw-LogoKovan {
+    height: 26px; }
+
+.sw-LogoKovan_Image {
+  display: block;
+  height: 100%;
+  width: 100%; }
+
 .hm-MainImage {
   align-items: center;
   display: flex;
@@ -1202,6 +1249,14 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
     @media (-webkit-min-device-pixel-ratio: 3), (-moz-min-device-pixel-ratio: 3), (min-resolution: 288dpi), (min-resolution: 3dppx) {
       .hm-MainImage_Img.hm-MainImage_Img-dai {
         background-image: url("../../assets/images/MainImage/dai/image@3x.png"); } }
+  .hm-MainImage_Img.hm-MainImage_Img-kovan {
+    background-image: url("../../assets/images/MainImage/kovan/image.png"); }
+    @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+      .hm-MainImage_Img.hm-MainImage_Img-kovan {
+        background-image: url("../../assets/images/MainImage/kovan/image@2x.png"); } }
+    @media (-webkit-min-device-pixel-ratio: 3), (-moz-min-device-pixel-ratio: 3), (min-resolution: 288dpi), (min-resolution: 3dppx) {
+      .hm-MainImage_Img.hm-MainImage_Img-kovan {
+        background-image: url("../../assets/images/MainImage/kovan/image@3x.png"); } }
 
 .ft-SocialIcons {
   align-items: center;

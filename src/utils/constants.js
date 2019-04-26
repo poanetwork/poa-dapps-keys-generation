@@ -10,6 +10,11 @@ constants.userDeniedTransactionPattern = 'User denied transaction'
 constants.baseURL = '/poa-dapps-keys-generation'
 
 constants.NETWORKS = {
+  '42': {
+    NAME: 'Kovan',
+    BRANCH: 'kovan',
+    TESTNET: true
+  },
   '77': {
     NAME: 'Sokol',
     BRANCH: 'sokol',
@@ -19,11 +24,6 @@ constants.NETWORKS = {
     NAME: 'Core',
     BRANCH: 'core',
     TESTNET: false
-  },
-  '79': {
-    NAME: 'Dai-Test',
-    BRANCH: 'dai-test',
-    TESTNET: true
   },
   '100': {
     NAME: 'Dai',

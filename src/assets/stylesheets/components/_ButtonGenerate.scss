@@ -25,6 +25,12 @@ $sw-ButtonGenerate-height: 44px !default;
         @include button-shadow($xdai-orange);
     }
 
+    &#{ & }-kovan {
+        background-color: $kovan-cyan;
+        @include button-focus-active-hover($kovan-cyan);
+        @include button-shadow($kovan-cyan);
+    }
+
     .hm-Home & {
         width: 100%;
 
