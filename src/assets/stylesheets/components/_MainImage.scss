@@ -28,4 +28,8 @@
     &#{ & }-dai {
         @include image-retina('#{ $base-images-path }/MainImage/dai/image', 'png');
     }
+
+    &#{ & }-kovan {
+        @include image-retina('#{ $base-images-path }/MainImage/kovan/image', 'png');
+    }
 }
