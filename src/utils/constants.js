@@ -24,11 +24,6 @@ constants.NETWORKS = {
     NAME: 'Core',
     BRANCH: 'core',
     TESTNET: false
-  },
-  '100': {
-    NAME: 'Dai',
-    BRANCH: 'dai',
-    TESTNET: false
   }
 }
 

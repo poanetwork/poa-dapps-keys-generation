@@ -7,7 +7,7 @@ import { IconTwitter } from '../IconTwitter'
 const getIconBackgroundColor = networkBranch => {
   return (
     {
-      dai: '#e3e7e9',
+      //dai: '#e3e7e9',
       poa: '#fff',
       sokol: '#fff',
       kovan: '#fff'
@@ -18,7 +18,7 @@ const getIconBackgroundColor = networkBranch => {
 const getIconColor = networkBranch => {
   return (
     {
-      dai: '#333',
+      //dai: '#333',
       poa: '#5c34a2',
       sokol: '#6ac9b9',
       kovan: '#6ac9b9'
