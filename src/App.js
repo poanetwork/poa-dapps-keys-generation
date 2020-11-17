@@ -28,6 +28,7 @@ function generateElement(msg) {
 class App extends Component {
   constructor(props) {
     super(props)
+    this.onAccountChanged = this.onAccountChanged.bind(this)
     this.onClick = this.onClick.bind(this)
     this.saveFile = blob => {
       FileSaver.saveAs(blob, `poa_network_validator_keys.zip`)
@@ -40,7 +41,7 @@ class App extends Component {
     }
     this.keysManager = null
 
-    getWeb3()
+    getWeb3(this.onAccountChanged)
       .then(async web3Config => {
         return networkAddresses(web3Config)
       })
@@ -86,6 +87,12 @@ class App extends Component {
         })
       }, 150)
     }
+  }
+
+  onAccountChanged(newAccount) {
+    let web3Config = this.state.web3Config
+    web3Config.defaultAccount = newAccount
+    this.setState({ web3Config })
   }
 
   async generateKeys(cb) {

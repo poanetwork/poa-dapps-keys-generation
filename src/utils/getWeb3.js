@@ -14,7 +14,29 @@ function generateElement(msg) {
   </div>`
   return errorNode
 }
-let getWeb3 = () => {
+
+async function getAccounts(web3) {
+  let accounts
+  if (window.ethereum) {
+    accounts = await window.ethereum.request({ method: 'eth_accounts' })
+  } else {
+    accounts = await web3.eth.getAccounts()
+  }
+  return accounts
+}
+
+async function getNetId(web3) {
+  let netId
+  if (window.ethereum) {
+    const { chainId } = window.ethereum
+    netId = web3.utils.isHex(chainId) ? web3.utils.hexToNumber(chainId) : chainId
+  } else {
+    netId = await web3.eth.net.getId()
+  }
+  return netId
+}
+
+let getWeb3 = (onAccountChanged) => {
   return new Promise(function(resolve, reject) {
     // Wait for loading completion to avoid race conditions with web3 injection timing.
     window.addEventListener('load', async function() {
@@ -24,8 +46,13 @@ let getWeb3 = () => {
       if (window.ethereum) {
         web3 = new Web3(window.ethereum)
         console.log('Injected web3 detected.')
+        if (!window.ethereum.autoRefreshOnNetworkChange) {
+          window.ethereum.on('chainChanged', () => {
+            window.location.reload()
+          })
+        }
         try {
-          await window.ethereum.enable()
+          await window.ethereum.request({ method: 'eth_requestAccounts' })
         } catch (e) {
           reject({
             msg: errorMsgDeniedAccess,
@@ -45,7 +72,7 @@ let getWeb3 = () => {
         return
       }
 
-      const netId = await web3.eth.net.getId()
+      const netId = await getNetId(web3)
       console.log('netId', netId)
 
       let netIdName
@@ -70,8 +97,28 @@ let getWeb3 = () => {
         return
       }
 
-      const accounts = await web3.eth.getAccounts()
+      const accounts = await getAccounts(web3)
       const defaultAccount = accounts[0] || null
+
+      let currentAccount = defaultAccount ? defaultAccount.toLowerCase() : null
+      function onUpdateAccount(account) {
+        if (account && account !== currentAccount) {
+          currentAccount = account
+          onAccountChanged(account)
+        }
+      }
+      if (window.ethereum) {
+        window.ethereum.on('accountsChanged', accs => {
+          const account = accs && accs.length > 0 ? accs[0].toLowerCase() : null
+          onUpdateAccount(account)
+        })
+      } else if (web3.currentProvider.publicConfigStore) {
+        web3.currentProvider.publicConfigStore.on('update', obj => {
+          const account = obj.selectedAddress ? obj.selectedAddress.toLowerCase() : null
+          onUpdateAccount(account)
+        })
+      }
+
       if (defaultAccount === null) {
         reject({
           msg: errorMsgNoMetamaskAccount,
